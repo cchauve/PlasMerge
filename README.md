@@ -1,1 +1,3 @@
 # PlasMerge
+
+Merging plasmid bins.
