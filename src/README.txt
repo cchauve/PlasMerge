@@ -1,0 +1,9 @@
+io_utils.py: contains mostly class definitions for the various classes that were used for pulling in plasmid data (Assembly, PBF_input, PBF_output, etc.). These are the primary interface for taking in data for a given sample.
+
+post_processing.py: all the functions for initializing a Gurobi MILP instance for post-processing, the end product being the post_processing_model() function. This outputs a Gurobi optimizer corresponding to the given sample and pair of predicted bins. One also specifies input + output directories, which are both assumed to contain a folder labeled with the name of the sample, in which there is the necessary input/output files, respectively. The threshold parameter specifies the read depth threshold for excluding contigs, either numerical or 'min' for >= min(rd(bin1), rd(bin2)).
+
+the POST-PROCESS-ALL-PAIRS notebook contains the code which generates a merging function and the results. These definitions probably want to be added to post_processing.py. generate_merge_function() outputs a function which takes and sample and a threshold (as in post_processing_model()) as input and writes the results of post-processing all pairs in that sample with the given threshold to the inputted tsv file (it also preserves the Gurobi result files in the specified solution dir).
+
+Thus the general means by which one would analyze a sample is through generate_merge_function() in POST-PROCESS-ALL-PAIRS, which outputs a post-processing function, and then calling said function by specifying the sample and threshold to generate merge results.
+
+The main other file of note was evaluate_all_samples.py which computes F1+precision+recall but that was not abstracted to be generally useful (there's hard-coded directories and such). I can correct that; back in August I was just handed a file by Aniket and needed to fix it to generate our results quickly.
