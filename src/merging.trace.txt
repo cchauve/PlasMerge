@@ -1,0 +1,105 @@
+SAMPLE: SAMN32247302
+	SOURCE: gt
+		GT_2.GT_3	../test/results/model/SAMN32247302.gt.GT_2.GT_3.sol
+Using license file /cvmfs/restricted.computecanada.ca/config/licenses/gurobi/clusters/cedar.lic
+Set parameter TokenServer to value license1.computecanada.ca
+WARNING	Model was not solved
+	SOURCE: mob
+		AA176.AB042	../test/results/model/SAMN32247302.mob.AA176.AB042.sol
+WARNING	Model was not solved
+	SOURCE: gp
+		1.2	../test/results/model/SAMN32247302.gp.1.2.sol
+WARNING	Model was not solved
+	SOURCE: pbf
+SAMPLE: SAMN32247345
+	SOURCE: gt
+		GT_2.GT_3	../test/results/model/SAMN32247345.gt.GT_2.GT_3.sol
+WARNING	Model was not solved
+	SOURCE: mob
+		AA314.AC039	../test/results/model/SAMN32247345.mob.AA314.AC039.sol
+SUCCESS	Model was solved
+	SOURCE: gp
+	SOURCE: pbf
+SAMPLE: SAMN32247425
+	SOURCE: gt
+	SOURCE: mob
+		AA314.AD548	../test/results/model/SAMN32247425.mob.AA314.AD548.sol
+SUCCESS	Model was solved
+	SOURCE: gp
+	SOURCE: pbf
+		P1.P2	../test/results/model/SAMN32247425.pbf.P1.P2.sol
+SUCCESS	Model was solved
+SAMPLE: SAMN32247519
+	SOURCE: gt
+		GT_2.GT_3	../test/results/model/SAMN32247519.gt.GT_2.GT_3.sol
+WARNING	Model was not solved
+		GT_2.GT_4	../test/results/model/SAMN32247519.gt.GT_2.GT_4.sol
+WARNING	Model was not solved
+		GT_2.GT_5	../test/results/model/SAMN32247519.gt.GT_2.GT_5.sol
+WARNING	Model was not solved
+		GT_2.GT_6	../test/results/model/SAMN32247519.gt.GT_2.GT_6.sol
+WARNING	Model was not solved
+		GT_3.GT_4	../test/results/model/SAMN32247519.gt.GT_3.GT_4.sol
+WARNING	Model was not solved
+		GT_3.GT_5	../test/results/model/SAMN32247519.gt.GT_3.GT_5.sol
+WARNING	Model was not solved
+		GT_3.GT_6	../test/results/model/SAMN32247519.gt.GT_3.GT_6.sol
+WARNING	Model was not solved
+		GT_4.GT_5	../test/results/model/SAMN32247519.gt.GT_4.GT_5.sol
+WARNING	Model was not solved
+		GT_4.GT_6	../test/results/model/SAMN32247519.gt.GT_4.GT_6.sol
+WARNING	Model was not solved
+		GT_5.GT_6	../test/results/model/SAMN32247519.gt.GT_5.GT_6.sol
+WARNING	Model was not solved
+	SOURCE: mob
+		AA176.AA151	../test/results/model/SAMN32247519.mob.AA176.AA151.sol
+WARNING	Model was not solved
+		AA176.AA524	../test/results/model/SAMN32247519.mob.AA176.AA524.sol
+WARNING	Model was not solved
+		AA176.AB685	../test/results/model/SAMN32247519.mob.AA176.AB685.sol
+WARNING	Model was not solved
+		AA151.AA524	../test/results/model/SAMN32247519.mob.AA151.AA524.sol
+WARNING	Model was not solved
+		AA151.AB685	../test/results/model/SAMN32247519.mob.AA151.AB685.sol
+WARNING	Model was not solved
+		AA524.AB685	../test/results/model/SAMN32247519.mob.AA524.AB685.sol
+WARNING	Model was not solved
+	SOURCE: gp
+		1.2	../test/results/model/SAMN32247519.gp.1.2.sol
+WARNING	Model was not solved
+		1.3	../test/results/model/SAMN32247519.gp.1.3.sol
+WARNING	Model was not solved
+		1.4	../test/results/model/SAMN32247519.gp.1.4.sol
+WARNING	Model was not solved
+		2.3	../test/results/model/SAMN32247519.gp.2.3.sol
+WARNING	Model was not solved
+		2.4	../test/results/model/SAMN32247519.gp.2.4.sol
+WARNING	Model was not solved
+		3.4	../test/results/model/SAMN32247519.gp.3.4.sol
+WARNING	Model was not solved
+	SOURCE: pbf
+		P1.P2	../test/results/model/SAMN32247519.pbf.P1.P2.sol
+WARNING	Model was not solved
+		P1.P3	../test/results/model/SAMN32247519.pbf.P1.P3.sol
+WARNING	Model was not solved
+		P1.P4	../test/results/model/SAMN32247519.pbf.P1.P4.sol
+WARNING	Model was not solved
+		P2.P3	../test/results/model/SAMN32247519.pbf.P2.P3.sol
+SUCCESS	Model was solved
+		P2.P4	../test/results/model/SAMN32247519.pbf.P2.P4.sol
+SUCCESS	Model was solved
+		P3.P4	../test/results/model/SAMN32247519.pbf.P3.P4.sol
+SUCCESS	Model was solved
+SAMPLE: SAMN32247522
+	SOURCE: gt
+		GT_2.GT_3	../test/results/model/SAMN32247522.gt.GT_2.GT_3.sol
+WARNING	Model was not solved
+	SOURCE: mob
+		AA327.AF232	../test/results/model/SAMN32247522.mob.AA327.AF232.sol
+SUCCESS	Model was solved
+	SOURCE: gp
+		1.2	../test/results/model/SAMN32247522.gp.1.2.sol
+WARNING	Model was not solved
+	SOURCE: pbf
+		P1.P2	../test/results/model/SAMN32247522.pbf.P1.P2.sol
+SUCCESS	Model was solved

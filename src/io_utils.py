@@ -1,556 +1,499 @@
 #!/usr/bin/python
 
-from __future__ import division
-import scipy.special as sc
-import scipy.integrate as integrate
+# TO DO
+# Rewrite PBF_output.parse_bins_file
+
+import pandas as pd
 import networkx as nx
-import math
 
+from gfa_fasta_utils import (
+    read_GFA_id,
+    read_GFA_seq,
+    read_GFA_len,
+    read_GFA_normalized_coverage,
+    read_GFA_links,
+    GFA_FROM_ORIENT_KEY,
+    GFA_TO_KEY,
+    GFA_TO_ORIENT_KEY
+)
 
+from PBF_utils import (
+    read_gc_intervals_file,
+    compute_gc_probabilities,
+    read_pls_score_file,
+    GC_COUNT_KEY,
+    GC_RATIO_KEY,
+    LENGTH_KEY,
+    DEFAULT_GC_INTERVALS
+)
 
-#Initiating, computing, storing and returning contig details.
+"""
+Class recording a contig and its attributes:
+- sequence
+- sequence length
+- read depth
+- GC content
+"""
 class Contig():
-	def __init__(self, seq, length, rd):
-		'''
-		Initiates Contig attributes
-		sequence -> seq (str), length -> len (int), 
-		read depth -> rd (float), GC content -> GC (float)
-		'''
-		self.seq = seq
-		self.length = length
-		self.rd = rd
-		self.GC = (seq.count('G') + seq.count('C'))/length
-
-	def set_seq(self, seq):
-		'''
-		Stores the contig sequence (str)
-		'''
-		self.seq = seq
-
-	def set_len(self, length):
-		'''
-		Stores the length of the contig sequence (integer)
-		'''
-		self.length = int(length)
-
-	def set_rd(self, rd):
-		'''
-		Stores the read depth of the contig sequence (float)
-		'''
-		self.rd = float(rd)	
-
-	def get_seq(self):
-		'''
-		Returns the sequence of the contig
-		'''
-		return self.seq
-
-	def get_len(self):
-		'''
-		Returns the length of the contig
-		'''		
-		return self.length
-
-	def get_rd(self):
-		'''
-		Returns the read depth of the contig
-		'''		
-		return self.rd
-
-	def get_GC(self):
-		'''
-		Returns the GC content of the contig
-		'''		
-		return self.GC
-	
-
-
-#Initiating, computing, storing and returning assembly graph details.
-class Assembly:
-	def __init__(self, assembly_file):
-		'''
-		Initiates Assembly graph attributes
-		Contigs -> ctg_dict (dictionary of Contigs), 
-		Edges -> edge_lst (list of edges)		
-		'''
-		self.ctg_dict = {}
-		self.edge_lst = []
-		self.parse_gfa(assembly_file)
-
-	def init_ctg(self, ctg_id, seq, length, rd):
-		'''
-		Initiates an instance of class Contig
-		'''
-		self.ctg_dict[ctg_id] = Contig(seq, length, rd)
-
-	def add_edge(self, edge):
-		'''
-		Adds edge to the edge list
-		An edge is a set of a pair of extremities 
-		An extremity is a 2-tuple of (ctg_id, ctg_ext)
-		'''
-		self.edge_lst.append(edge)
-
-	def parse_gfa(self, assembly_file):
-		'''
-		Reads and processes the assembly graph (gfa) file
-		'''
-		def parse_vertex(line):
-			tmp = line.split('\t')
-			# Contig id and sequence
-			ctg_id, ctg_seq = tmp[1], tmp[2]
-			# Tags
-			tags_dict = {x.split(':')[0]:x.split(':')[2] for x in tmp[3:]}
-			tags_keys = tags_dict.keys()
-			# Reading contig length
-			ctg_len = int(tags_dict['LN']) if 'LN' in tags_keys else len(ctg_seq)
-			# Reading read depth 
-			if 'dp' in tags_keys: ctg_rd = float(tags_dict['dp'])
-			elif 'KC' in tags_keys: ctg_rd = int(tags_dict['KC'])/ctg_len
-			else: ctg_rd = None
-			# Recording values 
-			self.init_ctg(ctg_id, ctg_seq, ctg_len, ctg_rd)		
-		def parse_edge(line):
-			[ctg1, ori1, ctg2, ori2] = line.split('\t')[1:-1]
-			ext1 = 'h' if ori1 == '+' else 't'
-			ext2 = 't' if ori2 == '+' else 'h'
-			self.add_edge(((ctg1, ext1),(ctg2, ext2)))
-		
-		with open(assembly_file, 'r') as ag:
-			line = next(ag)
-			while line:
-				if line[0].startswith('S'): parse_vertex(line)
-				elif line.startswith('L'): parse_edge(line)
-				line = next(ag, None)
-
-	def get_ctg(self, ctg_id):
-		'''
-		Returns Contig for given ID
-		'''
-		return self.ctg_dict[ctg_id]
-	
-	def get_ctgs(self, lengths=False):
-		'''
-		Returns list of contigs, optionally w lengths
-		'''
-		if lengths:
-			ctg_ids = self.ctg_dict.keys()
-			return [(ctg, self.get_ctg(ctg).get_len()) for ctg in ctg_ids]
-		return self.ctg_dict.keys()
-	 
-	def get_edges(self):
-		'''
-		Returns list of edges
-		'''
-		return self.edge_lst
-	
-	def get_nctg(self):
-		'''
-		Returns number of contigs in the graph
-		'''
-		return len(self.ctg_dict.keys())
-	
-	def get_nedges(self):
-		'''
-		Returns number of edges
-		'''
-		return len(self.edge_lst)
-
-	def get_degree(self, ctg_id):
-		'''
-		Returns number of edges incident on a contig
-		'''
-		d = 0
-		for edge in self.edge_lst:
-			if edge[0][0] == ctg_id or edge[1][0] == ctg_id:
-				d += 1
-		return d	
-
-	def get_ctg_lengths(self):
-		'''
-		Returns dict of contig lengths
-		'''
-		return {key:ctg.get_len() for key, ctg in self.ctg_dict.items()}
-
-	def to_graph(self, sample=None, containment_tsv=None):
-		'''
-		Returns a networkx graph corresponding to the assembly,
-		optionally including node attributes describing predicted
-		and actual plasmid containment
-		'''
-		G = nx.Graph()
-		ctg_lst = list(self.get_ctgs())
-		pred_cont = {}
-		gt_cont = {}
-		for ctg in ctg_lst:
-			pred_cont[ctg] = []
-			gt_cont[ctg] = []
-
-		if containment_tsv:
-			with open(containment_tsv, 'r') as containment:
-				next(containment)
-
-				for line in containment:
-					line = line[:-1].split(sep='\t')
-					if line[0] != sample:
-						continue
-
-					gt_pls_id, gt_ctgs = line[1], line[2][1:-1].split(sep=',')
-					gt_ctgs = [ctg.split(sep=':')[0] for ctg in gt_ctgs]
-					for ctg in gt_ctgs:
-						gt_cont[ctg].append(gt_pls_id)
-					if len(line) > 4:
-						pred_pls_ids, pred_ctgs = line[3][1:-1].split(sep=','), line[4][1:-1].split(sep=';')
-						for pred_id, ctgs in zip(pred_pls_ids, pred_ctgs):
-							ctgs = ctgs[1:-1].split(sep=',')
-							ctgs = [ctg.split(sep=':')[0] for ctg in ctgs]
-							for ctg in ctgs:
-								pred_cont[ctg].append(pred_id)
-			for ctg in ctg_lst:
-				G.add_node(ctg, pred_bins=pred_cont[ctg], gt_bin=gt_cont[ctg])     
-		else:
-			G.add_nodes_from(ctg_lst)
-
-		edge_lst = [(edge[0][0], edge[1][0]) for edge in self.get_edges()]
-		G.add_edges_from(edge_lst)
-
-		return G
-
-#Initiating, computing and storing input specific to PlasBin-Flow.
-class PBF_input():
-	def __init__(self, assembly_file, gcint_file, mapping_file, seed_gd_thr, seed_len_thr):
-		'''
-		Initiates attributes specific to PlasBin-Flow
-		'''
-		self.assembly = Assembly(assembly_file)
-		self.set_GC_intervals(gcint_file)       #List of GC interval endpoints: list of floats
-		self.set_GC_probs()                 #Dictionary of GC interval probabilities: Key: Contig and Value: List of floats
-		self.set_gd(mapping_file)
-		self.set_seeds(seed_gd_thr, seed_len_thr)
-
-	def set_GC_intervals(self, gcint_file):
-		'''
-		Defining the GC intervals
-		'''
-		self.GC_intervals = sorted([ 
-			float(x) 
-			for x in open(gcint_file, "r").read().split("\n") 
-			if x and x[0] != '#'
-		])
-		
-	#Following functions are required to compute the GC probabilities
-	def set_GC_probs(self, m = 10):
-		def gprob2(n,g,p,m):
-			'''
-			Compute probability of observing g GC nucleotides in a contig
-			of length n within a molecule of GC content p using pseducount m. 
-			Done via logarithm to avoid overflow.
-			'''
-			alpha = m*p
-			beta = m*(1-p)
-			combln = sc.gammaln(n + 1) - sc.gammaln(g + 1) - sc.gammaln(n - g + 1)
-			resultln = combln + sc.betaln(g + alpha, n - g + beta) - sc.betaln(alpha, beta)
-			return math.exp(resultln)
-		
-		#Computes the GC probabilities for all contigs and stores them in a dictionary
-		self.GC_probs = {}
-		for ctg in self.assembly.get_ctgs():
-			# Contig length (n) and GC content proportion (gc) and content (n_gc)
-			n = self.assembly.ctg_dict[ctg].get_len()
-			gc = self.assembly.ctg_dict[ctg].get_GC()
-			n_gc = n * gc
-			# GC intervals
-			GC_ints = self.GC_intervals
-			# Computing probability for each GC interval
-			gp_array, total = [], 0		
-			for i in range(0, len(GC_ints)-1):
-				gp_aux = integrate.quad(lambda x: gprob2(n,n_gc,x,m), GC_ints[i], GC_ints[i+1])
-				gp = gp_aux[0]/(GC_ints[i+1] - GC_ints[i])
-				total += gp
-				gp_array.append(gp)
-			ctg_probs = [gp/total for gp in gp_array]
-			self.GC_probs[ctg] = ctg_probs
-
-	#Following functions are required to compute the gene densities
-	def set_gd(self, mapping_file):
-		'''
-		Computes the gene density for each contig
-		'''
-		def parse_mapping(mapping_file):
-			'''
-			Computing the gene coverage intervals for each contig
-
-			The mapfile is to be provided in BLAST output fmt 6. It is a tab separated file.
-			Each row of the file has the following information in tab separated format
-			qseqid      query or gene sequence id (str)
-			sseqid      subject or contig sequence id (str)
-			pident      percentage of identical positions (float)
-			length      alignment or overlap length (int)
-			mismatch    number of mismatches (int)
-			gapopen     number of gap openings (int)
-			qstart      start of alignment in query (int)
-			qend        end of alignment in query (int)
-			sstart      start of alignment in subject (int)
-			send        end of alignment in subject (int)
-			evalue      expect value (float)
-			bitscore    bit score (int)
-			'''
-
-			covg_int = {}
-			with open(mapping_file, 'r') as map:
-				line = next(map)
-				while line:	
-					tmp = line.split("\t")	
-					ctg_id = tmp[1]
-					sstart, send = tmp[8], tmp[9]
-					if ctg_id not in covg_int:
-						covg_int[ctg_id] = []
-					if int(sstart) > int(send):
-						covg_int[ctg_id].append((int(send), int(sstart)))
-					else:
-						covg_int[ctg_id].append((int(sstart), int(send)))
-					line = next(map, None)
-			return covg_int
-		def get_union(intervals):
-			'''
-			Takes the gene covering intervals for a contig and finds their union
-			The length of the union is used to compute gene coverage
-			'''
-			union = []
-			for begin,end in sorted(intervals):
-				if union and union[-1][1] >= begin-1:
-					union[-1][1] = max(union[-1][1],end)
-				else:
-					union.append([begin,end])
-			return union	
-		self.gd = {}
-		covg_int = parse_mapping(mapping_file)
-		for ctg in self.assembly.get_ctgs():
-			union = []
-			if ctg in covg_int:
-				union = get_union(covg_int[ctg])
-			covered = 0
-			for interval in union:
-				covered += interval[1] - interval[0] + 1
-			ctg_len = self.assembly.ctg_dict[ctg].get_len()
-			self.gd[ctg] = covered/ctg_len
-
-	def set_seeds(self, gd_thr, len_thr):
-		'''
-		Computes the seed value for each contig
-		'''
-		self.seeds = {}
-		for ctg in self.assembly.get_ctgs():
-			ctg_len = self.assembly.ctg_dict[ctg].get_len()	
-			self.seeds[ctg] = 1 if (self.gd[ctg] >= gd_thr) and (ctg_len >= len_thr) else 0
-
-	def get_gc_intervals(self):
-		'''
-		Returns list of GC interval endpoints
-		'''
-		return self.GC_intervals
-
-	def get_gc_probs(self):
-		'''
-		Returns GC probabilities
-		'''
-		return self.GC_probs
-
-	def get_gd(self):
-		'''
-		Returns gene densities
-		'''
-		return self.gd
-
-	def get_ctg(self, ctg_id):
-		'''
-		Returns Contig for given ID
-		'''
-		return self.assembly.get_ctg(ctg_id)
-
-	def get_ctgs(self, lengths=False):
-		'''
-		Returns list of contigs, optionally w lengths
-		'''
-		return self.assembly.get_ctgs(lengths)
-
-	def get_edges(self):
-		'''
-		Returns list of edges
-		'''
-		return self.assembly.get_edges()
-
-	def get_nctg(self):
-		'''
-		Returns number of contigs in the graph
-		'''
-		return self.assembly.get_nctg()
-
-	def get_nedges(self):
-		'''
-		Returns number of edges
-		'''
-		return self.assembly.get_nedges()
-
-	def get_degree(self, ctg_id):
-		'''
-		Returns number of edges incident on a contig
-		'''
-		return self.assembly.get_degree(ctg_id)
-
-	def get_ctg_lengths(self):
-		'''
-		Returns dict of contig lengths
-		'''
-		return self.assembly.get_ctg_lengths() 
-
-	def to_graph(self, sample=None, containment_tsv=None):
-		'''
-		Returns a networkx graph corresponding to the assembly,
-		optionally including node attributes describing predicted
-		and actual plasmid containment
-		'''
-		return self.assembly.to_graph(sample, containment_tsv)
-
-
-#Initiating, computing and storing plasmid bin details.
-class Plasmids:
-	def __init__(self, source, pls_file, pident_thr = 0.95):
-		'''
-		Note: pident_thr (float): percent identity threshold for accepting contig-plasmid matches. 
-		 				  		Contig belongs to plasmid only if plasmid covers >0.95 length of the contig. 
-		plasmids (dict): Key: Plasmid ID, Value: List of pairs [ctg_id, mul]
-		pls_lengths (dict): Key: Plasmid ID, Value: Length
-		source (str): source of plasmid / plasmid bins, either ground truth or name of tool
-		'''
-		self.plasmids = {}
-		self.pls_lengths = {}
-		self.source = source
-		self.parse_file(pls_file, pident_thr)
-
-	def add_ctg_to_pls(self, pls, ctg, mul):
-		'''
-		Adds contig to list of contig representing plasmids. Each contig is represented as a pair [ctg_id, ctg_mul]. 
-		'''
-		if pls not in self.plasmids:
-			self.plasmids[pls] = []
-		self.plasmids[pls].append([ctg, mul])
-
-	def set_pls_len(self, pls, pls_len):
-		'''
-		Sets length of plasmid
-		'''
-		if pls not in self.pls_lengths:
-			self.pls_lengths[pls] = int(pls_len)
-
-	def parse_file(self, pls_file, pident_thr):
-		'''
-		Reads the plasmid / plasmid bins file and stores the list of contigs with multiplicities
-		If source is not PlasBin-Flow, default multiplicity is 1.		
-		'''
-		with open(pls_file, 'r') as pf:
-			line = next(pf)
-			while line:
-				if line[0] != '#':			
-					if self.source == 'ground_truth':
-						mul = 1
-						[pls, ctg, pident, pls_len, ctg_len] = line.split('\t')
-						self.set_pls_len(pls, pls_len)
-						if float(pident) >= pident_thr:
-							self.add_ctg_to_pls(pls, ctg, mul)
-					elif self.source == 'plasbin_flow':
-						[bin_id, flow, GC_bin, ctgs] = filter(None,line.split('\t'))
-						ctgs = ctgs.split(',')
-						for pair in ctgs:
-							ctg, mul = pair.split(':')[0], float(pair.split(':')[1])
-							self.add_ctg_to_pls('pbf_'+bin_id, ctg, mul)
-				line = next(pf, None)
-
-	def get_pls_ids(self):
-		'''
-		Return list of predicted plasmids
-		'''
-		return self.plasmids.keys()
-    
-	def get_pls(self, pls_id):
-		'''
-		Return bin for given ID
-		'''
-		return self.plasmids[pls_id]
-
-
-
-#Initiating, computing and storing output specific to PlasBin-Flow.
-class PBF_output():
-	def __init__(self, source, pls_bins, GC_ints):
-		'''
-		Initiates attributes specific to PlasBin-Flow output
-		flow (dict): Dictionary of flow values associated with each plasmid bin: Key: Bin_id, value: float
-		GC_bin (dict): Dictionary of GC bin associated with each plasmid bin: Key: Bin_id, value: int
-		GC_range (dict): Dictionary of GC range associated with each plasmid bin: Key: Bin_id, value: pair (list) of floats
-		source (str): Method name	
-		'''
-		self.plasmids = Plasmids(source, pls_bins)
-		self.flow = {}			#Dictionary of flow values associated with each plasmid bin: Key: Bin_id, value: float
-		self.GC_bin = {}		#Dictionary of GC bin associated with each plasmid bin: Key: Bin_id, value: int
-		self.GC_range = {}		#Dictionary of GC range associated with each plasmid bin: Key: Bin_id, value: pair (list) of floats
-		self.source = source	#Tool name: str
-		self.parse_bins(pls_bins, GC_ints)
-
-	def parse_bins(self, pls_bins, GC_ints):
-		with open(pls_bins, 'r') as bins:
-			line = next(bins)
-			while line:
-				if line[0] != '#':			
-					[bin_id, flow, GC_bin, ctgs] = filter(None,line.split('\t'))
-					self.flow['pbf_'+bin_id] = float(flow)
-					self.GC_bin['pbf_'+bin_id] = int(GC_bin)
-					self.GC_range['pbf_'+bin_id] = GC_ints[int(GC_bin) -1: int(GC_bin)+1]
-				line = next(bins, None)
-
-	def get_pls(self):
-		'''
-		Return Plasmids object containing results
-		'''
-		return self.plasmids
-    
-	def get_pls_ids(self):
-		'''
-		Return list of predicted plasmids
-		'''
-		return self.plasmids.get_pls_ids()
+    def __init__(self, seq, length, rd):
+        """
+        Initiate a Contig object
+        Args:
+           - seq (str): contig sequence
+           - len (int): contig length
+           - rd (float): rad depth
+        Returns:
+           NA
+        """
         
-	def get_pls_ctgs(self, pls_id, with_mults=True):
-		'''
-		Return predicted bin for given ID, optionally without multiplicities
-		'''
-		if with_mults:
-			return self.plasmids.get_pls(pls_id)
-		else:
-			return [ctg[0] for ctg in self.plasmids.get_pls(pls_id)]
+        self.seq = seq
+        self.len = length
+        self.rd = rd
+        self.gc = (seq.count('G') + seq.count('C'))
+        
+    def set_rd(self, rd):
+        """
+        Stores the read depth of the contig sequence (float)
+        """
+        self.rd = float(rd)	
 
-	def get_pred_bins(self, with_mults=True):
-		'''
-		Return predicted plasmid bin dict
-		'''
-		if with_mults:
-			return self.plasmids.plasmids
-		return {pred_id:self.get_pls_ctgs(pred_id, with_mults) for pred_id in self.get_pls_ids()}
+    def get_seq(self):
+        """
+        Returns the sequence of the contig (str)
+        """
+        return self.seq
 
-	def get_gc_bin(self, pls_id):
-		'''
-		Return GC bin for given plasmid bin ID
-		'''
-		return self.GC_bin[pls_id]
+    def get_len(self):
+        """
+        Returns the length of the contig (int)
+        """		
+        return self.len
 
-	def get_gc_bins(self):
-		'''
-		Return GC bin for given plasmid bin ID
-		'''
-		return self.GC_bin
+    def get_rd(self):
+        """
+        Returns the read depth of the contig (float)
+        """		
+        return self.rd
+
+    def get_gc(self):
+        """
+        Returns the GC content of the contig (int)
+        """		
+        return self.gc
+
+    def get_gc_ratio(self):
+        """
+        Returns the GC content ratio of the contig (float in [0,1])
+        """		
+        return (self.gc / self.len if self.len > 0 else 0.0)
     
-	def get_flows(self):
-		'''
-		Return flow dictionary
-		'''
-		return self.flow
+# TAG of GFA file for recording normalized coverage
+UNICYCLER_TAG = 'unicycler'
+SKESA_TAG = 'skesa'
+ASSEMBLER_COV_TAG = {
+    UNICYCLER_TAG: 'dp',
+    SKESA_TAG: None
+}
+# Contigs extremities conversion
+CTG_FROM_EXT = {'+': 'h', '-': 't'}
+CTG_TO_EXT = {'+': 't', '-': 'h'}    
+
+"""
+Class recording an assembly graph encoded as 
+- a dictionary of Contig objects
+  Dictionary(contig id -> Contig object)
+- a list of directed edges
+  List((contig id (str),{'h','t'}),(contig id (str),{'h','t'}))
+  Contig extremity from, contig extremity to (edges are directed)
+"""
+class Assembly():
+    def __init__(self, assembly_graph_file, gzipped=False, assembler=UNICYCLER_TAG):
+        """
+        Initiate an Assembly object from a GFA file
+        Args:
+        - assembly_graph_file (str): path to a GFA file
+        - gzipped (bool): True if GFA file is gzippd
+        - assembler (str): UNICYCLER_TAG or SKESA_TAG
+        Returns:
+        NA
+        """
+        self.ctg_dict = {}
+        self.edge_list = []
+        self.parse_gfa_file(assembly_graph_file, gzipped, assembler)
+
+    def parse_gfa_file(self, assembly_graph_file, gzipped, assembler):
+        """
+        Populate attributes from a GFA file
+        Args:
+        - assembly_graph_file (str): path to a GFA file
+        - gzipped (bool): True if GFA file is gzippd
+        - assembler (str): UNICYCLER_TAG or SKESA_TAG
+        Returns:
+        NA
+        """
+        # Reading contigs
+        ctgs_id = read_GFA_id(assembly_graph_file, gzipped=gzipped)
+        ctgs_seq = read_GFA_seq(assembly_graph_file, gzipped=gzipped)
+        ctgs_len = read_GFA_len(assembly_graph_file, gzipped=gzipped)
+        ctgs_rd = read_GFA_normalized_coverage(
+            assembly_graph_file,
+            cov_key=ASSEMBLER_COV_TAG[assembler],
+            gzipped=gzipped
+        )
+        for ctg_id in ctgs_id:
+            self.ctg_dict[ctg_id] = Contig(
+                ctgs_seq[ctg_id], ctgs_len[ctg_id], ctgs_rd[ctg_id]
+            )
+        # Reading edges
+        edges_dict = read_GFA_links(assembly_graph_file, gzipped=gzipped)
+        for ctg_id,ctg_edges_from_list in edges_dict.items():
+            for edge in ctg_edges_from_list:
+                edge_from = (ctg_id, CTG_FROM_EXT[edge[GFA_FROM_ORIENT_KEY]])
+                edge_to = (edge[GFA_TO_KEY], CTG_TO_EXT[edge[GFA_TO_ORIENT_KEY]])
+                self.edge_list.append((edge_from, edge_to))
+
+    def get_ctg(self, ctg_id):
+        """
+        Returns Contig object for contig ctg_id (str)
+        """
+        return self.ctg_dict[ctg_id]
+
+    def get_ctg_ids(self):
+        """
+        Returns list of contigs ID (str)
+        """
+        return list(self.ctg_dict.keys())
+	 
+    def get_edges(self):
+        """
+        Returns list of edges:
+        List((contig id (str),{'h','t'}),(contig id (str),{'h','t'}))
+        """
+        return self.edge_list
+	
+    def get_nctgs(self):
+        """
+        Returns number of contigs in the graph (int)
+        """
+        return len(self.ctg_dict.keys())
+	
+    def get_nedges(self):
+        """
+        Returns number of edges in the graph (int)
+        """
+        return len(self.edge_list)
+
+    def get_ctg_lens(self):
+        """
+        Returns contig lengths:
+        Dictionary(contig id (str) -> contig length (int))
+        """
+        return {
+            ctg_id: ctg.get_len()
+            for ctg_id,ctg in self.ctg_dict.items()
+        }
+
+    def get_ctg_rds(self):
+        """
+        Returns contig lengths:
+        Dictionary(contig id (str) -> contig read depth (float))
+        """
+        return {
+            ctg_id: ctg.get_rd()
+            for ctg_id,ctg in self.ctg_dict.items()
+        }    
+
+    def to_graph(self, directed=False):
+        """
+        Returns a networkx graph encoding the assembly graph
+        """
+        G = nx.Graph()
+        ctg_list = self.get_ctg_ids()
+        G.add_nodes_from(ctg_list)
+        edge_list = [(edge[0][0], edge[1][0]) for edge in self.get_edges()]
+        G.add_edges_from(edge_list)
+        if directed:
+            return G.to_directed()
+        else:
+            return G
+
+def _read_gc_intervals(gc_intervals_file):
+    """
+    Reads a GC intervals file.
+    Args:
+    gc_intervals_file:
+    - (str) : path to a GC intervals file
+    - or None
+    GC intervals file format: increasing list of numbers from 0 to 1.
+    Warning: 
+    file format is not checked
+    Returns:
+    List(float): increasing list of numbers from 0 to 1
+    Represents boundaries of GC ratio intervals.
+    """
+    if gc_intervals_file is not None:
+        return read_gc_intervals_file(gc_intervals_file)
+    else:
+        return DEFAULT_GC_INTERVALS
+
+"""
+Class recording the features of a set of plasmid bins
+- pls_bins: contig content of each bin
+  Dictionary(plasmid id (str) -> plasmid content, List((contig id (str), contig multiplicity (int)))
+  default multiplicity: 1
+- copy_number: copy number of each plasmid (0.0 if not specified)
+  Dictionary(plasmid id (str) -> float)
+- source: source of the plasmid bins (ground truth or prediction tool)
+  (str)
+"""
+class Plasmids:
+    def __init__(self, source, pls_file, assembly=None):
+        """
+        Initiate a Plasmids object
+        Args:
+        - pls_file: (str) plasmid bins file
+        - assembly: (Assembly) assembly object used to associate a copy number if not given
+        Format: see parse_plasmids_file below
+        source:     (str), source of plasmid / plasmid bins, either ground truth or name of tool
+        """
+        self.parse_plasmids_file(pls_file, assembly=assembly)
+        self.source = source
+
+    def parse_plasmids_file(self, pls_file, assembly=None):
+        """
+        Reading a plasmids bins file.
+        Format:
+        - line 1: header "plasmid contigs <optional:copy_number>"
+        - plasmid line: <plasmid id>TAB<comma-spearated list of contig_id:multiplicity>TAB<copy number>
+        Args: 
+        - pls_file: (str) path to plasmid file
+        - assembly: (Assembly) assembly object used to associate a copy number if not given
+        Returns:
+        NA
+        """
+        plasmids_df = pd.read_csv(
+            pls_file, sep='\t', header=0, skip_blank_lines=True
+        )
+        self.pls_bins = {}
+        self.copy_number = {}
+        for idx,row in plasmids_df.iterrows():
+            pls_id = row['plasmid']
+            ctgs = row['contigs'].split(',')
+            self.pls_bins[pls_id] = [
+                (ctg.split(':')[0],int(float(ctg.split(':')[1])))
+                for ctg in ctgs
+            ] 
+            if assembly is not None:
+                # Min read depth of all contigs in the plasmid bin
+                self.copy_number[pls_id] = min([
+                    assembly.get_ctg(ctg_id).get_rd()
+                    for (ctg_id,_) in self.pls_bins[pls_id]
+                ])
+            elif 'copy_number' in row.keys():
+                self.copy_number[pls_id] = float(row['copy_number'])
+            else:
+                self.copy_number[pls_id] = 0.0
+
+    def get_pls_ids(self):
+        """
+        Return list of predicted plasmids ID (List(str))
+        """
+        return list(self.pls_bins.keys())
+    
+    def get_pls_content(self, with_mult=True):
+        """
+        Return bin contig content for all plasmids
+        Dictionary(plasmid ID (str) ->
+        if with_mult is True: (List(contig id (str), multiplicity (int)))
+        if with_mult is False: (List(contig id (str))))
+        """
+        if with_mult:
+            return self.pls_bins
+        else:
+            return {
+                pls_id: [ctg[0] for ctg in self.pls_bins[pls_id]]
+                for pls_id in self.pls_bins.keys()
+            }
+
+    def get_pls_copy_number(self):
+        """
+        Return
+        Dictionary(plasmid id (str) -> float)
+        """
+        return self.copy_number
+        
+    def get_source(self):
+        """
+        Return plasmids source (str)
+        """
+        return self.source
+
+def _compute_optimal_gc_bin(pls_bins, gc_probs, nb_gc_intervals):
+    """
+    Compute the optimal GC interval for a set of plasmid bins
+    Args
+    - pls_bins: (Plasmids) plasmid bins
+    - gc_probs: Dictionary(contig id (str) -> List(float)) GC proba of each contig/GC bin of input
+    - nb_gc_intervals: (int) number of GC intervals
+    Returns
+    - Dictionary(plasmid id (str) -> (int) index of optimal GC interval
+    """
+    # Computing GC penalty for each contig and GC bin as defined in PlasBin-flow
+    ctg_gc_penalties = {}
+    for ctg_id,ctg_gc_probs in gc_probs.items():
+        ctg_gc_prob_max = max(ctg_gc_probs)
+        ctg_gc_penalties[ctg_id] = [
+            - (ctg_gc_prob_max - ctg_gc_prob)
+            for ctg_gc_prob in ctg_gc_probs
+        ]
+    # Computing the GC bin with optimal penalty
+    pls_opt_gc_bin = {}
+    plasmids = pls_bins.get_pls_content(with_mult=True)
+    for pls_id,pls_bin in plasmids.items():
+        pls_opt_penalty = -len(pls_bin)*1.0
+        for i in range(nb_gc_intervals):
+            pls_gc_penalty = sum([
+                ctg_mult*ctg_gc_penalties[ctg_id][i]
+                for (ctg_id,ctg_mult) in pls_bin
+            ])
+            if pls_gc_penalty > pls_opt_penalty:
+                pls_opt_penalty = pls_gc_penalty
+                pls_opt_gc_bin[pls_id] = i
+    return pls_opt_gc_bin
+
+"""
+Class recording the input to PlasMerge
+assembly:     Assembly object (assembly graph)
+gc_intervals: List(float) list of GC interval boundaries
+gc_probs:     Dictionary(contig id (str) -> GC proba for each interval List(float))
+pls_score:    Dictionary(contig id (str) -> plasmid score (float))
+pls_bins:     Plasmids object (plasmid bins)
+gc_bins:      (int) index of the optimal GC bin per plasmid bin
+""" 
+class PBM_input():
+    def __init__(self,
+                 assembly_graph_file,
+                 pls_score_file,
+                 gc_intervals_file,
+                 pls_bins_file,
+                 source,
+                 gzipped=False,
+                 assembler=UNICYCLER_TAG
+    ):
+        """
+        Initiate PBF_input object
+        Args:
+        - assembly_graph_file (str): path to a GFA file
+        - pls_score_file (str):      path to a plasmid score file (format: ctg_id<TAB>score)
+        - gc_intervals_file (str):   path to GC intervals file (format: see _read_gc_intervals)
+        - pls_bins_file (str):       path to a plasmid bins file (format: see Plasmids)
+        - source: (str)              source of the plasmid bins (ground truth or prediction tool)
+        - gzipped (bool):            True if GFA file is gzippd
+        - assembler (str):           UNICYCLER_TAG or SKESA_TAG
+        Returns:
+        NA
+        """
+        self.assembly = Assembly(assembly_graph_file, gzipped=gzipped, assembler=assembler)
+        self.pls_score = read_pls_score_file(pls_score_file)
+        self.gc_intervals = _read_gc_intervals(gc_intervals_file)
+        nb_gc_intervals = len(self.gc_intervals) - 1
+        ctgs_gc = {}
+        for ctg_id in self.assembly.get_ctg_ids():
+            ctg = self.assembly.get_ctg(ctg_id)
+            ctgs_gc[ctg_id] = {
+                GC_COUNT_KEY: ctg.get_gc(),
+                GC_RATIO_KEY: ctg.get_gc_ratio(),
+                LENGTH_KEY: ctg.get_len()
+            }
+        self.gc_probs = compute_gc_probabilities(ctgs_gc, self.gc_intervals)
+        self.pls_bins = Plasmids(source, pls_bins_file, assembly=self.assembly)
+        self.gc_bins = _compute_optimal_gc_bin(self.pls_bins, self.gc_probs, nb_gc_intervals)
+        
+    def get_gc_intervals(self):
+        """
+        Returns list of GC interval boundaries:
+        List(float) sorted increasingly
+        """
+        return self.gc_intervals
+
+    def get_gc_probs(self):
+        """
+        Returns GC probabilities:
+        Dictionary(contig id (str) -> List(float))
+        where element in position i in the list is the probability to be in the (i+1)th interval
+        """
+        return self.gc_probs
+
+    def get_pls_scores(self):
+        """
+        Returns plasmid scores:
+        Dictionary(contig id (str)-> plasmid score (float))
+        """
+        return self.pls_score
+
+    def get_assembly(self):
+        """
+        Returns assembly graph (Assembly object)
+        """
+        return self.assembly
+
+    def get_pls_bins(self):
+        """
+        Returns plasmid bins (Plasmids object)
+        """
+        return self.pls_bins
+
+    def get_gc_bins(self):
+        """
+        Returns Dictionary(plasmid id (str) -> int (index of optimal GC bin)
+        """
+        return self.gc_bins
+
+# Testing the classes above
+if __name__ == "__main__":
+    import os
+    
+    samples = ['SAMN32247302', 'SAMN32247345', 'SAMN32247425', 'SAMN32247519', 'SAMN32247522']
+    root = os.path.normpath('../test')
+    gc_intervals_file = os.path.join(root, 'gc_intervals.txt')
+    sources = ['gt', 'mob', 'gp', 'pbf']
+    
+    for sample in samples:
+        print(f'SAMPLE: {sample}')
+    
+        gfa_file = os.path.join(root, 'gfas', f'{sample}.assembly.gfa.gz')
+        pls_scores_file = os.path.join(root, 'scores', f'{sample}.scores.tsv')
+        
+        assembly = Assembly(gfa_file, gzipped=True)
+        print(f'\tGFA\tnb contigs\t{assembly.get_nctgs()}')
+        print(f'\tGFA\tnb edges\t{assembly.get_nedges()}')
+        ctg_id = assembly.get_ctg_ids()[0]
+        ctg = assembly.get_ctg(ctg_id)
+        print(f'\tCONTIG {ctg_id} {ctg.get_len()} {ctg.get_rd()} {ctg.get_gc()} {ctg.get_gc_ratio()}')
+        print(f'\tConversion to networkx graph')
+        G = assembly.to_graph()
+
+        gc_intervals = _read_gc_intervals(gc_intervals_file)
+        nb_gc_intervals = len(gc_intervals) - 1
+
+        for source in sources:
+            print(f'\tSOURCE: {source}')
+            
+            pls_bins_file = os.path.join(root, 'pls_bins', f'{sample}.{source}.tsv')
+
+            pbm_input = PBM_input(gfa_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True)            
+
+            if source == 'gt':
+                print(f'\tGC INTERVALS\t{pbm_input.get_gc_intervals()}')
+                gc_probs = pbm_input.get_gc_probs()
+                scores = pbm_input.get_pls_scores()
+                assembly = pbm_input.get_assembly()
+                ctg_id = assembly.get_ctg_ids()[0]
+                print(f'\tGC PROBA CONTIG {ctg_id}\t{gc_probs[ctg_id]}')
+                print(f'\tSCORE CONTIG {ctg_id}\t {scores[ctg_id]}')
+            pls_bins = pbm_input.get_pls_bins()
+            print(f'\tSOURCE\t{pls_bins.get_source()}')
+            print(f'\tPLASMID CONTENT\t{pls_bins.get_pls_content()}')
+            print(f'\tPLASMID COPY NUMBER\t{pls_bins.get_pls_copy_number()}')            
+            print(f'\tOPT GC BINS\t{pbm_input.get_gc_bins()}')
+
