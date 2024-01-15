@@ -1,0 +1,14 @@
+		AA176.AA151	test/tmp/SAMN32247519.mob.AA176.AA151.sol
+Using license file /cvmfs/restricted.computecanada.ca/config/licenses/gurobi/clusters/cedar.lic
+Set parameter TokenServer to value license1.computecanada.ca
+WARNING	Model was not solved
+		AA176.AA524	test/tmp/SAMN32247519.mob.AA176.AA524.sol
+WARNING	Model was not solved
+		AA176.AB685	test/tmp/SAMN32247519.mob.AA176.AB685.sol
+WARNING	Model was not solved
+		AA151.AA524	test/tmp/SAMN32247519.mob.AA151.AA524.sol
+WARNING	Model was not solved
+		AA151.AB685	test/tmp/SAMN32247519.mob.AA151.AB685.sol
+WARNING	Model was not solved
+		AA524.AB685	test/tmp/SAMN32247519.mob.AA524.AB685.sol
+WARNING	Model was not solved

@@ -240,6 +240,7 @@ def merging_results(model, pbm_input, bin1, bin2):
 
 # Main merging function
 def merging_all_pairs(
+        sample,
         assembly_file,
         pls_scores_file,
         gc_intervals_file,
@@ -265,38 +266,42 @@ def merging_all_pairs(
     pbm_input = PBM_input(assembly_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True)
 
     with open(out_tsv_file, 'w') as file:
-        file.write('\t'.join(OUT_COLUMNS))    
-        for bin1, bin2 in combinations(pbm_input.get_pls_bins().get_pls_ids(), 2):
+        file.write('\t'.join(OUT_COLUMNS))
+        pls_ids = pbm_input.get_pls_bins().get_pls_ids()
+        if len(pls_ids) <= 1:
+            print(f'{sample}.{source}: Less than 2 bins: no merging to consider')
+        for bin1, bin2 in combinations(pls_ids, 2):
             sol_file = os.path.join(model_sol_dir, f'{sample}.{source}.{bin1}.{bin2}.sol')
-            print(f'\t\t{bin1}.{bin2}\t{sol_file}')
+            print(f'{sample}.{source}\t{bin1}.{bin2}\t{sol_file}')
             line = _merge_pair(pbm_input, bin1, bin2, sol_file, threshold)
             file.write('\n' + '\t'.join(['{}'.format(data) for data in line]))
 
 
 if __name__ == "__main__":
     import os
-    
+   
     samples = ['SAMN32247302', 'SAMN32247345', 'SAMN32247425', 'SAMN32247519', 'SAMN32247522']
     #samples = ['SAMN32247519']
     root = os.path.normpath('../test')
     gc_intervals_file = os.path.join(root, 'gc_intervals.txt')
     sources = ['gt', 'mob', 'gp', 'pbf']
     threshold = 0.05
-    
+   
     for sample in samples:
         print(f'SAMPLE: {sample}')
-        
+       
         gfa_file = os.path.join(root, 'gfas', f'{sample}.assembly.gfa.gz')
         pls_scores_file = os.path.join(root, 'scores', f'{sample}.scores.tsv')
         model_sol_dir = os.path.join(root, 'results', 'model')
 
         for source in sources:
             print(f'\tSOURCE: {source}')
-            
+           
             pls_bins_file = os.path.join(root, 'pls_bins', f'{sample}.{source}.tsv')
             out_tsv_file = os.path.join(root, 'results', source, f'{sample}.{source}.tsv')
-            
+           
             merging_all_pairs(
+                sample,
                 gfa_file,
                 pls_scores_file,
                 gc_intervals_file,

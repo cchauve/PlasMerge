@@ -1,0 +1,22 @@
+		GT_2.GT_3	test/tmp/SAMN32247519.gt.GT_2.GT_3.sol
+Using license file /cvmfs/restricted.computecanada.ca/config/licenses/gurobi/clusters/cedar.lic
+Set parameter TokenServer to value license1.computecanada.ca
+WARNING	Model was not solved
+		GT_2.GT_4	test/tmp/SAMN32247519.gt.GT_2.GT_4.sol
+WARNING	Model was not solved
+		GT_2.GT_5	test/tmp/SAMN32247519.gt.GT_2.GT_5.sol
+WARNING	Model was not solved
+		GT_2.GT_6	test/tmp/SAMN32247519.gt.GT_2.GT_6.sol
+WARNING	Model was not solved
+		GT_3.GT_4	test/tmp/SAMN32247519.gt.GT_3.GT_4.sol
+WARNING	Model was not solved
+		GT_3.GT_5	test/tmp/SAMN32247519.gt.GT_3.GT_5.sol
+WARNING	Model was not solved
+		GT_3.GT_6	test/tmp/SAMN32247519.gt.GT_3.GT_6.sol
+WARNING	Model was not solved
+		GT_4.GT_5	test/tmp/SAMN32247519.gt.GT_4.GT_5.sol
+WARNING	Model was not solved
+		GT_4.GT_6	test/tmp/SAMN32247519.gt.GT_4.GT_6.sol
+WARNING	Model was not solved
+		GT_5.GT_6	test/tmp/SAMN32247519.gt.GT_5.GT_6.sol
+WARNING	Model was not solved
