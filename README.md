@@ -51,7 +51,7 @@ I (CC) modified a lot the initial code:
 
 ## Experiments
 
-I (CC) ran the merging function of `src/merging.py` on 5 *E. coli* samples and on the ground ruth plasmid bins and the plasmid bins created by `gplas2, MOB-recon, PlasBin-flow`.
+I (CC) ran the merging function of `src/merging.py` on 5 *E. coli* samples and on the ground ruth plasmid bins and the plasmid bins created by `gplas2, MOB-recon, PlasBin-flow` (script `test.sh`).
 
 The data are organizd as follows:
 - `test/gfas`: gzipped GFA files for the 5 samples;
