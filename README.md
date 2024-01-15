@@ -29,7 +29,8 @@ Parameters description:
 - 'plasmid bins TSV file': file recording the initial plasmid bins
   Format: '<plasmid id><TAB><comma separated list of contigs in format contig:muliplicity><TAB><copy_number>
   where 'copy_number' is optional and if absent the copy number of a plasmid bin is the minimum of the read depth
-  of its contigs read in the GFA file.
+  of its contigs read in the GFA file.  
+  Example: 'test/pls_bins/SAMN32247522.gp.tsv', 'test/pls_bins/SAMN32247522.pbf.tsv'
 - 'plasmid bin source': string (in experiments: 'gt' for ground truth, 'gp' for gplas2, 'mob' for MOB-recon, 'pbf' for PlasBin-flow)
 - 'GC intervals file': path to file describing the GC content ratio intervals  
   Format: one floating number per line, increasing from '0' to '1'
