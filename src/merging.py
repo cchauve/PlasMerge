@@ -4,9 +4,11 @@ Computing the optimal merging for all pairs of bins for a given sample
 
 import os
 from itertools import combinations
+import numpy as np
 import gurobipy as gp
 from gurobipy import GRB
 import networkx as nx
+import pandas as pd
 
 from io_utils import PBM_input
 from PBF_utils import DEFAULT_SCORE_OFFSET
@@ -276,6 +278,81 @@ def merging_all_pairs(
             line = _merge_pair(pbm_input, bin1, bin2, sol_file, threshold)
             file.write('\n' + '\t'.join(['{}'.format(data) for data in line]))
 
+# merges plasmid bins and removes contig repeats
+def _flatten_bins(pred_bins, merged_ids):
+    ctgs = {}
+    for pred in merged_ids:
+        ctgs.update(pred_bins[pred])
+    return ','.join([f'{ctg[0]}:{ctg[1]}' for ctg in ctgs.items()])
+
+# returns string to be written to post-merger plasmid bin TSV
+def _flattened_bin_strs(pred_bins, merged_bins, flows):
+    merged_ids, merged_ctgs = [], [], []
+    for merger in merged_bins:
+        merged_ids.append(','.join(merger))
+        merged_ctgs.append(_flatten_bins(pred_bins, merger))
+    lines = zip(merged_ids, merged_ctgs, flows) if flows else zip(merged_ids, merged_ctgs)
+    return ['\t'.join(line) for line in lines]
+
+# score based on how much read depth was lost merging the pair
+def _combined_pbf_obj(results):
+    post_obj = results[['MERGE_GC', 'MERGE_GD', 'MERGE_RD']].sum(axis=1)
+    combined_obj = results[['BIN1_GC', 'BIN2_GC', 'BIN1_GD', 'BIN2_GD']].sum(axis=1) \
+                                      + (results[['BIN1_RD', 'BIN2_RD']].sum(axis=1) / 2)
+    return combined_obj - post_obj
+
+# outputs merged plasmid bin file based on pair scoring
+def merge_sample(
+        sample,
+        assembly_file,
+        pls_scores_file,
+        gc_intervals_file,
+        pls_bins_file,
+        source,
+        scored_sample_tsv,
+        out_dir,
+        score_func=_combined_pbf_obj
+):
+    
+    results = pd.read_table(scored_sample_tsv)
+    results['EDGE_WEIGHT'] = score_func(results)
+    thresholds = np.linspace(min(results['EDGE_WEIGHT']), \
+                             max(results['EDGE_WEIGHT']), 200)
+    pbm_input = PBM_input(assembly_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True)
+    
+    # constructing a graph where nodes are predicted bins and
+    # edges are weighted by the pair's PlasMerge objective value
+    G = nx.Graph()
+    pls_bins = pbm_input.get_pls_bins()
+    pls_content = pls_bins.get_pls_content(with_mult=True)
+    G.add_nodes_from(pls_bins.get_pls_ids())
+    flows = None
+    for index, row in results.iterrows():
+        # edge only appears if PlasMerge found a solution
+        if row['MILP_INFEASIBLE'] == 0:
+            G.add_edge(row['BIN1'], row['BIN2'], weight=row['EDGE_WEIGHT'], rd=row['MERGE_RD'])
+    # generate sample mergers by removing edges below weight threshold
+    # and merging the resulting connected components
+    for threshold in thresholds:
+
+        above_thresh = [edge for edge in G.edges() if G[edge[0]][edge[1]]['weight'] >= threshold]
+        H = nx.Graph()
+        H.add_nodes_from(G.nodes())
+        H.add_edges_from(above_thresh)
+        merged_bins = [list(comp) for comp in nx.connected_components(H)]
+        if source == 'pbf':
+            flows = [min(nx.get_edge_attributes(H.subgraph(comp), 'rd').values()) for comp in merged_bins]
+        lines = _flattened_bin_strs(pls_content, merged_bins, flows)
+
+        thresh_dir = os.path.join(out_dir, sample, str(np.where(thresholds == threshold)[0][0]))
+        if not os.path.exists(thresh_dir):
+            os.makedirs(thresh_dir)
+        with open(os.path.join(thresh_dir, 'merged_bins.out'), 'w') as file:
+            if source == 'pbf':
+                file.write('plasmid\tcontigs\tcopy_number')
+            else:
+                file.write('plasmid\tcontigs')
+            file.writelines(['\n' + line for line in lines])
 
 if __name__ == "__main__":
     import os
@@ -311,3 +388,14 @@ if __name__ == "__main__":
                 out_tsv_file,
                 threshold
             )
+
+    # print('scoring pairs in SAMN32247519')
+    # merge_sample('SAMN32247519', 
+    #              os.path.join(root, 'gfas', 'SAMN32247519.assembly.gfa.gz'),
+    #              os.path.join(root, 'scores', 'SAMN32247519.scores.tsv'),
+    #              gc_intervals_file,
+    #              os.path.join(root, 'pls_bins', 'SAMN32247519.pbf.tsv'),
+    #              'pbf',
+    #              os.path.join(root, 'results', 'pbf', 'SAMN32247519.pbf.tsv'),
+    #              os.path.join(root, 'results')
+    # )
