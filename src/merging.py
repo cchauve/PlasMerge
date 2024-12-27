@@ -287,12 +287,16 @@ def _flatten_bins(pred_bins, merged_ids):
 
 # returns string to be written to post-merger plasmid bin TSV
 def _flattened_bin_strs(pred_bins, merged_bins, flows):
-    merged_ids, merged_ctgs = [], [], []
+    merged_ids, merged_ctgs = [], []
     for merger in merged_bins:
         merged_ids.append(','.join(merger))
         merged_ctgs.append(_flatten_bins(pred_bins, merger))
-    lines = zip(merged_ids, merged_ctgs, flows) if flows else zip(merged_ids, merged_ctgs)
-    return ['\t'.join(line) for line in lines]
+    if flows:
+        lines = zip(merged_ids, merged_ctgs, flows)
+        return ['\t'.join([id, ctgs, str(rd)]) for id, ctgs, rd in lines]
+    else:
+        lines = zip(merged_ids, merged_ctgs)
+        return ['\t'.join([id, ctgs]) for id, ctgs in lines]
 
 # score based on how much read depth was lost merging the pair
 def _combined_pbf_obj(results):
@@ -326,7 +330,7 @@ def merge_sample(
     pls_bins = pbm_input.get_pls_bins()
     pls_content = pls_bins.get_pls_content(with_mult=True)
     G.add_nodes_from(pls_bins.get_pls_ids())
-    flows = None
+    nx.set_node_attributes(G, pls_bins.get_pls_copy_number(), name='rd')
     for index, row in results.iterrows():
         # edge only appears if PlasMerge found a solution
         if row['MILP_INFEASIBLE'] == 0:
@@ -335,13 +339,14 @@ def merge_sample(
     # and merging the resulting connected components
     for threshold in thresholds:
 
-        above_thresh = [edge for edge in G.edges() if G[edge[0]][edge[1]]['weight'] >= threshold]
+        above_thresh = [edge for edge in G.edges(data=True) if G[edge[0]][edge[1]]['weight'] >= threshold]
         H = nx.Graph()
-        H.add_nodes_from(G.nodes())
+        H.add_nodes_from(G.nodes(data=True))
         H.add_edges_from(above_thresh)
         merged_bins = [list(comp) for comp in nx.connected_components(H)]
+        flows = None
         if source == 'pbf':
-            flows = [min(nx.get_edge_attributes(H.subgraph(comp), 'rd').values()) for comp in merged_bins]
+            flows = [min(nx.get_edge_attributes(H.subgraph(comp), 'rd').values(), default=list(H.subgraph(comp).nodes(data='rd'))[0][1]) for comp in merged_bins]
         lines = _flattened_bin_strs(pls_content, merged_bins, flows)
 
         thresh_dir = os.path.join(out_dir, sample, str(np.where(thresholds == threshold)[0][0]))
@@ -364,38 +369,38 @@ if __name__ == "__main__":
     sources = ['gt', 'mob', 'gp', 'pbf']
     threshold = 0.05
    
-    for sample in samples:
-        print(f'SAMPLE: {sample}')
+    # for sample in samples:
+    #     print(f'SAMPLE: {sample}')
        
-        gfa_file = os.path.join(root, 'gfas', f'{sample}.assembly.gfa.gz')
-        pls_scores_file = os.path.join(root, 'scores', f'{sample}.scores.tsv')
-        model_sol_dir = os.path.join(root, 'results', 'model')
+    #     gfa_file = os.path.join(root, 'gfas', f'{sample}.assembly.gfa.gz')
+    #     pls_scores_file = os.path.join(root, 'scores', f'{sample}.scores.tsv')
+    #     model_sol_dir = os.path.join(root, 'results', 'model')
 
-        for source in sources:
-            print(f'\tSOURCE: {source}')
+    #     for source in sources:
+    #         print(f'\tSOURCE: {source}')
            
-            pls_bins_file = os.path.join(root, 'pls_bins', f'{sample}.{source}.tsv')
-            out_tsv_file = os.path.join(root, 'results', source, f'{sample}.{source}.tsv')
+    #         pls_bins_file = os.path.join(root, 'pls_bins', f'{sample}.{source}.tsv')
+    #         out_tsv_file = os.path.join(root, 'results', source, f'{sample}.{source}.tsv')
            
-            merging_all_pairs(
-                sample,
-                gfa_file,
-                pls_scores_file,
-                gc_intervals_file,
-                pls_bins_file,
-                source,
-                model_sol_dir,
-                out_tsv_file,
-                threshold
-            )
+    #         merging_all_pairs(
+    #             sample,
+    #             gfa_file,
+    #             pls_scores_file,
+    #             gc_intervals_file,
+    #             pls_bins_file,
+    #             source,
+    #             model_sol_dir,
+    #             out_tsv_file,
+    #             threshold
+    #         )
 
-    # print('scoring pairs in SAMN32247519')
-    # merge_sample('SAMN32247519', 
-    #              os.path.join(root, 'gfas', 'SAMN32247519.assembly.gfa.gz'),
-    #              os.path.join(root, 'scores', 'SAMN32247519.scores.tsv'),
-    #              gc_intervals_file,
-    #              os.path.join(root, 'pls_bins', 'SAMN32247519.pbf.tsv'),
-    #              'pbf',
-    #              os.path.join(root, 'results', 'pbf', 'SAMN32247519.pbf.tsv'),
-    #              os.path.join(root, 'results')
-    # )
+    print('scoring pairs in SAMN32247519')
+    merge_sample('SAMN32247519', 
+                 os.path.join(root, 'gfas', 'SAMN32247519.assembly.gfa.gz'),
+                 os.path.join(root, 'scores', 'SAMN32247519.scores.tsv'),
+                 gc_intervals_file,
+                 os.path.join(root, 'pls_bins', 'SAMN32247519.pbf.tsv'),
+                 'pbf',
+                 os.path.join(root, 'results', 'pbf', 'SAMN32247519.pbf.tsv'),
+                 os.path.join(root, 'results')
+    )
