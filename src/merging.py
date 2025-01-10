@@ -290,7 +290,6 @@ def _flattened_bin_strs(pred_bins, merged_bins, flows):
     merged_ids, merged_ctgs = [], []
     for merger in merged_bins:
         merged_ids.append(str([pls for pls in merger]))
-        #merged_ids.append(','.join(merger))
         merged_ctgs.append(_flatten_bins(pred_bins, merger))
     if flows:
         lines = zip(merged_ids, merged_ctgs, flows)
