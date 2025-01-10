@@ -17,8 +17,10 @@ do
 	       -b test/pls_bins/${SAMPLE}.${SOURCE}.tsv \
 	       -r ${SOURCE} \
 	       -g test/gc_intervals.txt \
+		   -l \
 	       -d test/results/model \
-	       -f test/results/${SOURCE}/${SAMPLE}.${SOURCE}.tsv \
+	       -os test/results/${SOURCE}/${SAMPLE}.${SOURCE}.tsv \
+		   -om test/results/${SOURCE}/${SAMPLE}.${SOURCE}.mergers.txt \
 	       > test/results/${SAMPLE}.${SOURCE}.plasmerge.out
     done
 done

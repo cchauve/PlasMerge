@@ -8,9 +8,10 @@ import os
 import argparse
 
 from PBF_utils import DEFAULT_SCORE_OFFSET
-from merging import merging_all_pairs
+from merging import merging_all_pairs, merge_sample
 
-DEFAULT_THRESHOLD = 0.05
+DEFAULT_RESIDUAL_RD_THRESHOLD = 0.05
+DEFAULT_MERGE_SCORE_THRESHOLD = 0
 
 def parse_arguments():
     description = 'PlasMerge: A tool to merge plasmid bins'
@@ -27,12 +28,15 @@ def parse_arguments():
     pbm_input.add_argument("-r", "--source", help="Plasmid bins source")
     pbm_input.add_argument("-g", "--gc_intervals", default=None, help="GC intervals file")
     pbm_input.add_argument("-o", "--offset", type=float, default=DEFAULT_SCORE_OFFSET, help="Offset for the plasmid score term")
-    pbm_input.add_argument("-t", "--threshold", type=float, default=DEFAULT_THRESHOLD, help="????")
+    pbm_input.add_argument("-rt", "--rd_threshold", type=float, default=DEFAULT_RESIDUAL_RD_THRESHOLD, help="drop contigs in MILP if residual read depth < rd_threshold")
+    pbm_input.add_argument("-mt", "--merge_threshold", type=float, default=0, help="threshold on pairwise score for merging")
+    pbm_input.add_argument("-l", "--scoring", action="store_true", help="flag for whether scoring is performed")
     
     #Output
     pbm_output = parser.add_argument_group('Output')
     pbm_output.add_argument("-d", "--out_dir", help="Path to Gurobi output directory")
-    pbm_output.add_argument("-f", "--out_file", help="Path to output TSV file")
+    pbm_output.add_argument("-os", "--score_file", help="Path to output TSV file (or existing TSV if --scoring is passed)")
+    pbm_output.add_argument("-om", "--merge_file", help="Path to output merger file")
 
     return parser.parse_args()
 
@@ -40,14 +44,26 @@ def parse_arguments():
 if __name__ == "__main__":
     args = parse_arguments()
 
-    merging_all_pairs(
-        args.sample,
+    if args.scoring:
+        merging_all_pairs(
+            args.sample,
+            args.assembly,
+            args.plasmid_scores,
+            args.gc_intervals,
+            args.plasmid_bins,
+            args.source,
+            args.out_dir,
+            args.score_file,
+            args.rd_threshold
+        )
+
+    merge_sample(
         args.assembly,
         args.plasmid_scores,
         args.gc_intervals,
         args.plasmid_bins,
         args.source,
-        args.out_dir,
-        args.out_file,
-        args.threshold
+        args.score_file,
+        args.merge_file,
+        score_threshold=args.merge_threshold
     )
