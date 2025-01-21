@@ -14,9 +14,12 @@ python src/plasmerge.py \
        -b <plasmid bins TSV file> \
        -r <plasmid bin source> \
        -d <directory where Gurobi sol file is written> \
-       -f <path to output TSV file> \
+       -l <scoring flag> \
+       -os <scoring results TSV file> \
+       -om <output merger file> \
        -g <GC intervals file; optional> \
-       -t <threshold; optional, default=0.05> \
+       -rt <residual read depth threshold; optional, default=0.05> \
+       -mt <merge threshold; optional, default=0> \
        -o <plasmid score offset; optional, default=0.5>
 ```
 
@@ -36,7 +39,11 @@ Rough parameters description:
   - Format: one floating number per line, increasing from `0` to `1`
   - Default: `0, 0.4,  0.45, 0.5, 0.55, 0.6, 1`
   - Example: `test/gc_intervals.txt`
-- `threshold`: **Question** what is this parameter?
+- `scoring flag`: indicates whether scoring has already been done. If present, expects `scoring results TSV file` to already exist.
+- `scoring results TSV file`: file containing scoring results for each pair of bins.
+- `output merger file`: path to file containing merged bins
+- `residual read depth threshold`: used in MILP for a pair of bins, wherein contigs are dropped from the graph if their read depth is below the threshold after accounting for read depth associated with other plasmid bins.
+- `merge threshold`: used in determining whether a given pair of bins should be merged.
 - `plasmid score offset`: float in [0,1]: used in the objective function to offset the plasmid score of each contig.
 
 ## Implementation notes
