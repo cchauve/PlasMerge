@@ -77,13 +77,14 @@ def remove_low_rd(gc_pen, pls_score_pen, rd, G, gc_ints, threshold):
 
 # contracting bins down to single vertices in networkx graph
 def contracted_bins(graph, bin1_ctgs, bin2_ctgs):
-    
+
     H = nx.DiGraph(graph)
     bin1_set = set(bin1_ctgs)
     bin2_set = set(bin2_ctgs)
     shared_ctgs = list(bin1_set & bin2_set)
     bin1_diff = list(bin1_set - bin2_set)
     bin2_diff = list(bin2_set - bin1_set)
+
     for ctg in bin1_diff[1:]:
         nx.contracted_nodes(H, bin1_diff[0], ctg, self_loops=False, copy=False)
     for ctg in bin2_diff[1:]:

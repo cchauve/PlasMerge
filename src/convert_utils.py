@@ -116,25 +116,31 @@ def convert_mobsuite_output(in_mob_file, out_pls_file):
 
 if __name__ == "__main__":
     import os
+    import sys
+
+    # Converting a PlasBi-flow file
+    in_file = sys.argv[1]
+    out_file = sys.argv[2]
+    convert_pbf_output(in_file, out_file)
     
-    samples = ['SAMN32247302', 'SAMN32247345', 'SAMN32247425', 'SAMN32247519', 'SAMN32247522']
-    root = os.path.normpath('../test')
+    # samples = ['SAMN32247302', 'SAMN32247345', 'SAMN32247425', 'SAMN32247519', 'SAMN32247522']
+    # root = os.path.normpath('../test')
 
-    for sample in samples:
-        print(f'SAMPLE: {sample}')
+    # for sample in samples:
+    #     print(f'SAMPLE: {sample}')
         
-        in_file = os.path.join(root, 'ground_truth', f'{sample}_gt.tsv')
-        out_file = os.path.join(root, 'pls_bins', f'{sample}.gt.tsv')
-        convert_pbf_ground_truth(in_file, out_file)
+    #     in_file = os.path.join(root, 'ground_truth', f'{sample}_gt.tsv')
+    #     out_file = os.path.join(root, 'pls_bins', f'{sample}.gt.tsv')
+    #     convert_pbf_ground_truth(in_file, out_file)
 
-        in_file = os.path.join(root, 'pbf', f'{sample}.pred.txt')
-        out_file = os.path.join(root, 'pls_bins', f'{sample}.pbf.tsv')
-        convert_pbf_output(in_file, out_file)
+    #     in_file = os.path.join(root, 'pbf', f'{sample}.pred.txt')
+    #     out_file = os.path.join(root, 'pls_bins', f'{sample}.pbf.tsv')
+    #     convert_pbf_output(in_file, out_file)
         
-        in_file = os.path.join(root, 'gplas', f'{sample}.gplas2.tab')
-        out_file = os.path.join(root, 'pls_bins', f'{sample}.gp.tsv')
-        convert_gplas_output(in_file, out_file)
+    #     in_file = os.path.join(root, 'gplas', f'{sample}.gplas2.tab')
+    #     out_file = os.path.join(root, 'pls_bins', f'{sample}.gp.tsv')
+    #     convert_gplas_output(in_file, out_file)
         
-        in_file = os.path.join(root, 'mob', f'{sample}.contig_report.txt')
-        out_file = os.path.join(root, 'pls_bins', f'{sample}.mob.tsv')
-        convert_mobsuite_output(in_file, out_file)
+    #     in_file = os.path.join(root, 'mob', f'{sample}.contig_report.txt')
+    #     out_file = os.path.join(root, 'pls_bins', f'{sample}.mob.tsv')
+    #     convert_mobsuite_output(in_file, out_file)

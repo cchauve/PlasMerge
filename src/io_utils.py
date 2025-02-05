@@ -280,7 +280,7 @@ class Plasmids:
             pls_id = row['plasmid']
             ctgs = row['contigs'].split(',')
             self.pls_bins[pls_id] = [
-                (ctg.split(':')[0],int(float(ctg.split(':')[1])))
+                (ctg.rsplit(':',1)[0],int(float(ctg.rsplit(':',1)[1])))
                 for ctg in ctgs
             ] 
             if assembly is not None:
