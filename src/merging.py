@@ -184,7 +184,7 @@ GUROBI_ZERO = 0.0001
 OUT_COLUMNS = [
     'SAMPLE', 'BIN1', 'BIN1_CONTIGS', 'BIN1_GC_BIN', 'BIN1_GC', 'BIN1_GD', 'BIN1_RD',
     'BIN2', 'BIN2_CONTIGS', 'BIN2_GC_BIN', 'BIN2_GC', 'BIN2_GD', 'BIN2_RD', 'MERGE_GC_BIN',
-    'MERGE_GC', 'MERGE_GD', 'MERGE_RD', 'MERGE_PATH', 'MILP_INFEASIBLE', 'BINS_OVERLAP'
+    'MERGE_GC', 'MERGE_GD', 'MERGE_RD', 'MERGE_PATH', 'MILP_INFEASIBLE', 'BINS_OVERLAP', 'IS_SUBSET'
 ]
 
 # returns relevant data from post-processing results
@@ -199,24 +199,32 @@ def merging_results(model, pbm_input, bin1, bin2):
     def ctgs_to_str(ctg_ids, *args):
         return ','.join([ctg_to_str(ctg_id, *args) for ctg_id in ctg_ids])
 
-    gc_bin, gc_term, gd_term, rd_term, path_contigs = 0, 0, 0, 0, []
-    was_solved = model.getAttr('Status') == GRB.OPTIMAL
-
     gc_bins = pbm_input.get_gc_bins()
     bin1_gc_bin = gc_bins[bin1]
-    bin1_gc = model.getVarByName('ctg_GC[s,{}]'.format(bin1_gc_bin)).Obj
     bin2_gc_bin = gc_bins[bin2]
-    bin2_gc = model.getVarByName('ctg_GC[t,{}]'.format(bin2_gc_bin)).Obj
-
     pls_bins = pbm_input.get_pls_bins()
     bin1_ctgs = pls_bins.get_pls_content(with_mult=False)[bin1]
     bin2_ctgs = pls_bins.get_pls_content(with_mult=False)[bin2]
-    overlap = set(bin1_ctgs) & set(bin2_ctgs) != set()
     ctg_lens = pbm_input.get_assembly().get_ctg_lens()
     bin1_ctgs_str = ctgs_to_str(bin1_ctgs, ctg_lens)
     bin2_ctgs_str = ctgs_to_str(bin2_ctgs, ctg_lens)
+    # None model signals that one bin is contained in the other,
+    # and thus no optimization was run
+    if model == None:
+        col_vals = [
+            bin1, bin1_ctgs_str, bin1_gc_bin, 0, 0, 0,
+            bin2, bin2_ctgs_str, bin2_gc_bin, 0, 0, 0,
+            0, 0, 0, 0, [], 0, 1, 1
+        ]
+        return col_vals
+
+    overlap = set(bin1_ctgs) & set(bin2_ctgs) != set()
     flows = pls_bins.get_pls_copy_number()
-    
+    gc_bin, gc_term, gd_term, rd_term, path_contigs = 0, 0, 0, 0, []
+    was_solved = model.getAttr('Status') == GRB.OPTIMAL
+    bin1_gc = model.getVarByName('ctg_GC[s,{}]'.format(bin1_gc_bin)).Obj
+    bin2_gc = model.getVarByName('ctg_GC[t,{}]'.format(bin2_gc_bin)).Obj
+
     if was_solved:
         print('SUCCESS\tModel was solved')
         rd_term = model.getVarByName('d').X
@@ -231,13 +239,13 @@ def merging_results(model, pbm_input, bin1, bin2):
                     if v.VarName[2:-1] not in ['s', 't']:
                         path_contigs.append(v.VarName[2:-1])
     else:
-        print('WARNING\tModel was not solved')                
+        print('WARNING\tModel was not solved')
 
     path_contigs = ctgs_to_str(path_contigs, ctg_lens)
     col_vals = [
         bin1, bin1_ctgs_str, bin1_gc_bin, bin1_gc, model.getVarByName('z[s]').Obj, flows[bin1],
         bin2, bin2_ctgs_str, bin2_gc_bin, bin2_gc, model.getVarByName('z[t]').Obj, flows[bin2],
-        gc_bin, gc_term, gd_term, rd_term, path_contigs, int(not was_solved), overlap
+        gc_bin, gc_term, gd_term, rd_term, path_contigs, int(not was_solved), overlap, 0
     ]
     return col_vals
 
@@ -256,6 +264,13 @@ def merging_all_pairs(
 
     # Merges given bins and outputs list containing results
     def _merge_pair(pbm_input, bin1, bin2, sol_file, threshold):
+        bin1_ctgs = set(pbm_input.get_pls_bins().get_pls_content(with_mult=False)[bin1])
+        bin2_ctgs = set(pbm_input.get_pls_bins().get_pls_content(with_mult=False)[bin2])
+
+        # handles if one is contained in the other
+        if (bin1_ctgs <= bin2_ctgs or bin2_ctgs <= bin1_ctgs):
+            line_data = merging_results(None, pbm_input, bin1, bin2)
+            return [sample, *line_data]
 
         model = merging_model(pbm_input, bin1, bin2, threshold)
         model.setParam('OutputFlag', False)
@@ -263,7 +278,6 @@ def merging_all_pairs(
         if model.getAttr('Status') == GRB.OPTIMAL:
             model.write(sol_file)
         line_data = merging_results(model, pbm_input, bin1, bin2)
-
         return [sample, *line_data]
 
     pbm_input = PBM_input(assembly_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True)
