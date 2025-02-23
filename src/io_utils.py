@@ -27,6 +27,10 @@ from PBF_utils import (
     DEFAULT_GC_INTERVALS
 )
 
+# Assembler used to generate the GFA file
+UNICYCLER_TAG = 'unicycler'
+SKESA_TAG = 'skesa'
+
 """
 Class recording a contig and its attributes:
 - sequence
@@ -88,8 +92,6 @@ class Contig():
         return (self.gc / self.len if self.len > 0 else 0.0)
     
 # TAG of GFA file for recording normalized coverage
-UNICYCLER_TAG = 'unicycler'
-SKESA_TAG = 'skesa'
 ASSEMBLER_COV_TAG = {
     UNICYCLER_TAG: 'dp',
     SKESA_TAG: None
@@ -364,6 +366,7 @@ def _compute_optimal_gc_bin(pls_bins, gc_probs, nb_gc_intervals):
 """
 Class recording the input to PlasMerge
 assembly:     Assembly object (assembly graph)
+assembler:    UNICYCLER_TAG or SKESA_TAG         
 gc_intervals: List(float) list of GC interval boundaries
 gc_probs:     Dictionary(contig id (str) -> GC proba for each interval List(float))
 pls_score:    Dictionary(contig id (str) -> plasmid score (float))

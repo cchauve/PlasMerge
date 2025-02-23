@@ -253,6 +253,7 @@ def merging_results(model, pbm_input, bin1, bin2):
 def merging_all_pairs(
         sample,
         assembly_file,
+        assembler,
         pls_scores_file,
         gc_intervals_file,
         pls_bins_file,
@@ -280,7 +281,7 @@ def merging_all_pairs(
         line_data = merging_results(model, pbm_input, bin1, bin2)
         return [sample, *line_data]
 
-    pbm_input = PBM_input(assembly_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True)
+    pbm_input = PBM_input(assembly_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True, assembler=assembler)
 
     with open(out_tsv_file, 'w') as file:
         file.write('\t'.join(OUT_COLUMNS))
@@ -323,6 +324,7 @@ def _combined_pbf_obj(results):
 # outputs merged plasmid bin file based on pair scoring
 def merge_sample(
         assembly_file,
+        assembler,
         pls_scores_file,
         gc_intervals_file,
         pls_bins_file,
@@ -330,12 +332,13 @@ def merge_sample(
         scored_sample_tsv,
         out_merger_file,
         score_func=_combined_pbf_obj,
-        score_threshold=0
+        score_threshold=0,
+        
 ):
     
     results = pd.read_table(scored_sample_tsv)
     results['EDGE_WEIGHT'] = score_func(results)
-    pbm_input = PBM_input(assembly_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True)
+    pbm_input = PBM_input(assembly_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True, assembler=assembler)
     
     # constructing a graph where nodes are predicted bins and
     # edges are weighted by the pair's PlasMerge objective value
@@ -395,6 +398,7 @@ if __name__ == "__main__":
             merging_all_pairs(
                 sample,
                 gfa_file,
+                "unicycler",
                 pls_scores_file,
                 gc_intervals_file,
                 pls_bins_file,
@@ -406,6 +410,7 @@ if __name__ == "__main__":
 
             merge_sample(
                 gfa_file,
+                "unicycler",
                 pls_scores_file,
                 gc_intervals_file,
                 pls_bins_file,

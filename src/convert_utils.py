@@ -18,7 +18,7 @@ def convert_pbf_ground_truth(in_pbf_file, out_pls_file):
     ...
     """
     plasmids_df = pd.read_csv(
-        in_pbf_file, sep='\t', header=0, skip_blank_lines=True
+        in_pbf_file, sep='\t', header=0, skip_blank_lines=True, index_col=False
     )
     result = defaultdict(lambda: defaultdict(int))
     for idx,row in plasmids_df.iterrows():
@@ -45,7 +45,7 @@ def convert_pbf_output(in_pbf_file, out_pls_file):
     ...
     """
     plasmids_df = pd.read_csv(
-        in_pbf_file, sep='\t', header=0, skip_blank_lines=True
+        in_pbf_file, sep='\t', header=0, skip_blank_lines=True, index_col=False
     )
     with open(out_pls_file, 'w') as out_file:
         out_file.write('plasmid\tcontigs\tcopy_number\n')

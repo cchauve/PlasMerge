@@ -20,7 +20,8 @@ python src/plasmerge.py \
        -g <GC intervals file; optional> \
        -rt <residual read depth threshold; optional, default=0.05> \
        -mt <merge threshold; optional, default=0> \
-       -o <plasmid score offset; optional, default=0.5>
+       -o <plasmid score offset; optional, default=0.5> \
+       -t <assembler; optional, default=unicycler>
 ```
 
 Rough parameters description:
@@ -45,6 +46,7 @@ Rough parameters description:
 - `residual read depth threshold`: used in MILP for a pair of bins, wherein contigs are dropped from the graph if their read depth is below the threshold after accounting for read depth associated with other plasmid bins.
 - `merge threshold`: used in determining whether a given pair of bins should be merged.
 - `plasmid score offset`: float in [0,1]: used in the objective function to offset the plasmid score of each contig.
+- `assembler`: str in ['skesa', 'unicycler']: assmembler used to create the input GFA file
 
 ## Implementation notes
 
