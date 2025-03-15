@@ -305,7 +305,7 @@ def _flatten_bins(pred_bins, merged_ids):
 def _flattened_bin_strs(pred_bins, merged_bins, flows):
     merged_ids, merged_ctgs = [], []
     for merger in merged_bins:
-        merged_ids.append(str([pls for pls in merger]))
+        merged_ids.append(','.join([pls for pls in merger]))
         merged_ctgs.append(_flatten_bins(pred_bins, merger))
     if flows:
         lines = zip(merged_ids, merged_ctgs, flows)
@@ -371,50 +371,50 @@ def merge_sample(
             file.write('plasmid\tcontigs')
         file.writelines(['\n' + line for line in lines])
 
-if __name__ == "__main__":
-    import os
+# if __name__ == "__main__":
+#     import os
    
-    samples = ['SAMN32247302', 'SAMN32247345', 'SAMN32247425', 'SAMN32247519', 'SAMN32247522']
-    #samples = ['SAMN32247519']
-    root = os.path.normpath('../test')
-    gc_intervals_file = os.path.join(root, 'gc_intervals.txt')
-    sources = ['gt', 'mob', 'gp', 'pbf']
-    threshold = 0.05
+#     samples = ['SAMN32247302', 'SAMN32247345', 'SAMN32247425', 'SAMN32247519', 'SAMN32247522']
+#     #samples = ['SAMN32247519']
+#     root = os.path.normpath('../test')
+#     gc_intervals_file = os.path.join(root, 'gc_intervals.txt')
+#     sources = ['gt', 'mob', 'gp', 'pbf']
+#     threshold = 0.05
    
-    for sample in samples:
-        print(f'SAMPLE: {sample}')
+#     for sample in samples:
+#         print(f'SAMPLE: {sample}')
        
-        gfa_file = os.path.join(root, 'gfas', f'{sample}.assembly.gfa.gz')
-        pls_scores_file = os.path.join(root, 'scores', f'{sample}.scores.tsv')
-        model_sol_dir = os.path.join(root, 'results', 'model')
+#         gfa_file = os.path.join(root, 'gfas', f'{sample}.assembly.gfa.gz')
+#         pls_scores_file = os.path.join(root, 'scores', f'{sample}.scores.tsv')
+#         model_sol_dir = os.path.join(root, 'results', 'model')
 
-        for source in sources:
-            print(f'\tSOURCE: {source}')
+#         for source in sources:
+#             print(f'\tSOURCE: {source}')
            
-            pls_bins_file = os.path.join(root, 'pls_bins', f'{sample}.{source}.tsv')
-            out_tsv_file = os.path.join(root, 'results', source, f'{sample}.{source}.tsv')
-            out_merger_file = os.path.join(root, 'results', source, f'{sample}.{source}.mergers.txt')
+#             pls_bins_file = os.path.join(root, 'pls_bins', f'{sample}.{source}.tsv')
+#             out_tsv_file = os.path.join(root, 'results', source, f'{sample}.{source}.tsv')
+#             out_merger_file = os.path.join(root, 'results', source, f'{sample}.{source}.mergers.txt')
            
-            merging_all_pairs(
-                sample,
-                gfa_file,
-                "unicycler",
-                pls_scores_file,
-                gc_intervals_file,
-                pls_bins_file,
-                source,
-                model_sol_dir,
-                out_tsv_file,
-                threshold
-            )
+#             merging_all_pairs(
+#                 sample,
+#                 gfa_file,
+#                 "unicycler",
+#                 pls_scores_file,
+#                 gc_intervals_file,
+#                 pls_bins_file,
+#                 source,
+#                 model_sol_dir,
+#                 out_tsv_file,
+#                 threshold
+#             )
 
-            merge_sample(
-                gfa_file,
-                "unicycler",
-                pls_scores_file,
-                gc_intervals_file,
-                pls_bins_file,
-                source,
-                out_tsv_file,
-                out_merger_file
-            )
+#             merge_sample(
+#                 gfa_file,
+#                 "unicycler",
+#                 pls_scores_file,
+#                 gc_intervals_file,
+#                 pls_bins_file,
+#                 source,
+#                 out_tsv_file,
+#                 out_merger_file
+#             )

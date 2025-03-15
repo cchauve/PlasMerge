@@ -64,7 +64,7 @@ def convert_gplas_output(in_gplas_file, out_pls_file):
     ...
     """
     plasmids_df = pd.read_csv(
-        in_gplas_file, sep=' ', header=0, skip_blank_lines=True
+        in_gplas_file, sep='\t', header=0, skip_blank_lines=True
     )
     result = defaultdict(lambda: defaultdict(int))
     for idx,row in plasmids_df.iterrows():
@@ -82,7 +82,7 @@ def convert_gplas_output(in_gplas_file, out_pls_file):
                         for ctg_id,ctg_mult in ctgs_dict.items()
                     ]
                 )
-                out_file.write(f'{pls_id}\t{ctgs}\n')
+                out_file.write(f'P{pls_id}\t{ctgs}\n')
 
 def convert_mobsuite_output(in_mob_file, out_pls_file):
     """
@@ -121,8 +121,23 @@ if __name__ == "__main__":
     # Converting a PlasBi-flow file
     in_file = sys.argv[1]
     out_file = sys.argv[2]
-    convert_pbf_output(in_file, out_file)
-    
+    # Default format: PlasBin-flow
+    if len(sys.argv) == 3:
+        print("Input format: PlasBin-flow")
+        convert_pbf_output(in_file, out_file)
+    elif sys.argv[3] == "pbf":
+        print("Input format: PlasBin-flow")
+        convert_pbf_output(in_file, out_file)
+    elif sys.argv[3] == "mob":
+        print("Input format: MOBsuite")
+        convert_mobsuite_output(in_file, out_file)
+    elif sys.argv[3] == "gp":
+        print("Input format: gplas")
+        convert_gplas_output(in_file, out_file)
+    else:
+        print("Unrecognized input format")
+        exit(1)
+        
     # samples = ['SAMN32247302', 'SAMN32247345', 'SAMN32247425', 'SAMN32247519', 'SAMN32247522']
     # root = os.path.normpath('../test')
 
