@@ -3,6 +3,7 @@ Computing the optimal merging for all pairs of bins for a given sample
 """
 
 import os
+import shutil
 from itertools import combinations
 import numpy as np
 import gurobipy as gp
@@ -337,6 +338,9 @@ def merge_sample(
 ):
     
     results = pd.read_table(scored_sample_tsv)
+    if len(results) == 0:
+        shutil.copy(pls_bins_file, out_merger_file)
+        return
     results['EDGE_WEIGHT'] = score_func(results)
     pbm_input = PBM_input(assembly_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True, assembler=assembler)
     
