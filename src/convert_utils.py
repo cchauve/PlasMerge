@@ -7,11 +7,12 @@ Format:
 
 import pandas as pd
 from collections import defaultdict
+from gfa_fasta_utils import read_GFA_len
 
 def convert_pbf_ground_truth(in_pbf_file, out_pls_file):
     """
     Convert PlasBin-flow ground truth file in_pbf_file into standard file out_pls_file
-    plasBin-flow ground truth format:
+    PlasBin-flow ground truth format:
     plasmid contig  contig_len
     GT_2    21      78327
     GT_2    32      22479
@@ -113,12 +114,36 @@ def convert_mobsuite_output(in_mob_file, out_pls_file):
             )
             out_file.write(f'{pls_id}\t{ctgs}\n')
 
+def convert_to_plaseval(in_plasmerge_file, in_gfa_file, out_plaseval_file):
+    """
+    Convert PlasMerge standard file in_plasmerge_file into PlasEval file out_plaseval_file
+    using gzipped GFA file in_GFA_file for contigs length
+    PlasEval format is similar to PlasBin-flow ground truth format:
+    plasmid contig  contig_len
+    GT_2    21      78327
+    GT_2    32      22479
+    ...
+    """
+    ctgs_len = read_GFA_len(in_gfa_file, gzipped=True)
+    plasmerge_df = pd.read_csv(
+        in_plasmerge_file, sep='\t', header=0, skip_blank_lines=True, index_col=False
+    )
+    plaseval_df = pd.DataFrame(columns=['plasmid', 'contig', 'contig_len'])
+    for idx,row in plasmerge_df.iterrows():
+        pls_id = row['plasmid']
+        ctgs = row['contigs'].split(',')
+        for ctg in ctgs:
+            ctg_id = ctg.rsplit(':',1)[0]
+            ctg_mult = int(ctg.rsplit(':',1)[1])
+            ctg_len = ctgs_len[ctg_id]
+            plaseval_df.loc[len(plaseval_df)] = [pls_id, ctg_id, ctg_len]
+    plaseval_df.to_csv(out_plaseval_file, sep='\t', index=False, header=True)
 
 if __name__ == "__main__":
     import os
     import sys
 
-    # Converting a PlasBi-flow file
+    # Converting a PlasBin-flow file
     in_file = sys.argv[1]
     out_file = sys.argv[2]
     # Default format: PlasBin-flow
@@ -134,6 +159,13 @@ if __name__ == "__main__":
     elif sys.argv[3] == "gp":
         print("Input format: gplas")
         convert_gplas_output(in_file, out_file)
+    elif sys.argv[3] == "gt":
+        print("Input format: ground truth")
+        convert_pbf_ground_truth(in_file, out_file)
+    elif sys.argv[3] == "to_plaseval":
+        print("Output format: PlasEval")
+        in_gfa_file =sys.argv[4]
+        convert_to_plaseval(in_file, in_gfa_file, out_file)
     else:
         print("Unrecognized input format")
         exit(1)
