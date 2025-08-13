@@ -61,25 +61,37 @@ pbf_rfpl_bins 4055
 1234 plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 ```
 From now on the data file used is `plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv`.
+We will process the first 499 samples.
+```
+> head -500 plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv | grep -c abau
+92
+> head -500 plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv | grep -c ecol
+281
+> head -500 plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv | grep -c efae
+47
+> head -500 plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv | grep -c kpne
+79
+```
+High proportion of *E. coli* samples.
 
 
 ## PlasMerge
-Updating the slurm script `run_convert_all.sh` to process all (randomized) samples and convert the data into PlasMerge format.
+Converting the data into PlasMerge format.
 ```
 sbatch run_convert_all.sh
 ```
 No error.
 
-Updating the slurm scripts `run_plasmerge_*_all.sh` to process 499 randomized samples.
+Processing the first 499 randomized samples.
 ```
 sbatch run_plasmerge_gt_all.sh
 sbatch run_plasmerge_gp_all.sh
 sbatch run_plasmerge_pbf_all.sh
 sbatch run_plasmerge_mob_all.sh
 ```
-Redone on `2025-08-09` due to inconsistency in output directories between the scripts.
-Finished on `2028-08-11`.
-Checking results and recording success/errors.
+Redone on `2025-08-09` due to inconsistency in output directories between the scripts.  
+Finished on `2028-08-11`.  
+Checking results and recording success/errors.  
 ```
 > ./check_plasmerge_all.sh report_plasmerge_run1_20250811.txt 500
 ground_truth rfplasmid 2
@@ -103,8 +115,9 @@ plasbinflow mlplasmids 2
 > grep -c ERROR report_plasmerge_run1_20250811.txt
 149
 ```
-Overall 149 experiments did not complete.
-Report in `report_plasmerge_run1_20250811.txt` and samples to re-run in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge_errors_run1.csv` with one line per pair `(binning method,classification method)`. Failed samples listed in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge_errors_run1.samples.txt`
+Overall 149 experiments did not complete.  
+Report in `report_plasmerge_run1_20250811.txt` and samples to re-run in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge_errors_run1.csv` with one line per pair `(binning method,classification method)`.
+Failed samples listed in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge_errors_run1.samples.txt`
 ```
 > wc -l plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge_errors_run1.samples.txt
 50 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge_errors_run1.samples.txt
@@ -112,7 +125,7 @@ Report in `report_plasmerge_run1_20250811.txt` and samples to re-run in `plasmid
 Overall, 50 samples had at least one experiment that did not work (file `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge_errors_run1.samples.txt`) so all samples that did not work were in part due to `gplascc+mlplasmids`.
 
 ##  PlasEval
-`2025-08-11`: running an updated PlasEval (branch `rev_comp_output`) where the progam exits properly when the number of iterations is reached and the output is modified to iclud both normalized and non-normalized scores.
+`2025-08-11`: running an updated PlasEval (branch `rev_comp_output`) where the progam exits properly when the number of iterations is reached and the output is modified to include both normalized and non-normalized scores.  
 Parameters: `alpha=0.5, max_calls=1000000`.
 ```
 sbatch run_plasmerge_gt_all.sh
@@ -120,7 +133,7 @@ sbatch run_plasmerge_gp_all.sh
 sbatch run_plasmerge_pbf_all.sh
 sbatch run_plasmerge_mob_all.sh
 ```
-Finished on `2028-08-12`.
+Finished on `2028-08-12`.  
 Checking results and recording success/errors.
 ```
 > ./check_plaseval_all.sh report_plaseval_run1_20250812.txt 500
@@ -161,12 +174,12 @@ plasbinflow mlplasmids merged 4
 > grep -c ERROR report_plaseval_run1_20250812.txt
 601
 ```
-Overall 601 experiments did not complete either due to PlasMerge results not available or PlasEval failing.
-Report in `report_plaseval_run1_20250812.txt` and samples to re-run in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.csv` with one line per pair `(binning method,classification method,merged/unmerged)`. Failed samples listed in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.samples.txt`.
-There were a lot of failed runs of PlasEval with PlasBin-flow, or even surprisingly, with unmerged ground truth bins for which it should be trivial.
+Overall 601 experiments did not complete either due to PlasMerge results not available or PlasEval failing.  
+Report in `report_plaseval_run1_20250812.txt` and samples to re-run in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.csv` with one line per pair `(binning method,classification method,merged/unmerged)`. Failed samples listed in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.samples.txt`.  
+There were a lot of failed runs of PlasEval with PlasBin-flow, or even surprisingly, with unmerged ground truth bins for which it should be trivial.  
 ```
 > wc -l plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.samples.txt
 134 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.samples.txt
 ```
-Overall 134 samples had at least one error with either PlasMerge or PlasEval.
+Overall 134 samples had at least one error with either PlasMerge or PlasEval.  
 
