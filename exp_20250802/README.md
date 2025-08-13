@@ -236,6 +236,12 @@ merged.F1:      149 rows with NA
 So out of `7984` possible combinations, only `491` miss at least one result (PlasMerge or PlasEval).
 They will need to be looked at, but we can proceed with enough results.
 
+Creating scatter plots `merged` versus `unmerged` for all statistics.
+```
+> create_scatter_plots.sh
+```
+All figures are in `analysis/figures`.
+
 ##  PlasEval (2)
 `2025-08-13`: running PlasEval with parameters: `min_len=100, alpha=0.0, max_calls=1000000` and results in directory `eval_0/`.  
 Using `alpha=0` we will then record only the number of cuts and joins instead of the scores weighted by the lengh of the contigs.
