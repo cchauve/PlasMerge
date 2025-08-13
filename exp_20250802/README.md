@@ -1,5 +1,13 @@
 # PlasMege experiments
 
+The experiments aim to apply PlasMerge to a set of samples for which we have  
+- ground truth bins,  
+- classification scores obtained using `plasclass,plasgraph2,mlplasmids,rfplasmid`,  
+- binning results obtained with these classification scores and the methods `mobrecon` (does not use classification) and `gplascc,plasbinflow`.  
+For each combination `ground_truth,mobrecon,gplacc,plasbinflow x plasclass,plasgraph2,mlplasmids,rfplasmid`, we run PlasMerge and then compare
+the evaluation scores obtained with PlasEval for he unmered and merged bins.
+
+
 ## Data files
 Downloading data file from Aniket.
 ```
@@ -14,7 +22,7 @@ Downloading data file from Aniket.
 ## Checking data
 Checking data to filter out samples for which some file is missing.
 ```
-sbatch check_data.sh
+> sbatch check_data.sh
 ```
 Detected errors reported in `plasmids_benchmarking_2025-08-02_data.errors.txt`.
 High-level statistics on whic kinds of files are missing.
@@ -82,16 +90,16 @@ High proportion of *E. coli* samples.
 ## PlasMerge
 Converting the data into PlasMerge format.
 ```
-sbatch run_convert_all.sh
+> sbatch run_convert_all.sh
 ```
 No error.
 
 Processing the first 499 randomized samples.
 ```
-sbatch run_plasmerge_gt_all.sh
-sbatch run_plasmerge_gp_all.sh
-sbatch run_plasmerge_pbf_all.sh
-sbatch run_plasmerge_mob_all.sh
+> sbatch run_plasmerge_gt_all.sh
+> sbatch run_plasmerge_gp_all.sh
+> sbatch run_plasmerge_pbf_all.sh
+. sbatch run_plasmerge_mob_all.sh
 ```
 Redone on `2025-08-09` due to inconsistency in output directories between the scripts.  
 Finished on `2028-08-11`.  
@@ -128,9 +136,10 @@ Failed samples listed in `plasmids_benchmarking_2025-08-02_data.filtered.randomi
 ```
 Overall, 50 samples had at least one experiment that did not work (file `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge_errors_run1.samples.txt`) so all samples that did not work were in part due to `gplascc+mlplasmids`.
 
-##  PlasEval
+##  PlasEval (1)
 `2025-08-11`: running an updated PlasEval (branch `rev_comp_output`) where the progam exits properly when the number of iterations is reached and the output is modified to include both normalized and non-normalized scores.  
-Parameters: `alpha=0.5, max_calls=1000000`.
+Parameters: `min_len=100, alpha=0.5, max_calls=1000000`.  
+Results in directory `eval/`.  
 ```
 sbatch run_plasmerge_gt_all.sh
 sbatch run_plasmerge_gp_all.sh
@@ -187,3 +196,21 @@ There were a lot of failed runs of PlasEval with PlasBin-flow, or even surprisin
 ```
 Overall 134 out of 499 samples had at least one error with either PlasMerge or PlasEval.  
 
+##  PlasEval (2)
+`2025-08-13`: running PlasEval with parameters: `min_len=100, alpha=0.0, max_calls=1000000` and results in directory `eval_0/`.
+Using `alpha=0` we will then recod only the number of cuts and joins instead of the score weighted by the lengh of the contigs.
+```
+> tar czvf run_plaseval_all_05.tar.gz run_plaseval_*_all.sh
+> sed -i 's/ALPHA=0.5/ALPHA=0.0/g' run_plaseval_gp_all.sh
+> sed  's/\/eval\//\/eval_0\//g' run_plaseval_gp_all.sh
+> sed -i 's/ALPHA=0.5/ALPHA=0.0/g' run_plaseval_gt_all.sh
+> sed  's/\/eval\//\/eval_0\//g' run_plaseval_gt_all.sh
+> sed -i 's/ALPHA=0.5/ALPHA=0.0/g' run_plaseval_mob_all.sh
+> sed  's/\/eval\//\/eval_0\//g' run_plaseval_mob_all.sh
+> sed -i 's/ALPHA=0.5/ALPHA=0.0/g' run_plaseval_pbf_all.sh
+> sed  's/\/eval\//\/eval_0\//g' run_plaseval_pbf_all.sh
+> sbatch run_plaseval_gt_all.sh
+> sbatch run_plaseval_gp_all.sh
+> sbatch run_plaseval_pbf_all.sh
+> sbatch run_plaseval_mob_all.sh
+```
