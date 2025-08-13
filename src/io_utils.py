@@ -284,7 +284,7 @@ class Plasmids:
             self.pls_bins[pls_id] = [
                 (ctg.rsplit(':',1)[0],int(float(ctg.rsplit(':',1)[1])))
                 for ctg in ctgs
-            ] 
+            ]
             if assembly is not None:
                 # Min read depth of all contigs in the plasmid bin
                 self.copy_number[pls_id] = min([
@@ -452,51 +452,51 @@ class PBM_input():
         """
         return self.gc_bins
 
-# Testing the classes above
-if __name__ == "__main__":
-    import os
+# # Testing the classes above
+# if __name__ == "__main__":
+#     import os
     
-    samples = ['SAMN32247302', 'SAMN32247345', 'SAMN32247425', 'SAMN32247519', 'SAMN32247522']
-    root = os.path.normpath('../test')
-    gc_intervals_file = os.path.join(root, 'gc_intervals.txt')
-    sources = ['gt', 'mob', 'gp', 'pbf']
+#     samples = ['SAMN32247302', 'SAMN32247345', 'SAMN32247425', 'SAMN32247519', 'SAMN32247522']
+#     root = os.path.normpath('../test')
+#     gc_intervals_file = os.path.join(root, 'gc_intervals.txt')
+#     sources = ['gt', 'mob', 'gp', 'pbf']
     
-    for sample in samples:
-        print(f'SAMPLE: {sample}')
+#     for sample in samples:
+#         print(f'SAMPLE: {sample}')
     
-        gfa_file = os.path.join(root, 'gfas', f'{sample}.assembly.gfa.gz')
-        pls_scores_file = os.path.join(root, 'scores', f'{sample}.scores.tsv')
+#         gfa_file = os.path.join(root, 'gfas', f'{sample}.assembly.gfa.gz')
+#         pls_scores_file = os.path.join(root, 'scores', f'{sample}.scores.tsv')
         
-        assembly = Assembly(gfa_file, gzipped=True)
-        print(f'\tGFA\tnb contigs\t{assembly.get_nctgs()}')
-        print(f'\tGFA\tnb edges\t{assembly.get_nedges()}')
-        ctg_id = assembly.get_ctg_ids()[0]
-        ctg = assembly.get_ctg(ctg_id)
-        print(f'\tCONTIG {ctg_id} {ctg.get_len()} {ctg.get_rd()} {ctg.get_gc()} {ctg.get_gc_ratio()}')
-        print(f'\tConversion to networkx graph')
-        G = assembly.to_graph()
+#         assembly = Assembly(gfa_file, gzipped=True)
+#         print(f'\tGFA\tnb contigs\t{assembly.get_nctgs()}')
+#         print(f'\tGFA\tnb edges\t{assembly.get_nedges()}')
+#         ctg_id = assembly.get_ctg_ids()[0]
+#         ctg = assembly.get_ctg(ctg_id)
+#         print(f'\tCONTIG {ctg_id} {ctg.get_len()} {ctg.get_rd()} {ctg.get_gc()} {ctg.get_gc_ratio()}')
+#         print(f'\tConversion to networkx graph')
+#         G = assembly.to_graph()
 
-        gc_intervals = _read_gc_intervals(gc_intervals_file)
-        nb_gc_intervals = len(gc_intervals) - 1
+#         gc_intervals = _read_gc_intervals(gc_intervals_file)
+#         nb_gc_intervals = len(gc_intervals) - 1
 
-        for source in sources:
-            print(f'\tSOURCE: {source}')
+#         for source in sources:
+#             print(f'\tSOURCE: {source}')
             
-            pls_bins_file = os.path.join(root, 'pls_bins', f'{sample}.{source}.tsv')
+#             pls_bins_file = os.path.join(root, 'pls_bins', f'{sample}.{source}.tsv')
 
-            pbm_input = PBM_input(gfa_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True)            
+#             pbm_input = PBM_input(gfa_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True)            
 
-            if source == 'gt':
-                print(f'\tGC INTERVALS\t{pbm_input.get_gc_intervals()}')
-                gc_probs = pbm_input.get_gc_probs()
-                scores = pbm_input.get_pls_scores()
-                assembly = pbm_input.get_assembly()
-                ctg_id = assembly.get_ctg_ids()[0]
-                print(f'\tGC PROBA CONTIG {ctg_id}\t{gc_probs[ctg_id]}')
-                print(f'\tSCORE CONTIG {ctg_id}\t {scores[ctg_id]}')
-            pls_bins = pbm_input.get_pls_bins()
-            print(f'\tSOURCE\t{pls_bins.get_source()}')
-            print(f'\tPLASMID CONTENT\t{pls_bins.get_pls_content()}')
-            print(f'\tPLASMID COPY NUMBER\t{pls_bins.get_pls_copy_number()}')            
-            print(f'\tOPT GC BINS\t{pbm_input.get_gc_bins()}')
+#             if source == 'gt':
+#                 print(f'\tGC INTERVALS\t{pbm_input.get_gc_intervals()}')
+#                 gc_probs = pbm_input.get_gc_probs()
+#                 scores = pbm_input.get_pls_scores()
+#                 assembly = pbm_input.get_assembly()
+#                 ctg_id = assembly.get_ctg_ids()[0]
+#                 print(f'\tGC PROBA CONTIG {ctg_id}\t{gc_probs[ctg_id]}')
+#                 print(f'\tSCORE CONTIG {ctg_id}\t {scores[ctg_id]}')
+#             pls_bins = pbm_input.get_pls_bins()
+#             print(f'\tSOURCE\t{pls_bins.get_source()}')
+#             print(f'\tPLASMID CONTENT\t{pls_bins.get_pls_content()}')
+#             print(f'\tPLASMID COPY NUMBER\t{pls_bins.get_pls_copy_number()}')            
+#             print(f'\tOPT GC BINS\t{pbm_input.get_gc_bins()}')
 

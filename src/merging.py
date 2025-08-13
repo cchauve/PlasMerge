@@ -341,6 +341,7 @@ def merge_sample(
     if len(results) == 0:
         shutil.copy(pls_bins_file, out_merger_file)
         return
+    
     results['EDGE_WEIGHT'] = score_func(results)
     pbm_input = PBM_input(assembly_file, pls_scores_file, gc_intervals_file, pls_bins_file, source, gzipped=True, assembler=assembler)
     
