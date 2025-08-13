@@ -1,0 +1,215 @@
+sample_id	molecule_type	primary_cluster_id	secondary_cluster_id	contig_id	size	gc	md5	circularity_status	rep_type(s)	rep_type_accession(s)	relaxase_type(s)	relaxase_type_accession(s)	mpf_type	mpf_type_accession(s)	orit_type(s)	orit_accession(s)	predicted_mobility	mash_nearest_neighbor	mash_neighbor_distance	mash_neighbor_identification	repetitive_dna_id	repetitive_dna_type	filtering_reason
+SAMN32247519.fna	chromosome	-	-	1	236453	0.5124612502273179	b6c39f71498ed3d96c3efb154b4e49b3	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	2	216940	0.5092329676408224	4f3b20a8e1b5dc98a1297535eedf8e75	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	3	208805	0.5183783913220469	e3d55c603c995c236cf248505e54dd57	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	4	205412	0.5137187700815922	d9aa94493e2436139e6233de5c7ced15	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	5	203098	0.5139390835951118	99d9f5d063cdba16ae8a8d65bce62931	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	6	184823	0.5163210206521915	d65ad0469c286bbd04c49c42cb691b59	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	7	170970	0.4980990817102416	abe48edc2a2878df75282e187bc2503e	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	8	150168	0.524499227531831	8244781c909b3ef6d039d7204e939fa1	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	9	134411	0.5031284641881989	7b487fec016c9b70816d7db8dec61ae4	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	10	127627	0.5152984869972654	5cac997321e62ce5efc516dc5b29e0ab	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	11	127117	0.513983180849139	b9033b0f1b153dcb79a22fcbe6994f84	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	12	120448	0.4989373007438895	d4d923cdb4531fd3e0e2665a2380f333	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	13	113148	0.5100841375897055	02740c28569b788b19def9f195bf2571	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	14	106350	0.5074847202632816	18ef7db2345df4c44588fec52d2352ba	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	15	104941	0.5201398881276146	22e0fb834bdd63f1f4f7e0e663abaffe	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	16	100609	0.5137313759206433	f6ba6f645a1a83623203cde1e20221e6	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	17	95542	0.5047413702874128	0a15f72c172d153822dce6c151f0f512	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	18	94237	0.5137366427199508	aaa94bef24114419bc06f71d83c311a5	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	19	92665	0.48584686774941993	8f14d71560a44f1a008ac2439a4d272a	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	20	89478	0.5261852075370482	0ce833873431766dc41934e9e1987496	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	21	88944	0.5171905918330635	ba4b4fdc372c9fe5aab9c36bb32a6579	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	22	88522	0.5136011386999841	65f07a96259cdc9d256f5d5f4ab88ea6	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	23	86212	0.5122024776133253	5830d6e81bb7b9f6eed611df71ebfd08	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	24	71721	0.4857294237392117	c6b760ace72d6d0ad39441bc85c87fa2	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	25	67300	0.5207429420505201	4b26bb41cce523357f2d18c2185d096a	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	26	65735	0.49621966988666616	76ec5f265bc76ff4a323069f44f6fab5	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	27	63090	0.5146932952924393	142da4adc4fdcae8442bcf34196bb811	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	28	61995	0.5165577869182999	308086c6c5dbdf64515c01a56b6c89d2	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	29	57237	0.5072767615353705	dba3057d6c86a5d9499f8361d757a4e6	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	30	55347	0.5271830451514987	0778f18f0050582aab79e585b22f96ee	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	31	55101	0.5194098110742091	27d8d4d51a97cd00f93cfb4d2e44a9b8	not tested	IncFIC,rep_cluster_2244	AP001918,CP033091_00053	MOBF	NC_017627_00068	MPF_F,MPF_F,MPF_F,MPF_F,MPF_F,MPF_F,MPF_F,MPF_F,MPF_F,MPF_T,MPF_Unknown	NC_022651_00077,NC_010409_00124,NC_019094_00090,NC_017639_00094,NC_007675_00027,NC_017639_00100,NC_018966_00040,NC_010488_00021,NC_009837_00049,NC_013437_00116,08-5333_00200	MOBF	KU254581	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	32	55001	0.5132633952109962	a4f0403cadd63e28351df385ca557e90	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	33	54542	0.4825822302079132	05b3becd64c829aaeadc9941989c866e	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	34	50472	0.44749564114756696	f44f972c016a59b043b1100b036c43a8	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	35	47229	0.5230261068411357	f8123cf3c483dd3b2235b39a448684dc	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	36	44359	0.5109447913613923	e32aac4e42b1bb61ea891fbd383dee73	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	37	42845	0.46091725989030224	26779ae4f6ab7d88c24be7ce0c5a5d72	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	38	42193	0.4705756879103169	24595e255c005eaf89d025d1c8c0dcaa	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	39	40932	0.4935014169842666	65f3dfe8b7a2aea2fddbca533c43dc77	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	40	39925	0.5075767063243581	0a0bf2b08c5ac14621768e9fa7da848d	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	41	31310	0.520887895241137	4e10cf402b54c6d7bb2f7e7c569bcee1	not tested	-	-	MOBP	NC_021819_00066	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	42	30707	0.532223922884033	445301a5b6aa79c339eda295b9a9ef16	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	43	30045	0.4442003661174904	a96c868d5a9713112b9fd6d3fe9941dc	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	44	29815	0.4764044943820225	ac8e5501b4959b832912b59d668dec06	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	45	28899	0.5115747949756047	92fd35c1850ee54d2131c9198c0a518f	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	46	28523	0.5122883287171757	f107636550354f1391bee9a842d3474c	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	47	28217	0.48233334514654286	82601664f18a0f9628de3de3b13abeae	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	48	27232	0.4930596357226792	fdff5c53b728e9cd9bab6469c1fcdeb9	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	49	26686	0.5323015813535187	cf84569558d80a2fab3ae910b6c7f88c	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	50	26284	0.49817379394308325	7a396fcdfb8bab814dd3488a2eef410d	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	51	26047	0.5142242868660498	a26de51614077a72365014af24d6f944	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	52	25986	0.4995382128838605	336b05fd6ac0f77fc82dcbccc20d9ba2	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	53	24212	0.5107797786221708	80f5acf356ab286b9dfc5bab10692e3f	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	54	23469	0.5128467339895181	aacc1578052c3dcf8bae15cd539257aa	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	55	22012	0.43671633654370345	f12abd1a8a820bf7e7643e9a35b4a71e	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	56	21945	0.44456596035543405	bf65dbe904f7cfb6e86e340782182dc3	not tested	IncFIB	000095__NZ_CP014273_00094	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	57	21492	0.4944165270798437	2d80ce0bba56d9ab430fae73bb6ecab2	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	58	17392	0.5545078196872125	11ff1b154fd9d58a94558e343d3c320f	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	59	16946	0.5007081317124985	ec7a4dfe0ff2ee2b7e62e4413743e005	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	60	14483	0.5275150176068494	9f41d39784cb368b9778067a20733c2f	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	61	14340	0.5183403068340307	22605fd6bb4913edbb20676777cdc514	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	62	14208	0.46924268018018017	69087dce1e7e65fbe609086edcc2328a	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	63	13310	0.5054094665664913	08815925f78a80f2c1b100036927b007	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	64	12894	0.5034899953466728	592691aea62cc59a27b8f8455d64d155	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	65	12677	0.510609765717441	09425d1eae8d7e8194a176ac4fa44ee9	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	66	12138	0.4894546053715604	9fdea3e822b85b4878f3403fd54bb55e	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	67	11415	0.5053876478318002	6aa9eca85682e0af06ba1a55ed3659c5	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	68	10241	0.49477590079093836	bc3f2585df537a1528b63b27c190d22b	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	69	10161	0.44218088770790276	e2c7359e7d07141dbe7ba59fda80b913	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	70	9854	0.4803125634260199	a5f4ad13cbb373ba2f1d79587cc977fe	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	71	9740	0.4637577002053388	13dbdf50176560e4091fa9a304ff672c	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	72	9316	0.46811936453413483	e8a591547098053218e654113faa2b5d	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	73	9136	0.47559106830122594	4f692c25a727074ba5379fd0bd829a33	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	74	8413	0.3806014501366932	42a0871d689cee74a0579af37ea01dfc	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	75	7916	0.506821627084386	94aae6ee09a36da63ef20ee39146ab00	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	76	7637	0.4873641482257431	512b75bcc1e3a631e2fb8340e9b9791e	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	77	7094	0.524668734141528	d0016f1485d2784837ca4818b356b180	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA151	-	78	4936	0.47872771474878445	b8370efe8be7526d492769c72a58fa84	not tested	rep_cluster_2350	CP035723_00002	MOBP,MOBP	NC_016903_00002,NC_017321_00002	-	-	MOBP	NZ_CP016585	-	AY048853	0.0436329	Salmonella enterica	-	-	-
+SAMN32247519.fna	chromosome	-	-	79	4797	0.5015634771732332	a39e2a2844f1492adb0286c46e6150f2	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	80	4662	0.47425997425997424	755ce30e4598b84bd09b89e03ae57122	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA524	AI703	81	4656	0.523840206185567	4426e30a7bcfb434d18aadd46675bf33	not tested	ColRNAI_rep_cluster_1987	CP041116_00002	MOBP	NC_013090_00004	-	-	MOB_unknown	CP016722	-	CP032884	0.00384578	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	82	4403	0.45014762661821484	99b587518ed20cecb1435f5602eb0a0b	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	83	4260	0.4734741784037559	48d3086e4b89b5c244428a7d4035f33a	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	84	4088	0.5017123287671232	8dd31922a1e14430b1978f7969f01ecd	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	85	3069	0.40762463343108507	d2eb94da374aaa300ed03f95cd71fac2	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	86	2778	0.5338372930165587	20fbdf2f2f0112f20aaac75697182340	not tested	-	-	-	-	-	-	-	-	-	-	-	-	CP016586.1	23s-rRNA	repetitve element
+SAMN32247519.fna	plasmid	AA176	AH853	87	2735	0.459963436928702	47516f144b4c819fe5c617275a504612	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	88	2640	0.5265151515151515	1954d1634f03591f67a121ff5b7059de	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	89	2047	0.4513922813873962	1ce5ff092c4e19d7e06382f34f6dcf96	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	plasmid	AA176	AH853	90	1972	0.5172413793103449	ee8d1cbd67979399a1f424313a2ec2d5	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	EU330199	IS100X	repetitve element
+SAMN32247519.fna	plasmid	AA176	AH853	91	1826	0.47480832420591457	2c3e09d77f1835b7f0b7ed5c3fc2a62d	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	plasmid	AB685	AK562	92	1557	0.5118818240205524	ffb249035cc8d8378a156cf268f478c8	not tested	Col(MG828)	NC_008486	-	-	-	-	MOBP,MOB_unknown	CP001386,GQ900404	-	KM107846	0.0010072	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	93	1534	0.4002607561929596	49ee9f8eb0853b4774ee9b83f020e8ed	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	94	1508	0.6074270557029178	904bdc2a271c46da1e5203ac695164ce	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	95	1506	0.50199203187251	43bb8b543686f266e6ad5fcf67fa89de	not tested	Col(MG828)	NC_008486	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	96	1446	0.4405255878284924	b928ba19775567b167c1faf2e9a45858	not tested	-	-	-	-	-	-	-	-	-	-	-	-	CP001509	IS103	repetitve element
+SAMN32247519.fna	plasmid	AA176	AH853	97	1420	0.4288732394366197	1b2e936d1629b77d4944c8035c47f353	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	-	-	-
+SAMN32247519.fna	chromosome	-	-	98	1267	0.5169692186266772	842219a68c28b00c68a2abe6f0e79572	not tested	-	-	-	-	-	-	-	-	-	-	-	-	NC_000913	IS186A	repetitve element
+SAMN32247519.fna	chromosome	-	-	99	1198	0.5300500834724541	df85ba107b94677d11a344685303e3bc	not tested	-	-	-	-	-	-	-	-	-	-	-	-	MF458176	ISKox3	repetitve element
+SAMN32247519.fna	plasmid	AA176	AH853	100	1128	0.5416666666666666	ddd7fafa5081d3c9737dbd8167e5f9fd	not tested	-	-	-	-	-	-	-	-	-	CP031107	0.000931334	Escherichia coli	KX242350	ISEc17	repetitve element
+SAMN32247519.fna	chromosome	-	-	101	911	0.5554335894621295	5ac7e012d65afa84b17556175dcaf4dc	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	102	875	0.4582857142857143	8dfb3787d80dfabc1ff35d9302a5f6f5	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	103	786	0.6450381679389313	138521d92c806852fd67ec36b97180e7	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	104	701	0.47360912981455067	c7e1ad285eaa9d1826291e64b1059f2a	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	105	599	0.5475792988313857	f310a575d7166ef2dcdfe27cb81422e2	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	106	556	0.6492805755395683	7a6148aeb3bb4c38cc3f446cc9b463fa	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	107	548	0.5328467153284672	7ddf725f1571b7287d04a6fb19c25ea1	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	108	536	0.503731343283582	c3d0bd57c709758127dd0e5ddbbd7443	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	109	470	0.5276595744680851	ba95428869499c6021322a51a4819afe	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	110	468	0.47435897435897434	204eb7e5f6a36f0731d927df2abd1791	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	111	450	0.5511111111111111	0140bc70d58ae897ff692b9f92e1efb4	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	112	398	0.550251256281407	cc180afc14340bcd045de28015f46e21	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	113	332	0.5421686746987951	d51bf19115a8c0e36401356d380df355	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	114	280	0.4857142857142857	5048ca29b9845fb82d8594e58edfa6fb	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	115	271	0.6125461254612546	2c6b4dc1168eafc76215638e05154005	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	116	266	0.5338345864661654	86052dcea264ce2c5f53f5d105805fd0	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	117	238	0.46638655462184875	44eec5661f28ec227caab15900c4bdf9	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	118	224	0.4017857142857143	a6eb432b263e61ecaf6670bec2eb6b8e	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	119	212	0.5660377358490566	363ff7f95248f636a362453e27353df4	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	120	200	0.55	006a57261757ab201fe74ee55d5ecc89	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	121	200	0.57	6bea998870daa81428a78853708b8a1b	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	122	199	0.4371859296482412	f67a93d30d78e0d3380c12d7bd3cf304	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	123	196	0.5969387755102041	bfe928843a438775620d84fb13790179	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	124	195	0.4512820512820513	d983f5b1b1a7e2b587319916c61e1c42	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	125	188	0.5106382978723404	1afcfcf2a645b16a934e03dad30d8f53	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	126	185	0.6648648648648648	1afce0ee0cde13713154330f748eca40	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	127	173	0.5202312138728323	01e2b49073ea90683ad2f26f80169a90	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	128	155	0.4838709677419355	2c656b873c0cbb020acfd05c852dfd79	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	129	149	0.5771812080536913	7e35579cd01912d0ef432601d8c1d89d	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	130	144	0.4375	77288a62efe8ea032e23d75b0d1849b6	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	131	143	0.6573426573426573	ae203ea2ceb5a7512fcd8200fde16f65	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	132	143	0.6433566433566433	388320dafebe3c6badf7f35c02696df4	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	133	139	0.5683453237410072	2e002758173126fd07aeac54649afe25	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	134	137	0.5912408759124088	86355b7beed50d5c571d7308cf68152a	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	135	134	0.5298507462686567	c6f8231d5dc779beb7a8c725aacfe96e	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	136	133	0.5488721804511278	0139b95e2a8bf273f37968624464fae6	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	137	133	0.5864661654135338	e53d4d902ce344fe571dce4afccce964	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	138	133	0.5789473684210527	3dda7e251f0bb607f6b3c16f11d34f87	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	139	130	0.6076923076923076	bb29056b3358c22dcc63c40e2103d8b3	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	140	123	0.5934959349593496	64f9a8e71013bed3d031789bf4856de2	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	141	118	0.5084745762711864	0cce197ac2d3bf366e897629c4ada77c	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	142	118	0.5677966101694916	104a236f414f9e417a1b70053a51f457	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	143	117	0.6837606837606838	3efea2fbb4f96e9ccbb98d1a4cfb7ea2	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	144	117	0.5555555555555556	afae1fcb1b56305b6d5d4a47383c2eaa	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	145	114	0.5526315789473685	e4c3c186dcd680992a2bd3500de3439a	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	146	112	0.5714285714285714	aca9cb13b3323da8d3cc48dda7f5f094	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	147	109	0.48623853211009177	087a58ab36eaf87158ead516a3558886	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	148	101	0.5841584158415841	b13584ea58597e2abd1a778f03ba829e	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	149	96	0.6041666666666666	7ee803481acf597940221b0d0ac4e09b	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	150	85	0.4823529411764706	fe6c4c95c08bb3ee3f65dff48bf09871	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	151	82	0.3902439024390244	b468a6cb5df7e049f568ff6ae481a1a6	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	152	81	0.49382716049382713	60e74169715454b3f5bb135d01accc74	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	153	80	0.625	2abfa491c4ba4a342d53b5cd621a3fd9	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	154	79	0.5189873417721519	e398a95eb28eed8ab95a6ba61a0e4c68	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	155	78	0.5897435897435898	8fda9493a1d8d8c71eb87ff67a237e94	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	156	73	0.4383561643835616	71eb964b92c3921c468352fa719110d5	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	157	64	0.4375	552b9455104e7d11a09132938eaaff6b	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	158	64	0.53125	3b61bc1faa5ef73c6c7c7aabfcfdf2a0	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	159	63	0.4603174603174603	78f9afec2c5da6917648103c911b08ca	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	160	61	0.36065573770491804	80c465842cb0cde5230d4f5aa243ed45	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	161	60	0.35	4015a58af86a3003b85818b3faacae75	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	162	60	0.36666666666666664	218d6786754ce3e9172ce6381bedde22	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	163	60	0.36666666666666664	931c9318617c851392c344fc428d8eae	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	164	60	0.4166666666666667	251270d3e633b565757f728d68eb45cc	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	165	54	0.5555555555555556	d260841835ad7c96995da0fbec03011f	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	166	53	0.49056603773584906	646bc342e272d8f0a65db21380891e11	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	167	50	0.42	86f64f995d3bc7b7ce82c5043d684392	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	168	48	0.625	5418d18169bb133c8acf0213f9e4984b	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	169	45	0.5111111111111111	95b5dc0244bbf66bf5d3ae8f8a8e951b	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	170	45	0.4888888888888889	991f4fc954d3b1e97c0e95171a332103	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	171	43	0.5348837209302325	3ab3041e9a7258804b34e26c3d00871f	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	172	39	0.5897435897435898	fe801b24d2bc276ff59aecd2489106dd	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	173	39	0.5641025641025641	7f50cc85c319b21211e9b203d27a17ce	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	174	37	0.4864864864864865	6eaad095f4e67eeea5c27d274ef545d3	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	175	37	0.4864864864864865	12c519638d556c4e26eb094dddd1b219	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	176	35	0.5142857142857142	cbb57ec498cc5faee5a8366c0f34b391	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	177	29	0.5517241379310345	0c48c5fa871459ab3fd1e99dab94caaf	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	178	25	0.48	f778e82b241f0553cb0a58b0ace6bbc8	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	179	25	0.48	2b1dafc1de97423dd3aee4baf3ad1322	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	180	25	0.48	c58fc177e3fdcaee6dd8c24a0eb7859b	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	181	25	0.48	104ffcbef048b5b646e59df5c623505c	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	182	23	0.5217391304347826	3b9e368875462e27be08cac7e8c2a14a	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	183	14	0.42857142857142855	62cc3073a0b782f54c86949bde95b041	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	184	13	0.8461538461538461	12f87952987bf53f1ac9e984feefd9c0	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	185	11	0.5454545454545454	b7ff1f5678665a24cf63886735c9cfa7	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	186	11	0.2727272727272727	b5a1a366d5c24b45501db15f0641423d	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	187	11	0.6363636363636364	b86cebc249732caaecf4092fd672da22	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	188	10	0.5	c34a965cd91afb4724ece91b2f2f720e	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	189	9	0.7777777777777778	26dfe96ad804b1af22f6582b9de8dfe8	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	190	8	0.75	434cb86cbc9c0f03136ff49de3cae1dc	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	191	7	0.42857142857142855	87d3063d433212e0709a95b3429ed38a	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	192	7	0.7142857142857143	65bd8be60dbc5a9dab70386a973bb65f	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	193	6	0.3333333333333333	567d242ec0debbcd568d8d0616691abc	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	194	6	0.3333333333333333	cb8b8e1e736fdde97fb3ae3b8e866784	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	195	1	1.0	0d61f8370cad1d412f80b84d143e1257	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	196	1	0.0	b9ece18c950afbfa6b0fdbfa4ff731d3	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	197	1	1.0	0d61f8370cad1d412f80b84d143e1257	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	198	1	1.0	0d61f8370cad1d412f80b84d143e1257	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	199	1	0.0	7fc56270e7a70fa81a5935b72eacbe29	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	200	1	1.0	dfcf28d0734569a6a693bc8194de62bf	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	201	1	1.0	0d61f8370cad1d412f80b84d143e1257	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	202	1	0.0	7fc56270e7a70fa81a5935b72eacbe29	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	203	1	1.0	0d61f8370cad1d412f80b84d143e1257	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	204	1	0.0	7fc56270e7a70fa81a5935b72eacbe29	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	205	1	0.0	7fc56270e7a70fa81a5935b72eacbe29	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	206	1	1.0	dfcf28d0734569a6a693bc8194de62bf	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	207	1	1.0	dfcf28d0734569a6a693bc8194de62bf	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	208	1	0.0	b9ece18c950afbfa6b0fdbfa4ff731d3	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	209	1	0.0	b9ece18c950afbfa6b0fdbfa4ff731d3	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	210	1	0.0	7fc56270e7a70fa81a5935b72eacbe29	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	211	1	1.0	dfcf28d0734569a6a693bc8194de62bf	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	212	1	0.0	7fc56270e7a70fa81a5935b72eacbe29	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	213	1	0.0	7fc56270e7a70fa81a5935b72eacbe29	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+SAMN32247519.fna	chromosome	-	-	214	1	0.0	7fc56270e7a70fa81a5935b72eacbe29	not tested	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-

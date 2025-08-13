@@ -1,0 +1,14 @@
+		1.2	test/tmp/SAMN32247519.gp.1.2.sol
+Using license file /cvmfs/restricted.computecanada.ca/config/licenses/gurobi/clusters/cedar.lic
+Set parameter TokenServer to value license1.computecanada.ca
+WARNING	Model was not solved
+		1.3	test/tmp/SAMN32247519.gp.1.3.sol
+WARNING	Model was not solved
+		1.4	test/tmp/SAMN32247519.gp.1.4.sol
+WARNING	Model was not solved
+		2.3	test/tmp/SAMN32247519.gp.2.3.sol
+WARNING	Model was not solved
+		2.4	test/tmp/SAMN32247519.gp.2.4.sol
+WARNING	Model was not solved
+		3.4	test/tmp/SAMN32247519.gp.3.4.sol
+WARNING	Model was not solved
