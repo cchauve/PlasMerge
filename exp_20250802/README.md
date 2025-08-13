@@ -1,28 +1,44 @@
 # PlasMege experiments
 
 ## Data files
+Downloading data file from Aniket.
 ```
-wget https://github.com/acme92/benchmarking/blob/benchmarking_paths/plasmerge_experiments_paths.csv
-cp plasmerge_experiments_paths.csv plasmids_benchmarking_2025-08-02_data.csv
-head -1 plasmids_benchmarking_2025-08-02_data.csv | sed 's/,/ /g' | awk '{for(i=1;i<=NF;i++){printf("%d. %s\n",i,$i)}}' > plasmids_benchmarking_2025-08-02_data.txt
+> wget https://github.com/acme92/benchmarking/blob/benchmarking_paths/plasmerge_experiments_paths.csv
+> mv plasmerge_experiments_paths.csv plasmids_benchmarking_2025-08-02_data.csv
+> head -1 plasmids_benchmarking_2025-08-02_data.csv \
+  | sed 's/,/ /g' \
+  | awk '{for(i=1;i<=NF;i++){printf("%d. %s\n",i,$i)}}' \
+  > plasmids_benchmarking_2025-08-02_data.txt
 ```
 
 ## Checking data
-Reverting slurm script `check_data.sh` to handle all data.
+Checking data to filter out samples for which some file is missing.
 ```
 sbatch check_data.sh
 ```
-Checking results
+Detected errors reported in `plasmids_benchmarking_2025-08-02_data.errors.txt`.
+High-level statistics on whic kinds of files are missing.
 ```
 > wc -l plasmids_benchmarking_2025-08-02_data.csv
 2483
 > wc -l plasmids_benchmarking_2025-08-02_data.filtered.csv
 1234
-> cut -f 2 -d " " plasmids_benchmarking_2025-08-02_data.errors.txt | grep SKESA | sort -u | wc -l
+> cut -f 2 -d " " plasmids_benchmarking_2025-08-02_data.errors.txt \
+  | grep SKESA \
+  | sort -u \
+  | wc -l
 675
-> cut -f 2 -d " " plasmids_benchmarking_2025-08-02_data.errors.txt | grep UNICYCLER | sort -u | wc -l
+> cut -f 2 -d " " plasmids_benchmarking_2025-08-02_data.errors.txt \
+  | grep UNICYCLER \
+  | sort -u \
+  | wc -l
 574
-> cut -f 3 -d " " plasmids_benchmarking_2025-08-02_data.errors.txt | sort | awk 'BEGIN{TXT="";NB=0} {if($1!=TXT){printf("%s %d\n",TXT,NB);TXT=$1;} else{NB++;}}END{printf("%s %d\n",TXT,NB);}'
+> cut -f 3 -d " " plasmids_benchmarking_2025-08-02_data.errors.txt \
+  | sort \
+  | awk \
+  'BEGIN{TXT="";NB=0} \
+  {if($1!=TXT){printf("%s %d\n",TXT,NB);TXT=$1;} else{NB++;}}\
+  END{printf("%s %d\n",TXT,NB);}'
 gp_mlpl_bins 1107
 gp_plcl_bins 1317
 gp_plgr_bins 1779
@@ -37,28 +53,32 @@ pbf_rfpl_bins 4055
 
 ## Randomizing input
 ```
-> head -1 plasmids_benchmarking_2025-08-02_data.filtered.csv > plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
-> grep -v species_sample plasmids_benchmarking_2025-08-02_data.filtered.csv | shuf >> plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
+> head -1 plasmids_benchmarking_2025-08-02_data.filtered.csv \
+  > plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
+> grep -v species_sample plasmids_benchmarking_2025-08-02_data.filtered.csv \
+  | shuf >> plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 > wc -l plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 1234 plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 ```
+From now on the data file used is `plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv`.
+
 
 ## PlasMerge
-Updating the slurm script `run_convert_all.sh` to process 1234 randomized samples and convert the data in PlasMerge format.
+Updating the slurm script `run_convert_all.sh` to process all (randomized) samples and convert the data into PlasMerge format.
 ```
 sbatch run_convert_all.sh
 ```
-No error
+No error.
 
-Updating the slurm scripts `run_plasmerge_*_all.sh` to process 500 randomized samples.
+Updating the slurm scripts `run_plasmerge_*_all.sh` to process 499 randomized samples.
 ```
 sbatch run_plasmerge_gt_all.sh
 sbatch run_plasmerge_gp_all.sh
 sbatch run_plasmerge_pbf_all.sh
 sbatch run_plasmerge_mob_all.sh
 ```
-Redone on 2025-08-09 due to inconsistency in output directories between the scripts.
-Finished on 2028-08-11.
+Redone on `2025-08-09` due to inconsistency in output directories between the scripts.
+Finished on `2028-08-11`.
 Checking results and recording success/errors.
 ```
 > ./check_plasmerge_all.sh report_plasmerge_run1_20250811.txt 500
@@ -100,7 +120,7 @@ sbatch run_plasmerge_gp_all.sh
 sbatch run_plasmerge_pbf_all.sh
 sbatch run_plasmerge_mob_all.sh
 ```
-Finished on 2028-08-12.
+Finished on `2028-08-12`.
 Checking results and recording success/errors.
 ```
 > ./check_plaseval_all.sh report_plaseval_run1_20250812.txt 500
@@ -150,12 +170,3 @@ There were a lot of failed runs of PlasEval with PlasBin-flow, or even surprisin
 ```
 Overall 134 samples had at least one error with either PlasMerge or PlasEval.
 
-## TODO
-
-Collect all PlasEval results in a csv file, one line per (sample,assembler,classifiation,binning) with unmerged and merged results, full score and score components, both normalized and not normalized.
-In what follows, focus on normalized scores.
-Create one scatter plot per (classification,binning) with merged score versus unmerged score.
-Create two charts per (merged/unmerged) with one violin plot of PlasEval score for each (classfication/binning).
-Repeat above but per component of the score.
-Repeat above but with on chart showing the difference merged-unmerged.
-Repeat all above with not normalized scores.
