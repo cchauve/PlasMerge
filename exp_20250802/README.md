@@ -5,7 +5,7 @@ The experiments aim to apply PlasMerge to a set of samples for which we have
 - classification scores obtained using `plasclass,plasgraph2,mlplasmids,rfplasmid`,  
 - binning results obtained with these classification scores and the methods `mobrecon` (does not use classification) and `gplascc,plasbinflow`.  
 For each combination `ground_truth,mobrecon,gplacc,plasbinflow x plasclass,plasgraph2,mlplasmids,rfplasmid`, we run PlasMerge and then compare
-the evaluation scores obtained with PlasEval for he unmered and merged bins.
+the evaluation scores obtained with PlasEval for the unmerged and merged bins.
 
 
 ## Data files
