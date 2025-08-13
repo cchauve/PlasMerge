@@ -1,4 +1,4 @@
-# PlasMege experiments
+# PlasMerge experiments
 
 The experiments aim to apply PlasMerge to a set of samples for which we have  
 - ground truth bins,  
