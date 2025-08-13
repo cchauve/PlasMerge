@@ -50,9 +50,9 @@ pbf_plcl_bins 4035
 pbf_plgr_bins 4047
 pbf_rfpl_bins 4055
 ```
-For half of the samples, at least one file is missing.
-Both assemblers are involved in errors.
-All methods sow many errors, with `mlplasmids` failing a very large number of times.  
+For half of the samples, at least one file is missing.  
+Both assemblers are involved in errors.  
+All methods sow many errors, with `mlplasmids` failing a very large number of times.   
 
 ## Randomizing input
 We will randomize the error-free samples an process 499 of them. 
@@ -64,7 +64,7 @@ We will randomize the error-free samples an process 499 of them.
 > wc -l plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 1234 plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 ```
-From now on the data file used is `plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv`.
+From now on the data file used is `plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv`.  
 We will process the first 499 samples.
 ```
 > head -500 plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv | grep -c abau
@@ -185,5 +185,5 @@ There were a lot of failed runs of PlasEval with PlasBin-flow, or even surprisin
 > wc -l plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.samples.txt
 134 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.samples.txt
 ```
-Overall 134 samples had at least one error with either PlasMerge or PlasEval.  
+Overall 134 out of 499 samples had at least one error with either PlasMerge or PlasEval.  
 
