@@ -1,0 +1,4 @@
+compare_sets - INFO - Maximum possible matchings: 1
+compare_sets - INFO - Time taken: 0.001718282699584961
+compare_sets - INFO - Number of function calls: 4
+compare_sets - INFO - {'468': ([['468', 0, 260]], [['468', 0, 7]]), '246': ([['246', 0, 119]], [['246', 0, 4]]), '325': ([['325', 0, 232]], [['325', 0, 5]]), '183': ([['183', 0, 261]], [['183', 0, 3]])}

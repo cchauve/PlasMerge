@@ -1,0 +1,4 @@
+compare_sets - INFO - Maximum possible matchings: 1
+compare_sets - INFO - Time taken: 0.0013763904571533203
+compare_sets - INFO - Number of function calls: 2
+compare_sets - INFO - {'99': ([['99', 2, 1]], [['99', 1, 1]]), '7': ([['7', 1, 2]], [['7', 0, 1]])}

@@ -1,0 +1,4 @@
+compare_sets - INFO - Maximum possible matchings: 1
+compare_sets - INFO - Time taken: 0.0013778209686279297
+compare_sets - INFO - Number of function calls: 2
+compare_sets - INFO - {'117': ([['117', 0, 1]], [['117', 1, 1]]), '108': ([['108', 1, 1]], [['108', 0, 7]])}
