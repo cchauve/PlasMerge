@@ -1,0 +1,86 @@
+#Precision: Proportion of correctedly identified contigs for each prediction
+>Precision details
+#Predicted_bin	Unwtd_Precision	Unwtd_Reference_plasmid	Wtd_Precision	Wtd_Reference_plasmid
+GP_0	0.0	NA	0.0	NA
+GP_Isolated_0	0.0	NA	0.0	NA
+GP_3	0.0	NA	0.0	NA
+GP_Isolated_1	1.0	GT_5	1.0	GT_5
+GP_Isolated_2	0.0	NA	0.0	NA
+GP_Isolated_3	0.0	NA	0.0	NA
+GP_Isolated_4	0.0	NA	0.0	NA
+GP_Isolated_5	0.0	NA	0.0	NA
+GP_Isolated_6	0.0	NA	0.0	NA
+GP_Isolated_7	1.0	GT_5	1.0	GT_5
+GP_1	1.0	GT_7	1.0	GT_7
+GP_2	0.0	NA	0.0	NA
+GP_Isolated_8	0.0	NA	0.0	NA
+GP_Isolated_9	0.0	NA	0.0	NA
+GP_Isolated_10	0.0	NA	0.0	NA
+GP_Isolated_11	1.0	GT_5	1.0	GT_5
+GP_Isolated_12	0.0	NA	0.0	NA
+GP_Isolated_13	0.0	NA	0.0	NA
+GP_Isolated_14	0.0	NA	0.0	NA
+GP_Isolated_15	0.0	NA	0.0	NA
+GP_4	0.0	NA	0.0	NA
+GP_Isolated_16	0.0	NA	0.0	NA
+GP_Isolated_17	0.0	NA	0.0	NA
+GP_Isolated_18	0.0	NA	0.0	NA
+GP_Isolated_19	0.0	NA	0.0	NA
+GP_Isolated_20	0.0	NA	0.0	NA
+GP_Isolated_21	0.0	NA	0.0	NA
+GP_Isolated_22	1.0	GT_5	1.0	GT_5
+GP_Isolated_23	0.0	NA	0.0	NA
+GP_Isolated_24	0.0	NA	0.0	NA
+GP_Isolated_25	1.0	GT_5	1.0	GT_5
+GP_Isolated_26	0.0	NA	0.0	NA
+GP_Isolated_27	0.0	NA	0.0	NA
+GP_Isolated_28	0.0	NA	0.0	NA
+GP_Isolated_29	0.0	NA	0.0	NA
+GP_Isolated_30	0.0	NA	0.0	NA
+GP_Isolated_31	1.0	GT_6	1.0	GT_6
+GP_Isolated_32	0.0	NA	0.0	NA
+GP_Isolated_33	0.0	NA	0.0	NA
+GP_Isolated_34	1.0	GT_5	1.0	GT_5
+GP_Isolated_35	0.0	NA	0.0	NA
+GP_Isolated_36	0.0	NA	0.0	NA
+GP_unb_1	0.0	NA	0.0	NA
+GP_Isolated_37	0.0	NA	0.0	NA
+GP_Isolated_38	0.0	NA	0.0	NA
+GP_unb_2	0.0	NA	0.0	NA
+GP_Isolated_39	0.0	NA	0.0	NA
+GP_Isolated_40	0.0	NA	0.0	NA
+GP_Isolated_41	0.0	NA	0.0	NA
+GP_Isolated_42	1.0	GT_5	1.0	GT_5
+GP_Isolated_43	0.0	NA	0.0	NA
+GP_Isolated_44	1.0	GT_5	1.0	GT_5
+GP_Isolated_45	0.0	NA	0.0	NA
+GP_Isolated_46	0.0	NA	0.0	NA
+GP_Isolated_47	0.0	NA	0.0	NA
+GP_Isolated_48	1.0	GT_5	1.0	GT_5
+GP_Isolated_49	0.0	NA	0.0	NA
+GP_Isolated_50	1.0	GT_5	1.0	GT_5
+GP_Isolated_51	1.0	GT_5	1.0	GT_5
+GP_Isolated_52	0.0	NA	0.0	NA
+GP_Isolated_53	0.0	NA	0.0	NA
+GP_Isolated_54	1.0	GT_5	1.0	GT_5
+GP_Isolated_55	0.0	NA	0.0	NA
+GP_Isolated_56	0.0	NA	0.0	NA
+GP_Isolated_57	1.0	GT_5	1.0	GT_5
+GP_Isolated_58	0.0	NA	0.0	NA
+GP_Isolated_59	1.0	GT_5	1.0	GT_5
+GP_Isolated_60	0.0	NA	0.0	NA
+GP_Isolated_61	0.0	NA	0.0	NA
+
+#Recall: Proportion of correctedly identified contigs for each reference
+>Recall details
+#Reference_plasmid	Unwtd_Recall	Unwtd_Predicted_bin	Wtd_Recall	Wtd_Predicted_bin
+GT_5	0.0667	GP_Isolated_1	0.1592	GP_Isolated_44
+GT_7	1.0	GP_1	1.0	GP_1
+GT_6	0.25	GP_Isolated_31	0.0537	GP_Isolated_31
+
+#Final statistics (Unwtd and Wtd)
+>Overall details
+#Overall_statistic	Unwtd_statistic	Wtd_statistic
+Precision	0.20512820512820512	0.30012527148331813
+Recall	0.15	0.26327413765240343
+F1	0.1732851985559567	0.2804945151031547
