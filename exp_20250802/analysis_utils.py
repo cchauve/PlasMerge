@@ -328,19 +328,19 @@ if __name__ == "__main__":
             max_idx=nb_samples,
             verbose=True
         )
-    elif cmd == "fig_aggregated":
+    elif cmd == "scatter_aggregated":
         csv_file = sys.argv[2]            #"analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv"
         out_dir = sys.argv[3]             #"analysis/figures"
         columns = sys.argv[4].split(",")  #"Dissimilarity"
         title1 = "+".join(columns)        
         title = f"All samples {title1}"
         out_file_name = "_".join(columns)
-        out_file = os.path.join(out_dir, f"fig_{out_file_name}_aggregated.png")
+        out_file = os.path.join(out_dir, f"scatter_{out_file_name}_aggregated.png")
         create_unmerged_vs_merged_scatter_plot(
             csv_file, columns, out_file, title, aggregate=True
         )
 
-    elif cmd == "fig_combination":
+    elif cmd == "scatter_combination":
         csv_file = sys.argv[2]            #"analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv"
         out_dir = sys.argv[3]             #"analysis/figures"
         columns = sys.argv[4].split(",")  #"Dissimilarity"
@@ -349,7 +349,7 @@ if __name__ == "__main__":
         title1 = "+".join(columns)        
         title = f"{binning}+{classification} {title1}"
         out_file_name = "_".join(columns)
-        out_file = os.path.join(out_dir, f"fig_{out_file_name}_{binning}_{classification}.png")
+        out_file = os.path.join(out_dir, f"scatter_{out_file_name}_{binning}_{classification}.png")
         create_unmerged_vs_merged_scatter_plot(
             csv_file, columns, out_file, title,
             aggregate=False, binning=binning, classification=classification
