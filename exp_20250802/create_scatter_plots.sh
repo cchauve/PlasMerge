@@ -45,7 +45,7 @@ do
     do
 	for CLASSIFICATION in ${RFPLASMID} ${PLASCLASS} ${PLASGRAPH} ${MLPLASMIDS};
 	do
-	    logger -s "---" ${BINNING} ${CLASSIFICATION}
+	    logger -s "   " ${BINNING} ${CLASSIFICATION}
 	    python analysis_utils.py \
 		   scatter_combination \
 		   ${DATA_FILE} \
