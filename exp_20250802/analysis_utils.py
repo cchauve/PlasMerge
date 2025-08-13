@@ -305,12 +305,13 @@ def create_unmerged_vs_merged_scatter_plot(
             &
             (filtered_df["classification"]==classification)
         ]
+    nb_data_points = plot_df.shape[0]
 
     plot_df.plot.scatter(x=unmerged_cols, y=merged_cols, grid=True)
     plt.plot([0,1],[0,1],"k-")
     plt.xlabel(unmerged_cols)
     plt.ylabel(merged_cols)
-    plt.title(out_title)
+    plt.title(f"{out_title} (n={nb_data_points})")
     plt.savefig(out_file)
             
 if __name__ == "__main__":
