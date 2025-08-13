@@ -197,8 +197,8 @@ There were a lot of failed runs of PlasEval with PlasBin-flow, or even surprisin
 Overall 134 out of 499 samples had at least one error with either PlasMerge or PlasEval.  
 
 ##  PlasEval (2)
-`2025-08-13`: running PlasEval with parameters: `min_len=100, alpha=0.0, max_calls=1000000` and results in directory `eval_0/`.
-Using `alpha=0` we will then recod only the number of cuts and joins instead of the score weighted by the lengh of the contigs.
+`2025-08-13`: running PlasEval with parameters: `min_len=100, alpha=0.0, max_calls=1000000` and results in directory `eval_0/`.  
+Using `alpha=0` we will then record only the number of cuts and joins instead of the scores weighted by the lengh of the contigs.
 ```
 > tar czvf run_plaseval_all_05.tar.gz run_plaseval_*_all.sh
 > sed -i 's/ALPHA=0.5/ALPHA=0.0/g' run_plaseval_gp_all.sh
