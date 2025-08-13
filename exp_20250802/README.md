@@ -196,6 +196,46 @@ There were a lot of failed runs of PlasEval with PlasBin-flow, or even surprisin
 ```
 Overall 134 out of 499 samples had at least one error with either PlasMerge or PlasEval.  
 
+## Analysis
+We first collect all results (PlasEval scores) into a single CSV file `analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv` with some statistics on samples with issues in in `analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt`.
+
+```
+> source ../../env_plaseval/bin/activate
+> python analysis_utils.py csv \
+  plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv \
+  eval \
+  analysis plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv \
+  499 \
+  > analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
+> cat analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
+Number of rows: 7984
+Number of rows with NA: 491
+unmerged.nb_bins:       149 rows with NA
+unmerged.nb_ctgs:       149 rows with NA
+unmerged.len_ctgs:      149 rows with NA
+unmerged.Dissimilarity: 483 rows with NA
+unmerged.Extra_ctgs:    483 rows with NA
+unmerged.Missing_ctgs:  483 rows with NA
+unmerged.Cuts:  483 rows with NA
+unmerged.Joins: 483 rows with NA
+unmerged.Precision:     149 rows with NA
+unmerged.Recall:        149 rows with NA
+unmerged.F1:    149 rows with NA
+merged.nb_bins: 149 rows with NA
+merged.nb_ctgs: 149 rows with NA
+merged.len_ctgs:        149 rows with NA
+merged.Dissimilarity:   248 rows with NA
+merged.Extra_ctgs:      248 rows with NA
+merged.Missing_ctgs:    248 rows with NA
+merged.Cuts:    248 rows with NA
+merged.Joins:   248 rows with NA
+merged.Precision:       149 rows with NA
+merged.Recall:  149 rows with NA
+merged.F1:      149 rows with NA
+```
+So out of `7984` possible combinations, only `491` miss at least one result (PlasMerge or PlasEval).
+They will need to be looked at, but we can proceed with enough results.
+
 ##  PlasEval (2)
 `2025-08-13`: running PlasEval with parameters: `min_len=100, alpha=0.0, max_calls=1000000` and results in directory `eval_0/`.  
 Using `alpha=0` we will then record only the number of cuts and joins instead of the scores weighted by the lengh of the contigs.
