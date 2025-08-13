@@ -206,7 +206,7 @@ We first collect all results (PlasEval scores) into a single CSV file `analysis/
   eval \
   analysis plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv \
   499 \
-  > analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
+> analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
 > cat analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
 Number of rows: 7984
 Number of rows with NA: 491
