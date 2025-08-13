@@ -50,8 +50,12 @@ pbf_plcl_bins 4035
 pbf_plgr_bins 4047
 pbf_rfpl_bins 4055
 ```
+For half of the samples, at least one file is missing.
+Both assemblers are involved in errors.
+All methods sow many errors, with `mlplasmids` failing a very large number of times.  
 
 ## Randomizing input
+We will randomize the error-free samples an process 499 of them. 
 ```
 > head -1 plasmids_benchmarking_2025-08-02_data.filtered.csv \
   > plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
@@ -91,7 +95,7 @@ sbatch run_plasmerge_mob_all.sh
 ```
 Redone on `2025-08-09` due to inconsistency in output directories between the scripts.  
 Finished on `2028-08-11`.  
-Checking results and recording success/errors.  
+Checking results and recording success/errors.    
 ```
 > ./check_plasmerge_all.sh report_plasmerge_run1_20250811.txt 500
 ground_truth rfplasmid 2
