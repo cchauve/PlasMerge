@@ -4,9 +4,11 @@
 HOME_DIR=/scratch/chauvec/PLASMERGE/PlasMerge/
 BIN_DIR=/${HOME_DIR}/src/
 EXP_DIR=${HOME_DIR}/exp_20250802/
-INPUT_DIR=${EXP_DIR}/eval/
+#INPUT_DIR=${EXP_DIR}/eval/
+INPUT_DIR=${EXP_DIR}/eval_0/
 OUTPUT_DIR=${EXP_DIR}/analysis/
-FIG_DIR=${OUTPUT_DIR}/figures/
+#FIG_DIR=${OUTPUT_DIR}/figures/
+FIG_DIR=${OUTPUT_DIR}/figures_0/
 DATA_FILE=${OUTPUT_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv
 
 # Methods
@@ -30,7 +32,8 @@ MISSING="Missing_ctgs"
 NB_BINS="nb_bins"
 NB_CTGS="nb_ctgs"
 LEN_CTGS="len_ctgs"
-STATS=${PREC}","${REC}","${F1}","${DISSIM}","${CUTS}","${JOINS}","${EXTRA}","${MISSING}
+#STATS=${PREC}","${REC}","${F1}","${DISSIM}","${CUTS}","${JOINS}","${EXTRA}","${MISSING}
+STATS=${DISSIM}","${CUTS}","${JOINS}","${EXTRA}","${MISSING}
 
 source ${HOME_DIR}/../env_plaseval/bin/activate
 

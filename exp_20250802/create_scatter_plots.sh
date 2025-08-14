@@ -4,9 +4,11 @@
 HOME_DIR=/scratch/chauvec/PLASMERGE/PlasMerge/
 BIN_DIR=/${HOME_DIR}/src/
 EXP_DIR=${HOME_DIR}/exp_20250802/
-INPUT_DIR=${EXP_DIR}/eval/
+#INPUT_DIR=${EXP_DIR}/eval/
+INPUT_DIR=${EXP_DIR}/eval_0/
 OUTPUT_DIR=${EXP_DIR}/analysis/
-FIG_DIR=${OUTPUT_DIR}/figures/
+#FIG_DIR=${OUTPUT_DIR}/figures/
+FIG_DIR=${OUTPUT_DIR}/figures_0/
 DATA_FILE=${OUTPUT_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv
 
 # Methods
@@ -35,7 +37,8 @@ LEN_CTGS="len_ctgs"
 
 source ${HOME_DIR}/../env_plaseval/bin/activate
 
-for STAT in ${PREC} ${REC} ${F1} ${DISSIM} ${CUTS} ${JOINS} ${CUTS_JOINS} ${EXTRA} ${MISSING} ${CTGS} ${NB_BINS} ${NB_CTGS} ${LEN_CTGS}
+#for STAT in ${PREC} ${REC} ${F1} ${DISSIM} ${CUTS} ${JOINS} ${CUTS_JOINS} ${EXTRA} ${MISSING} ${CTGS} ${NB_BINS} ${NB_CTGS} ${LEN_CTGS}
+for STAT in ${DISSIM} ${CUTS} ${JOINS} ${CUTS_JOINS} ${EXTRA} ${MISSING} ${CTGS} 
 do
     logger -s ${STAT}
     python analysis_utils.py \
