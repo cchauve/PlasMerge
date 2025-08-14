@@ -99,7 +99,7 @@ Processing the first 499 randomized samples.
 > sbatch run_plasmerge_gt_all.sh
 > sbatch run_plasmerge_gp_all.sh
 > sbatch run_plasmerge_pbf_all.sh
-. sbatch run_plasmerge_mob_all.sh
+> sbatch run_plasmerge_mob_all.sh
 ```
 Redone on `2025-08-09` due to inconsistency in output directories between the scripts.  
 Finished on `2028-08-11`.  
@@ -141,54 +141,23 @@ Overall, 50 samples had at least one experiment that did not work (file `plasmid
 Parameters: `min_len=100, alpha=0.5, max_calls=1000000`.  
 Results in directory `eval/`.  
 ```
-sbatch run_plasmerge_gt_all.sh
-sbatch run_plasmerge_gp_all.sh
-sbatch run_plasmerge_pbf_all.sh
-sbatch run_plasmerge_mob_all.sh
+> sbatch run_plasmerge_gt_all.sh
+> sbatch run_plasmerge_gp_all.sh
+. sbatch run_plasmerge_pbf_all.sh
+> sbatch run_plasmerge_mob_all.sh
 ```
 Finished on `2028-08-12`.  
 Checking results and recording success/errors.
 ```
 > ./check_plaseval_all.sh report_plaseval_run1_20250812.txt 500
-ground_truth rfplasmid unmerged 2
-ground_truth rfplasmid merged 4
-ground_truth plasclass unmerged 2
-ground_truth plasclass merged 2
-ground_truth plasgraph2 unmerged 2
-ground_truth plasgraph2 merged 3
-ground_truth mlplasmids unmerged 3
-ground_truth mlplasmids merged 4
-gplascc rfplasmid unmerged 5
-gplascc rfplasmid merged 3
-gplascc plasclass unmerged 39
-gplascc plasclass merged 36
-gplascc plasgraph2 unmerged 38
-gplascc plasgraph2 merged 37
-gplascc mlplasmids unmerged 56
-gplascc mlplasmids merged 51
-mobrecon rfplasmid unmerged 1
-mobrecon rfplasmid merged 1
-mobrecon plasclass unmerged 2
-mobrecon plasclass merged 2
-mobrecon plasgraph2 unmerged 2
-mobrecon plasgraph2 merged 2
-mobrecon mlplasmids unmerged 2
-mobrecon mlplasmids merged 2
-plasbinflow rfplasmid unmerged 43
-plasbinflow rfplasmid merged 2
-plasbinflow plasclass unmerged 96
-plasbinflow plasclass merged 18
-plasbinflow plasgraph2 unmerged 61
-plasbinflow plasgraph2 merged 12
-plasbinflow mlplasmids unmerged 64
-plasbinflow mlplasmids merged 4
 > grep -c SUCCESS report_plaseval_run1_20250812.txt
 15367
 > grep -c ERROR report_plaseval_run1_20250812.txt
 601
 ```
 Overall 601 experiments did not complete either due to PlasMerge results not available or PlasEval failing.  
-Report in `report_plaseval_run1_20250812.txt` and samples to re-run in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.csv` with one line per pair `(binning method,classification method,merged/unmerged)`. Failed samples listed in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.samples.txt`.  
+Report in `report_plaseval_run1_20250812.txt` and samples to re-run in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.csv` with one line per pair `(binning method,classification method,merged/unmerged)`.  
+Failed samples listed in `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.samples.txt`.  
 There were a lot of failed runs of PlasEval with PlasBin-flow, or even surprisingly, with unmerged ground truth bins for which it should be trivial.  
 ```
 > wc -l plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval_errors_run1.samples.txt
@@ -204,9 +173,10 @@ We first collect all results (PlasEval scores) into a single CSV file `analysis/
 > python analysis_utils.py csv \
   plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv \
   eval \
-  analysis plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv \
+  analysis \
+  plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv \
   499 \
-> analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
+  > analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
 > cat analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
 Number of rows: 7984
 Number of rows with NA: 491
@@ -236,7 +206,7 @@ merged.F1:      149 rows with NA
 So out of `7984` possible combinations, only `491` miss at least one result (PlasMerge or PlasEval).
 They will need to be looked at, but we can proceed with enough results.
 
-Creating scatter and difference boxplots plots `merged` versus `unmerged` for all statistics.
+Creating scatter and difference violin plots plots `merged` versus `unmerged` for all statistics.
 ```
 > create_scatter_plots.sh
 > create_difference_plots.sh
@@ -245,7 +215,7 @@ All figures are in `analysis/figures`.
 
 ##  PlasEval (2)
 `2025-08-13`: running PlasEval with parameters: `min_len=100, alpha=0.0, max_calls=1000000` and results in directory `eval_0/`.  
-Using `alpha=0` we will then record only the number of cuts and joins instead of the scores weighted by the lengh of the contigs.
+Using `alpha=0` the statistics are only based on the number of cuts and joins instead of being weighted by the lengh of the contigs.
 ```
 > tar czvf run_plaseval_all_05.tar.gz run_plaseval_*_all.sh
 > sed -i 's/ALPHA=0.5/ALPHA=0.0/g' run_plaseval_gp_all.sh
@@ -260,4 +230,51 @@ Using `alpha=0` we will then record only the number of cuts and joins instead of
 > sbatch run_plaseval_gp_all.sh
 > sbatch run_plaseval_pbf_all.sh
 > sbatch run_plaseval_mob_all.sh
+```
+
+Finished on `2028-08-14`.  
+Checking results and recording success/errors: edit `check_plaseval_all.sh`, `create_scatter_plots.sh`, `create_difference_plots.sh` to create report file `report_plaseval_run1_20250814.txt`, use directories `eval_0` and `analysis/figures_0` for figures ad consider only relevant statistics.
+```
+> ./check_plaseval_all.sh report_plaseval_run1_20250814.txt 500
+> grep -c SUCCESS report_plaseval_run1_20250814.txt
+
+> grep -c ERROR report_plaseval_run1_20250814.txt
+
+```
+```
+> source ../../env_plaseval/bin/activate
+> python analysis_utils.py csv \
+  plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv \
+  eval_0 \
+  analysis \
+  plasmids_benchmarking_2025-08-02_data.filtered.randomized.results_0.csv \
+  499 \
+  > analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results_0.NA.txt
+> cat analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results_0.NA.txt
+Number of rows: 7984
+Number of rows with NA: 374
+unmerged.nb_bins:       149 rows with NA
+unmerged.nb_ctgs:       149 rows with NA
+unmerged.len_ctgs:      149 rows with NA
+unmerged.Dissimilarity: 373 rows with NA
+unmerged.Extra_ctgs:    373 rows with NA
+unmerged.Missing_ctgs:  373 rows with NA
+unmerged.Cuts:  373 rows with NA
+unmerged.Joins: 373 rows with NA
+unmerged.Precision:     149 rows with NA
+unmerged.Recall:        149 rows with NA
+unmerged.F1:    149 rows with NA
+merged.nb_bins: 149 rows with NA
+merged.nb_ctgs: 149 rows with NA
+merged.len_ctgs:        149 rows with NA
+merged.Dissimilarity:   224 rows with NA
+merged.Extra_ctgs:      224 rows with NA
+merged.Missing_ctgs:    224 rows with NA
+merged.Cuts:    224 rows with NA
+merged.Joins:   224 rows with NA
+merged.Precision:       149 rows with NA
+merged.Recall:  149 rows with NA
+merged.F1:      149 rows with NA
+> create_scatter_plots.sh
+> create_difference_plots.sh
 ```
