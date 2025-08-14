@@ -25,14 +25,12 @@ F1="F1"
 DISSIM="Dissimilarity"
 CUTS="Cuts"
 JOINS="Joins"
-CUTS_JOINS="Cuts,Joins"
 EXTRA="Extra_ctgs"
 MISSING="Missing_ctgs"
-CTGS="Extra_ctgs,Missing_ctgs"
 NB_BINS="nb_bins"
 NB_CTGS="nb_ctgs"
 LEN_CTGS="len_ctgs"
-STATS=${PREC}","${REC}","${F1}","${DISSIM}","${CUTS}","${JOINS}","${CUTS_JOINS}","${EXTRA}","${MISSING}","${CTGS}
+STATS=${PREC}","${REC}","${F1}","${DISSIM}","${CUTS}","${JOINS}","${EXTRA}","${MISSING}
 
 source ${HOME_DIR}/../env_plaseval/bin/activate
 

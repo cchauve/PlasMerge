@@ -355,14 +355,15 @@ def create_unmerged_vs_merged_difference_boxplot(
     if aggregate is True:
         plot_df = filtered_df[diff_cols]
     else:
-        plot_df =  filtered_df.loc[
+        plot_df_aux =  filtered_df.loc[
             (filtered_df["binning"]==binning)
             &
             (filtered_df["classification"]==classification)
-        ][diff_cols]
+        ]
+        plot_df = plot_df_aux[diff_cols]
     nb_data_points = plot_df.shape[0]
 
-    plot_df.plot.box(grid=True)
+    plot_df.plot.box(grid=True, rot=90)
     plt.xlabel(diff_cols)
     plt.title(f"{out_title} (n={nb_data_points})")
     plt.savefig(out_file)
@@ -414,7 +415,7 @@ if __name__ == "__main__":
         csv_file = sys.argv[2]            #"analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv"
         out_dir = sys.argv[3]             #"analysis/figures"
         columns = sys.argv[4].split(",")  #"Dissimilarity,Cuts,Joins" or "all"
-        title = f"All samples"
+        title = f"Merged-unmerged - all samples"
         out_file_name = "_".join(columns)
         out_file = os.path.join(out_dir, f"diff_{out_file_name}_aggregated.png")
         create_unmerged_vs_merged_difference_boxplot(
@@ -427,7 +428,7 @@ if __name__ == "__main__":
         columns = sys.argv[4].split(",")  #"Dissimilarity,Cuts,Joins" or "all"
         binning = sys.argv[5]
         classification = sys.argv[6]
-        title = f"{binning}+{classification}"
+        title = f"erged-unmerged - {binning}+{classification}"
         out_file_name = "_".join(columns)
         out_file = os.path.join(out_dir, f"diff_{out_file_name}_{binning}_{classification}.png")
         create_unmerged_vs_merged_difference_boxplot(
