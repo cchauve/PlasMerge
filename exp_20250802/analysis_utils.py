@@ -363,7 +363,7 @@ def create_unmerged_vs_merged_difference_boxplot(
         plot_df = plot_df_aux[diff_cols]
     nb_data_points = plot_df.shape[0]
 
-    plot_df.plot.box(grid=True, rot=90)
+    plot_df.plot.box(grid=True, rot=45)
     plt.xlabel(diff_cols)
     plt.title(f"{out_title} (n={nb_data_points})")
     plt.savefig(out_file)
