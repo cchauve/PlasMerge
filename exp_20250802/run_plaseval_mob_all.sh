@@ -16,7 +16,7 @@ PLASEVAL_BIN_DIR=/${HOME_DIR}/../PlasEval/src/
 EXP_DIR=${HOME_DIR}/exp_20250802/
 INPUT_PLASMERGE_DIR=${EXP_DIR}/input/
 OUTPUT_PLASMERGE_DIR=${EXP_DIR}/output/
-OUTPUT_PLASEVAL_DIR=${EXP_DIR}/eval/
+OUTPUT_PLASEVAL_DIR=${EXP_DIR}/eval_0/
 DATA_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 
 # Sample and input files
@@ -63,7 +63,7 @@ OUTPUT_BINNING_MLPLASMIDS_FILE=${SAMPLE_OUTPUT_PLASMERGE_DIR}/${EXP_ID}_${BINNIN
 
 # Running Plasval
 MIN_LEN=100
-ALPHA=0.5
+ALPHA=0.0
 MAX_RECURSIVE_CALLS=1000000
 
 logger -s  "#" ${EXP_ID} " running " ${PE} " on " ${BINNING} " min_len=" ${MIN_LEN} " alpha=" ${ALPHA} " max_calls=" ${MAX_RECURSIVE_CALLS}
