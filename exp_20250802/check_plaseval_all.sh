@@ -4,7 +4,8 @@
 HOME_DIR=/scratch/chauvec/PLASMERGE/PlasMerge/
 BIN_DIR=/${HOME_DIR}/src/
 EXP_DIR=${HOME_DIR}/exp_20250802/
-OUTPUT_DIR=${EXP_DIR}/eval/
+#OUTPUT_DIR=${EXP_DIR}/eval/
+OUTPUT_DIR=${EXP_DIR}/eval_0/
 DATA_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 
 REPORT_FILE=$1
@@ -142,29 +143,29 @@ do
     done
 done
 
-ERRORS_FILE=${REPORT_FILE}.errors
-grep ERROR ${REPORT_FILE} > ${ERRORS_FILE}
-HEADER=`head -1 ${DATA_FILE} `",bining,classification,bins"
-RUN_ERRORS_FILE=`echo ${DATA_FILE} | sed 's/csv/plaseval_errors_run1.csv/g'`
-echo ${HEADER} > ${RUN_ERRORS_FILE}
-for BINNING in ${GT} ${GP} ${MOB} ${PBF};
-do
-    for CLASSIFICATION in ${RFPLASMID} ${PLASCLASS} ${PLASGRAPH} ${MLPLASMIDS};
-    do
-        for BINS in ${UNMERGED} ${MERGED};
-	do
-	    ERRORS_FILE_METHOD=${ERRORS_FILE}.${BINNING}_${CLASSIFICATION}_${BINS}
-            grep ${BINNING}_${CLASSIFICATION}_${BINS} ${ERRORS_FILE} | sed 's/_/ /g' | awk '{printf("%s,%s\n",$6,$7)}' > ${ERRORS_FILE_METHOD}
-            cat ${ERRORS_FILE_METHOD} | while read line
-            do
-		SAMPLE=`grep ${line} ${DATA_FILE}`","${BINNING}","${CLASSIFICATION}","${BINS}
-		echo ${SAMPLE} >> ${RUN_ERRORS_FILE}
-            done
-            echo ${BINNING} ${CLASSIFICATION} ${BINS} `wc -l ${ERRORS_FILE_METHOD} | awk '{print $1}'`
-            rm -f ${ERRORS_FILE_METHOD}
-	done
-    done
-done
-rm -f ${ERRORS_FILE}
-RUN_ERRORS_SAMPLES_FILE=`echo ${RUN_ERRORS_FILE} | sed 's/csv/samples.txt/g'`
-cut -f1,2 -d"," ${RUN_ERRORS_FILE} | grep -v "sample" | sort -u > ${RUN_ERRORS_SAMPLES_FILE}
+# ERRORS_FILE=${REPORT_FILE}.errors
+# grep ERROR ${REPORT_FILE} > ${ERRORS_FILE}
+# HEADER=`head -1 ${DATA_FILE} `",bining,classification,bins"
+# RUN_ERRORS_FILE=`echo ${DATA_FILE} | sed 's/csv/plaseval_errors_run1.csv/g'`
+# echo ${HEADER} > ${RUN_ERRORS_FILE}
+# for BINNING in ${GT} ${GP} ${MOB} ${PBF};
+# do
+#     for CLASSIFICATION in ${RFPLASMID} ${PLASCLASS} ${PLASGRAPH} ${MLPLASMIDS};
+#     do
+#         for BINS in ${UNMERGED} ${MERGED};
+# 	do
+# 	    ERRORS_FILE_METHOD=${ERRORS_FILE}.${BINNING}_${CLASSIFICATION}_${BINS}
+#             grep ${BINNING}_${CLASSIFICATION}_${BINS} ${ERRORS_FILE} | sed 's/_/ /g' | awk '{printf("%s,%s\n",$6,$7)}' > ${ERRORS_FILE_METHOD}
+#             cat ${ERRORS_FILE_METHOD} | while read line
+#             do
+# 		SAMPLE=`grep ${line} ${DATA_FILE}`","${BINNING}","${CLASSIFICATION}","${BINS}
+# 		echo ${SAMPLE} >> ${RUN_ERRORS_FILE}
+#             done
+#             echo ${BINNING} ${CLASSIFICATION} ${BINS} `wc -l ${ERRORS_FILE_METHOD} | awk '{print $1}'`
+#             rm -f ${ERRORS_FILE_METHOD}
+# 	done
+#     done
+# done
+# rm -f ${ERRORS_FILE}
+# RUN_ERRORS_SAMPLES_FILE=`echo ${RUN_ERRORS_FILE} | sed 's/csv/samples.txt/g'`
+# cut -f1,2 -d"," ${RUN_ERRORS_FILE} | grep -v "sample" | sort -u > ${RUN_ERRORS_SAMPLES_FILE}
