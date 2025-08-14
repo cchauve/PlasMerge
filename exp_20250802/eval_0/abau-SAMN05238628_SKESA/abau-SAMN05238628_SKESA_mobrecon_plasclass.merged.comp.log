@@ -1,0 +1,4 @@
+compare_sets - INFO - Maximum possible matchings: 1
+compare_sets - INFO - Time taken: 0.0024261474609375
+compare_sets - INFO - Number of function calls: 6
+compare_sets - INFO - {'Contig:60:1384.17': ([['Contig:60:1384.17', 0, 10]], [['Contig:60:1384.17', 1, 1]]), 'Contig:24:250.187': ([['Contig:24:250.187', 0, 3]], [['Contig:24:250.187', 0, 3]]), 'Contig:22:268.672': ([['Contig:22:268.672', 0, 2]], [['Contig:22:268.672', 0, 2]]), 'Contig:101:257.712': ([['Contig:101:257.712', 0, 1]], [['Contig:101:257.712', 0, 1]]), 'Contig:83:269.999': ([['Contig:83:269.999', 0, 8]], [['Contig:83:269.999', 0, 4]]), 'Contig:9:270.385': ([['Contig:9:270.385', 0, 9]], [['Contig:9:270.385', 0, 5]])}

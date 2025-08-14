@@ -1,0 +1,7 @@
+Total_ctg_length	261316
+Total_ctg_length_alpha	20.0
+Cuts	1.0	0.05
+Joins	1.0	0.05
+Extra_ctgs	1.0	0.05
+Missing_ctgs	3.0	0.15
+Dissimilarity	6.0	0.3

@@ -1,0 +1,53 @@
+#Precision: Proportion of correctedly identified contigs for each prediction
+>Precision details
+#Predicted_bin	Unwtd_Precision	Unwtd_Reference_plasmid	Wtd_Precision	Wtd_Reference_plasmid
+GP_Isolated_0	1.0	GT_3	1.0	GT_3
+GP_1	0.6667	GT_4	0.8929	GT_4
+GP_unb_3,GP_0,GP_unb_6,GP_unb_1,GP_2,GP_unb_4,GP_6,GP_unb_7,GP_unb_5	0.3	GT_2	0.1281	GT_2
+GP_Isolated_1	1.0	GT_3	1.0	GT_3
+GP_Isolated_2	1.0	GT_3	1.0	GT_3
+GP_Isolated_3	1.0	GT_3	1.0	GT_3
+GP_Isolated_4	1.0	GT_3	1.0	GT_3
+GP_Isolated_5	1.0	GT_2	1.0	GT_2
+GP_4	1.0	GT_2	1.0	GT_2
+GP_Isolated_6	1.0	GT_2	1.0	GT_2
+GP_Isolated_7	1.0	GT_3	1.0	GT_3
+GP_Isolated_8	1.0	GT_3	1.0	GT_3
+GP_Isolated_9	1.0	GT_3	1.0	GT_3
+GP_3	1.0	GT_6	1.0	GT_6
+GP_Isolated_10	1.0	GT_3	1.0	GT_3
+GP_Isolated_11	1.0	GT_3	1.0	GT_3
+GP_Isolated_12	1.0	GT_2	1.0	GT_2
+GP_Isolated_13	1.0	GT_3	1.0	GT_3
+GP_unb_2	1.0	GT_4	1.0	GT_4
+GP_Isolated_14	1.0	GT_3	1.0	GT_3
+GP_5	0.75	GT_2	0.8213	GT_2
+GP_Isolated_15	1.0	GT_2	1.0	GT_2
+GP_Isolated_16	1.0	GT_2	1.0	GT_2
+GP_7	1.0	GT_5	1.0	GT_5
+GP_Isolated_17	1.0	GT_3	1.0	GT_3
+GP_Isolated_18	1.0	GT_2	1.0	GT_2
+GP_Isolated_19	1.0	GT_2	1.0	GT_2
+GP_Isolated_20	1.0	GT_2	1.0	GT_2
+GP_Isolated_21	1.0	GT_3	1.0	GT_3
+GP_Isolated_22	1.0	GT_3	1.0	GT_3
+GP_Isolated_23	1.0	GT_3	1.0	GT_3
+GP_Isolated_24	1.0	GT_3	1.0	GT_3
+GP_Isolated_25	1.0	GT_3	1.0	GT_3
+GP_Isolated_26	1.0	GT_3	1.0	GT_3
+
+#Recall: Proportion of correctedly identified contigs for each reference
+>Recall details
+#Reference_plasmid	Unwtd_Recall	Unwtd_Predicted_bin	Wtd_Recall	Wtd_Predicted_bin
+GT_3	0.0667	GP_unb_3,GP_0,GP_unb_6,GP_unb_1,GP_2,GP_unb_4,GP_6,GP_unb_7,GP_unb_5	0.2386	GP_Isolated_23
+GT_4	0.6667	GP_1	0.9882	GP_1
+GT_2	0.2903	GP_unb_3,GP_0,GP_unb_6,GP_unb_1,GP_2,GP_unb_4,GP_6,GP_unb_7,GP_unb_5	0.2169	GP_unb_3,GP_0,GP_unb_6,GP_unb_1,GP_2,GP_unb_4,GP_6,GP_unb_7,GP_unb_5
+GT_6	1.0	GP_3	1.0	GP_3
+GT_5	1.0	GP_7	1.0	GP_7
+
+#Final statistics (Unwtd and Wtd)
+>Overall details
+#Overall_statistic	Unwtd_statistic	Wtd_statistic
+Precision	0.6883116883116883	0.6317156416148815
+Recall	0.2571428571428571	0.5026303722539497
+F1	0.3744113029827315	0.5598282432722447

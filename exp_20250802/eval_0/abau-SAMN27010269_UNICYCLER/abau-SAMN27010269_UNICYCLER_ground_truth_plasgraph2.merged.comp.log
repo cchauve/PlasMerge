@@ -1,0 +1,4 @@
+compare_sets - INFO - Maximum possible matchings: 1
+compare_sets - INFO - Time taken: 0.0018393993377685547
+compare_sets - INFO - Number of function calls: 3
+compare_sets - INFO - {'144': ([['144', 0, 1]], [['144', 0, 1]]), '275': ([['275', 1, 1]], [['275', 1, 1]]), '309': ([['309', 2, 1]], [['309', 2, 1]])}

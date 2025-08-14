@@ -1,0 +1,28 @@
+#Precision: Proportion of correctedly identified contigs for each prediction
+>Precision details
+#Predicted_bin	Unwtd_Precision	Unwtd_Reference_plasmid	Wtd_Precision	Wtd_Reference_plasmid
+PBF_P1	1.0	GT_5	1.0	GT_5
+PBF_P2	1.0	GT_6	1.0	GT_6
+PBF_P3	0.8	GT_3	0.5981	GT_2
+PBF_P4	0.7778	GT_3	0.5732	GT_3
+PBF_P5	0.88	GT_3	0.9249	GT_3
+PBF_P6	0.4	GT_3	0.9906	GT_3
+PBF_P7	1.0	GT_2	1.0	GT_2
+PBF_P8	1.0	GT_4	1.0	GT_4
+PBF_P9	1.0	GT_2	1.0	GT_2
+
+#Recall: Proportion of correctedly identified contigs for each reference
+>Recall details
+#Reference_plasmid	Unwtd_Recall	Unwtd_Predicted_bin	Wtd_Recall	Wtd_Predicted_bin
+GT_4	0.6667	PBF_P8	0.464	PBF_P8
+GT_3	0.3684	PBF_P3	0.6626	PBF_P5
+GT_2	0.6364	PBF_P3	0.6612	PBF_P3
+GT_5	1.0	PBF_P1	1.0	PBF_P1
+GT_6	1.0	PBF_P2	1.0	PBF_P2
+
+#Final statistics (Unwtd and Wtd)
+>Overall details
+#Overall_statistic	Unwtd_statistic	Wtd_statistic
+Precision	0.8037383177570093	0.7333248860872189
+Recall	0.44660194174757284	0.6431216032174732
+F1	0.574165457184325	0.685267578629837
