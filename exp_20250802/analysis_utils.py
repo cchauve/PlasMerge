@@ -266,7 +266,7 @@ def create_unmerged_vs_merged_scatter_plot(
         aggregate=True, binning=None, classification=None
 ):
     """
-    Creates a scatter plot of the sum of unmeged.in_col1 columns (unmerged values)
+    Creates a scatter plot of the sum of unmerged.in_col1 columns (unmerged values)
     versus the sum of merged.in_col (merged values) and saves it in a PNG file
     Input:
     - in_csv_file: file containing all results
@@ -308,9 +308,62 @@ def create_unmerged_vs_merged_scatter_plot(
     nb_data_points = plot_df.shape[0]
 
     plot_df.plot.scatter(x=unmerged_cols, y=merged_cols, grid=True)
-    plt.plot([0,1],[0,1],"k-")
+    xmax = plot_df[unmerged_cols].max()
+    ymax = plot_df[merged_cols].max()
+    plt.plot([0,xmax],[0,ymax],"k-")
     plt.xlabel(unmerged_cols)
     plt.ylabel(merged_cols)
+    plt.title(f"{out_title} (n={nb_data_points})")
+    plt.savefig(out_file)
+
+def create_unmerged_vs_merged_difference_boxplot(
+        in_results_file, out_file, out_title,
+        in_cols="all",
+        aggregate=True, binning=None, classification=None
+):
+    """
+    Creates a boxplot of the difference between unmeged and merged statistics
+    for statistics in and saves it in a PNG file
+    Input:
+    - in_csv_file: file containing all results
+    - out_file: PNG file name
+    - out_title: figure title
+    - in_cols: list of column names (default: all)
+    - aggregate: boolean
+      if True: all combination (binning,classfication) in one plot
+      if False: one plot per combination (binning,classfication)
+    """
+    in_df = pd.read_csv(in_results_file, sep=",", header=0)
+    # List of columns to consider
+    unmerged_cols_list = [f"unmerged.{col}" for col in in_cols]
+    merged_cols_list = [f"merged.{col}" for col in in_cols]
+    # Dropping rows with NA in some of these columns
+    filtered_df = in_df.dropna(subset=unmerged_cols_list+merged_cols_list)
+    # Updating the data frame to add columns with the differences to plot
+    if in_cols == "all":
+        cols = BINS_DICT_KEYS+STATS_DICT_KEYS+SCORES_DICT_KEYS
+    else:
+        cols = in_cols
+    diff_cols = [f"diff.{col}" for col in cols]
+    for col in cols:
+        unmerged_col = f"unmerged.{col}"
+        merged_col = f"merged.{col}"
+        diff_col = f"diff.{col}"
+        filtered_df.loc[:, diff_col] = filtered_df[merged_col] - filtered_df[unmerged_col]
+
+    # Plotting
+    if aggregate is True:
+        plot_df = filtered_df[diff_cols]
+    else:
+        plot_df =  filtered_df.loc[
+            (filtered_df["binning"]==binning)
+            &
+            (filtered_df["classification"]==classification)
+        ][diff_cols]
+    nb_data_points = plot_df.shape[0]
+
+    plot_df.plot.box(grid=True)
+    plt.xlabel(diff_cols)
     plt.title(f"{out_title} (n={nb_data_points})")
     plt.savefig(out_file)
             
@@ -329,6 +382,7 @@ if __name__ == "__main__":
             max_idx=nb_samples,
             verbose=True
         )
+        
     elif cmd == "scatter_aggregated":
         csv_file = sys.argv[2]            #"analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv"
         out_dir = sys.argv[3]             #"analysis/figures"
@@ -355,3 +409,31 @@ if __name__ == "__main__":
             csv_file, columns, out_file, title,
             aggregate=False, binning=binning, classification=classification
         )
+        
+    elif cmd == "diff_aggregated":
+        csv_file = sys.argv[2]            #"analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv"
+        out_dir = sys.argv[3]             #"analysis/figures"
+        columns = sys.argv[4].split(",")  #"Dissimilarity,Cuts,Joins" or "all"
+        title = f"All samples"
+        out_file_name = "_".join(columns)
+        out_file = os.path.join(out_dir, f"diff_{out_file_name}_aggregated.png")
+        create_unmerged_vs_merged_difference_boxplot(
+            csv_file, out_file, title, in_cols=columns, aggregate=True
+        )
+
+    elif cmd == "diff_combination":
+        csv_file = sys.argv[2]            #"analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv"
+        out_dir = sys.argv[3]             #"analysis/figures"
+        columns = sys.argv[4].split(",")  #"Dissimilarity,Cuts,Joins" or "all"
+        binning = sys.argv[5]
+        classification = sys.argv[6]
+        title = f"{binning}+{classification}"
+        out_file_name = "_".join(columns)
+        out_file = os.path.join(out_dir, f"diff_{out_file_name}_{binning}_{classification}.png")
+        create_unmerged_vs_merged_difference_boxplot(
+            csv_file, out_file, title, in_cols=columns,
+            aggregate=False, binning=binning, classification=classification
+        )
+
+        
+        

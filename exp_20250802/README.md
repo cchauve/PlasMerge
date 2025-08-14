@@ -236,9 +236,10 @@ merged.F1:      149 rows with NA
 So out of `7984` possible combinations, only `491` miss at least one result (PlasMerge or PlasEval).
 They will need to be looked at, but we can proceed with enough results.
 
-Creating scatter plots `merged` versus `unmerged` for all statistics.
+Creating scatter and difference boxplots plots `merged` versus `unmerged` for all statistics.
 ```
 > create_scatter_plots.sh
+> create_difference_plots.sh
 ```
 All figures are in `analysis/figures`.
 

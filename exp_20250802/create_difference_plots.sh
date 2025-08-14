@@ -32,30 +32,28 @@ CTGS="Extra_ctgs,Missing_ctgs"
 NB_BINS="nb_bins"
 NB_CTGS="nb_ctgs"
 LEN_CTGS="len_ctgs"
+STATS=${PREC}","${REC}","${F1}","${DISSIM}","${CUTS}","${JOINS}","${CUTS_JOINS}","${EXTRA}","${MISSING}","${CTGS}
 
 source ${HOME_DIR}/../env_plaseval/bin/activate
 
-for STAT in ${PREC} ${REC} ${F1} ${DISSIM} ${CUTS} ${JOINS} ${CUTS_JOINS} ${EXTRA} ${MISSING} ${CTGS} ${NB_BINS} ${NB_CTGS} ${LEN_CTGS}
-do
-    logger -s ${STAT}
-    python analysis_utils.py \
-	   scatter_aggregated \
-	   ${DATA_FILE} \
-	   ${FIG_DIR} \
-	   ${STAT}
+logger -s ${STATS}
+python analysis_utils.py \
+       diff_aggregated \
+       ${DATA_FILE} \
+       ${FIG_DIR} \
+       ${STATS}
 
-    for BINNING in ${GT} ${GP} ${MOB} ${PBF};
+for BINNING in ${GT} ${GP} ${MOB} ${PBF};
+do
+    for CLASSIFICATION in ${RFPLASMID} ${PLASCLASS} ${PLASGRAPH} ${MLPLASMIDS};
     do
-	for CLASSIFICATION in ${RFPLASMID} ${PLASCLASS} ${PLASGRAPH} ${MLPLASMIDS};
-	do
-	    logger -s "   " ${BINNING} ${CLASSIFICATION}
-	    python analysis_utils.py \
-		   scatter_combination \
-		   ${DATA_FILE} \
-		   ${FIG_DIR} \
-		   ${STAT} \
-		   ${BINNING} \
-		   ${CLASSIFICATION}
-	done
+	logger -s "   " ${BINNING} ${CLASSIFICATION}
+	python analysis_utils.py \
+	       diff_combination \
+	       ${DATA_FILE} \
+	       ${FIG_DIR} \
+	       ${STATS} \
+	       ${BINNING} \
+	       ${CLASSIFICATION}
     done
 done
