@@ -362,7 +362,6 @@ def create_unmerged_vs_merged_difference_boxplot(
         ]
         plot_df = plot_df_aux[diff_cols]
     nb_data_points = plot_df.shape[0]
-
     plot_df.plot.box(grid=True, rot=15)
     plt.xlabel(diff_cols)
     plt.title(f"{out_title} (n={nb_data_points})")
@@ -428,7 +427,7 @@ if __name__ == "__main__":
         columns = sys.argv[4].split(",")  #"Dissimilarity,Cuts,Joins" or "all"
         binning = sys.argv[5]
         classification = sys.argv[6]
-        title = f"erged-unmerged - {binning}+{classification}"
+        title = f"Merged-unmerged - {binning}+{classification}"
         out_file_name = "_".join(columns)
         out_file = os.path.join(out_dir, f"diff_{out_file_name}_{binning}_{classification}.png")
         create_unmerged_vs_merged_difference_boxplot(
