@@ -165,54 +165,6 @@ There were a lot of failed runs of PlasEval with PlasBin-flow, or even surprisin
 ```
 Overall 134 out of 499 samples had at least one error with either PlasMerge or PlasEval.  
 
-## Analysis
-We first collect all results (PlasEval scores) into a single CSV file `analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv` with some statistics on samples with issues in in `analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt`.
-
-```
-> source ../../env_plaseval/bin/activate
-> python analysis_utils.py csv \
-  plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv \
-  eval \
-  analysis \
-  plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.csv \
-  499 \
-  > analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
-> cat analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
-Number of rows: 7984
-Number of rows with NA: 491
-unmerged.nb_bins:       149 rows with NA
-unmerged.nb_ctgs:       149 rows with NA
-unmerged.len_ctgs:      149 rows with NA
-unmerged.Dissimilarity: 483 rows with NA
-unmerged.Extra_ctgs:    483 rows with NA
-unmerged.Missing_ctgs:  483 rows with NA
-unmerged.Cuts:  483 rows with NA
-unmerged.Joins: 483 rows with NA
-unmerged.Precision:     149 rows with NA
-unmerged.Recall:        149 rows with NA
-unmerged.F1:    149 rows with NA
-merged.nb_bins: 149 rows with NA
-merged.nb_ctgs: 149 rows with NA
-merged.len_ctgs:        149 rows with NA
-merged.Dissimilarity:   248 rows with NA
-merged.Extra_ctgs:      248 rows with NA
-merged.Missing_ctgs:    248 rows with NA
-merged.Cuts:    248 rows with NA
-merged.Joins:   248 rows with NA
-merged.Precision:       149 rows with NA
-merged.Recall:  149 rows with NA
-merged.F1:      149 rows with NA
-```
-So out of `7984` possible combinations, only `491` miss at least one result (PlasMerge or PlasEval).
-They will need to be looked at, but we can proceed with enough results.
-
-Creating scatter and difference violin plots plots `merged` versus `unmerged` for all statistics.
-```
-> create_scatter_plots.sh
-> create_difference_plots.sh
-```
-All figures are in `analysis/figures`.
-
 ##  PlasEval (2)
 `2025-08-13`: running PlasEval with parameters: `min_len=100, alpha=0.0, max_calls=1000000` and results in directory `eval_0/`.  
 Using `alpha=0` the statistics are only based on the number of cuts and joins instead of being weighted by the lengh of the contigs.
@@ -237,44 +189,117 @@ Checking results and recording success/errors: edit `check_plaseval_all.sh`, `cr
 ```
 > ./check_plaseval_all.sh report_plaseval_run1_20250814.txt 500
 > grep -c SUCCESS report_plaseval_run1_20250814.txt
-
+15501
 > grep -c ERROR report_plaseval_run1_20250814.txt
+467
+```
+
+## Analysis (2025-08-16)
+We first collect all results (PlasEval scores) into a single CSV file `analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results[_0].csv` with some statistics on samples with issues in in `analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results[_0].NA.txt`.
+Then we create two kinds of plots for each experiment:
+- scatter plots of all statistics for merged bins versus unmerged bins,  
+- difference plots of all statistics for merged bins minus unmerged bins.
+
+Figures for statistics with `alpha=0.5` are in `analysis/figures` and for `alpha=0` in `analysis/figures_0`.
+Figures for unweighted/unnormalized statistics are in files with `.u` in their name.
+Figures for weighted/normalized statistics are in files with `.[n,w]` in their name.  
 
 ```
-```
-> source ../../env_plaseval/bin/activate
-> python analysis_utils.py csv \
-  plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv \
-  eval_0 \
-  analysis \
-  plasmids_benchmarking_2025-08-02_data.filtered.randomized.results_0.csv \
-  499 \
-  > analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results_0.NA.txt
-> cat analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results_0.NA.txt
+> ./analysis_run1.sh
+> cat analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results.NA.txt
 Number of rows: 7984
-Number of rows with NA: 374
+Number of rows with NA: 491
+sample: 0 rows with NA
+assembler:      0 rows with NA
+classification: 0 rows with NA
+binning:        0 rows with NA
 unmerged.nb_bins:       149 rows with NA
 unmerged.nb_ctgs:       149 rows with NA
 unmerged.len_ctgs:      149 rows with NA
-unmerged.Dissimilarity: 373 rows with NA
-unmerged.Extra_ctgs:    373 rows with NA
-unmerged.Missing_ctgs:  373 rows with NA
-unmerged.Cuts:  373 rows with NA
-unmerged.Joins: 373 rows with NA
-unmerged.Precision:     149 rows with NA
-unmerged.Recall:        149 rows with NA
-unmerged.F1:    149 rows with NA
+unmerged.n.Dissimilarity:       483 rows with NA
+unmerged.n.Extra_ctgs:  483 rows with NA
+unmerged.n.Missing_ctgs:        483 rows with NA
+unmerged.n.Cuts:        483 rows with NA
+unmerged.n.Joins:       483 rows with NA
+unmerged.u.Dissimilarity:       483 rows with NA
+unmerged.u.Extra_ctgs:  483 rows with NA
+unmerged.u.Missing_ctgs:        483 rows with NA
+unmerged.u.Cuts:        483 rows with NA
+unmerged.u.Joins:       483 rows with NA
+unmerged.w.Precision:   149 rows with NA
+unmerged.w.Recall:      149 rows with NA
+unmerged.w.F1:  149 rows with NA
+unmerged.u.Precision:   149 rows with NA
+unmerged.u.Recall:      149 rows with NA
+unmerged.u.F1:  149 rows with NA
 merged.nb_bins: 149 rows with NA
 merged.nb_ctgs: 149 rows with NA
 merged.len_ctgs:        149 rows with NA
-merged.Dissimilarity:   224 rows with NA
-merged.Extra_ctgs:      224 rows with NA
-merged.Missing_ctgs:    224 rows with NA
-merged.Cuts:    224 rows with NA
-merged.Joins:   224 rows with NA
-merged.Precision:       149 rows with NA
-merged.Recall:  149 rows with NA
-merged.F1:      149 rows with NA
-> create_scatter_plots.sh
-> create_difference_plots.sh
+merged.n.Dissimilarity: 248 rows with NA
+merged.n.Extra_ctgs:    248 rows with NA
+merged.n.Missing_ctgs:  248 rows with NA
+merged.n.Cuts:  248 rows with NA
+merged.n.Joins: 248 rows with NA
+merged.u.Dissimilarity: 248 rows with NA
+merged.u.Extra_ctgs:    248 rows with NA
+merged.u.Missing_ctgs:  248 rows with NA
+merged.u.Cuts:  248 rows with NA
+merged.u.Joins: 248 rows with NA
+merged.w.Precision:     149 rows with NA
+merged.w.Recall:        149 rows with NA
+merged.w.F1:    149 rows with NA
+merged.u.Precision:     149 rows with NA
+merged.u.Recall:        149 rows with NA
+merged.u.F1:    149 rows with NA
 ```
+So out of `7984` possible combinations, only `491` miss at least one result (PlasMerge or PlasEval).
+They will need to be looked at, but we can proceed with enough results.
+
+```
+> cat analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.results_0.NA.txt
+Number of rows: 7984
+Number of rows with NA: 374
+sample: 0 rows with NA
+assembler:      0 rows with NA
+classification: 0 rows with NA
+binning:        0 rows with NA
+unmerged.nb_bins:       149 rows with NA
+unmerged.nb_ctgs:       149 rows with NA
+unmerged.len_ctgs:      149 rows with NA
+unmerged.n.Dissimilarity:       373 rows with NA
+unmerged.n.Extra_ctgs:  373 rows with NA
+unmerged.n.Missing_ctgs:        373 rows with NA
+unmerged.n.Cuts:        373 rows with NA
+unmerged.n.Joins:       373 rows with NA
+unmerged.u.Dissimilarity:       373 rows with NA
+unmerged.u.Extra_ctgs:  373 rows with NA
+unmerged.u.Missing_ctgs:        373 rows with NA
+unmerged.u.Cuts:        373 rows with NA
+unmerged.u.Joins:       373 rows with NA
+unmerged.w.Precision:   149 rows with NA
+unmerged.w.Recall:      149 rows with NA
+unmerged.w.F1:  149 rows with NA
+unmerged.u.Precision:   149 rows with NA
+unmerged.u.Recall:      149 rows with NA
+unmerged.u.F1:  149 rows with NA
+merged.nb_bins: 149 rows with NA
+merged.nb_ctgs: 149 rows with NA
+merged.len_ctgs:        149 rows with NA
+merged.n.Dissimilarity: 224 rows with NA
+merged.n.Extra_ctgs:    224 rows with NA
+merged.n.Missing_ctgs:  224 rows with NA
+merged.n.Cuts:  224 rows with NA
+merged.n.Joins: 224 rows with NA
+merged.u.Dissimilarity: 224 rows with NA
+merged.u.Extra_ctgs:    224 rows with NA
+merged.u.Missing_ctgs:  224 rows with NA
+merged.u.Cuts:  224 rows with NA
+merged.u.Joins: 224 rows with NA
+merged.w.Precision:     149 rows with NA
+merged.w.Recall:        149 rows with NA
+merged.w.F1:    149 rows with NA
+merged.u.Precision:     149 rows with NA
+merged.u.Recall:        149 rows with NA
+merged.u.F1:    149 rows with NA
+```
+So out of `7984` possible combinations, only `374` miss at least one result (PlasMerge or PlasEval).
