@@ -317,12 +317,12 @@ def aggregate_results_to_csv(
 
 """ Plotting functions """
 
-def _figure_title(binning, classification, columns, nb_data_points):
+def _figure_title(binning, classification, nb_data_points):
         if binning is None and classification is None: title = "All samples"
         elif binning is not None and classification is None: title = binning
         elif binning is None and classification is not None: title = classification
         else: title = f"{binning}+{classification}"
-        return f"{title} - {columns} (n={nb_data_points})"
+        return f"{title} (n={nb_data_points})"
 
 def _prepare_df_to_plot(in_file, binning, classification, in_cols, norm_weight):
     def _filter_df_for_combination(in_df, in_binning, in_classification):
@@ -387,7 +387,7 @@ def create_unmerged_vs_merged_scatter_plot(
     plt.xlabel(unmerged_cols)
     plt.ylabel(merged_cols)
     plt.title(
-        f"{_figure_title(binning, classification, in_cols, nb_data_points)}"
+        f"{_figure_title(binning, classification, nb_data_points)}"
     )
     plt.savefig(out_file)
 
@@ -424,7 +424,7 @@ def create_unmerged_vs_merged_difference_violin_plot(
     plt.violinplot(plot_data, showmeans=True, showmedians=True)
     plt.xticks([i+1 for i in range(len(diff_cols))], diff_cols, rotation=15)
     plt.title(
-        f"{_figure_title(binning, classification, in_cols, nb_data_points)}"
+        f"{_figure_title(binning, classification, nb_data_points)}"
     )
     plt.savefig(out_file)
 
