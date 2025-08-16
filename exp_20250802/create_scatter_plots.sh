@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Figure type (scatter or difference)
-FIG_TYPE=$1
 # Directory where to write figures
-FIG_DIR=$2
+FIG_DIR=$1
 # CSV file with PlasEval results
-DATA_FILE=$3
+DATA_FILE=$2
+
+FIG_TYPE="scatter"
 
 source /scratch/chauvec/PLASMERGE/env_plaseval/bin/activate
 
