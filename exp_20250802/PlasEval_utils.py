@@ -434,7 +434,7 @@ SCATTER_CMD = "scatter"
 DIFF_CMD = "difference"
 
 def main(args):
-    def _cmd_figure(args_cmd, fig_type, fig_function):
+    def _cmd_figure(args_cmd, fig_function):
         columns = args_cmd.columns.split(",")
         fig_function(
             args_cmd.data_file, args_cmd.output_file,
@@ -454,10 +454,10 @@ def main(args):
         )
 
     elif args.command == SCATTER_CMD:
-        _cmd_figure(args, "scatter", create_unmerged_vs_merged_scatter_plot)
+        _cmd_figure(args, create_unmerged_vs_merged_scatter_plot)
         
     elif args.command == DIFF_CMD:
-        _cmd_figure(args, "diff", create_unmerged_vs_merged_difference_violin_plot)
+        _cmd_figure(args, create_unmerged_vs_merged_difference_violin_plot)
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
