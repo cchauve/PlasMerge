@@ -1,17 +1,23 @@
 #!/bin/bash
 
-# source /home/chauvec/projects/ctb-chauvec/PLASMIDS/tools/env_plasbinflow/bin/activate
-# module load StdEnv/2020 gurobi/9.1.2
-
+# Directory containing the PlasMerge python scripts
 BIN_DIR=$1
+# Sample ID and assembler, recorded in lowercase
 IN_SAMPLE_ID=$2
 IN_ASSEMBLER=$(echo ${3} | awk '{print tolower($0)}')
+# Binning method, in PlasMerge syntax (gp, gt, mob, pbf)
 IN_METHOD=$4
+# Gzipped GFA file for assembled sample
 IN_FILE_GFA=$5
+# Plasmidness scores file i PlasMerge format
 IN_FILE_SCORES=$6
+# Input (unmerged) bins in PlasMerge format
 IN_FILE_BINS=$7
+# GC content bins file in PlasMerge format
 IN_FILE_GC=$8
+# Directory where PlasMerge results files are written
 OUT_DIR=$9
+# Paths of PlasMerge results files: merging scores and merged bins
 OUT_FILE_SCORES=${10}
 OUT_FILE_BINS=${11}
 

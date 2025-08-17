@@ -9,19 +9,28 @@
 # pip install pandas
 # pip install bidict
 # pip install biopython
+# pip install matplotlib
 # source /scratch/chauvec/PLASMERGE/env_plaseval/bin/activate
 # module load StdEnv/2020 gurobi/9.1.2
 
+# Diectories where to find the python scripts for PlasEval and PlasMerge
 PLASEVAL_BIN_DIR=$1
 PLASMERGE_BIN_DIR=$2
+# Sample ID and assembler
 IN_SAMPLE_ID=$3
 IN_ASSEMBLER=$4
+# Combination <binnng method>_<classification method>
 IN_METHOD=$5
+# Gzipped GFA file for assembled sample
 IN_FILE_GFA=$6
+# Unmerged and merged bins for the assembled sample, both in PlasMerge format
 IN_FILE_BINS_PRED_UNMERGED=$7
 IN_FILE_BINS_PRED_MERGED=$8
+# Ground truth bins for the assembled sample, in PlasEval format
 IN_FILE_BINS_GT=$9
+# Directory where to write the PlasEval files
 OUT_DIR=${10}
+# PlasEval parameters
 IN_MIN_LEN=${11}
 IN_ALPHA=${12}
 IN_MAX_RECURSIVE_CALLS=${13}
@@ -29,12 +38,16 @@ IN_MAX_RECURSIVE_CALLS=${13}
 EXP_ID=${IN_SAMPLE_ID}.${IN_ASSEMBLER}
 OUT_EXP_ID=${IN_SAMPLE_ID}_${IN_ASSEMBLER}
 
+# Name of created files
+## Unmerged and merge bins in PlasEval format
 IN_FILE_BINS_PRED_UNMERGED_REFORMATTED=${OUT_DIR}/${OUT_EXP_ID}_${IN_METHOD}.unmerged.tsv
 IN_FILE_BINS_PRED_MERGED_REFORMATTED=${OUT_DIR}/${OUT_EXP_ID}_${IN_METHOD}.merged.tsv
+## Evaluation (precision/recall/F1) files
 OUT_FILE_EVAL_UNMERGED=${OUT_DIR}/${OUT_EXP_ID}_${IN_METHOD}.unmerged.eval.out
+OUT_FILE_EVAL_MERGED=${OUT_DIR}/${OUT_EXP_ID}_${IN_METHOD}.merged.eval.out
+## Comparison files
 OUT_FILE_COMP_OUT_UNMERGED=${OUT_DIR}/${OUT_EXP_ID}_${IN_METHOD}.unmerged.comp.out
 OUT_FILE_COMP_LOG_UNMERGED=${OUT_DIR}/${OUT_EXP_ID}_${IN_METHOD}.unmerged.comp.log
-OUT_FILE_EVAL_MERGED=${OUT_DIR}/${OUT_EXP_ID}_${IN_METHOD}.merged.eval.out
 OUT_FILE_COMP_OUT_MERGED=${OUT_DIR}/${OUT_EXP_ID}_${IN_METHOD}.merged.comp.out
 OUT_FILE_COMP_LOG_MERGED=${OUT_DIR}/${OUT_EXP_ID}_${IN_METHOD}.merged.comp.log
 
