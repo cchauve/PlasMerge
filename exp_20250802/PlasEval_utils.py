@@ -63,7 +63,7 @@ PlasEval files formats
   F1      0.2857142857142857      0.06520853461220594
 """
 
-# Expeced file suffixes
+# Expected file suffixes
 FILE_SUFFIX_BINS_KEY = "bins"      # PlasEval bins
 FILE_SUFFIX_SCORES_KEY = "scores"  # PlasEval dissimlarity scores
 FILE_SUFFIX_STATS_KEY = "stats"    # PlasEval precision/recall/F1
@@ -317,6 +317,22 @@ def aggregate_results_to_csv(
 
 """ Plotting functions """
 
+def _filter_df_for_combination(in_df, in_binning, in_classification):
+    if in_binning is None and in_classification is None:
+        out_df = in_df
+    elif in_binning is None:
+        out_df = in_df.loc[in_df[CLASSIFICATION_KEY]==in_classification]
+    elif in_classification is None:
+        out_df = in_df.loc[in_df[BINNING_KEY]==in_binning]
+    else:
+        out_df = in_df.loc[
+            (in_df[BINNING_KEY]==in_binning)
+            &
+            (in_df[CLASSIFICATION_KEY]==in_classification)
+        ]
+    return out_df
+
+
 def _figure_title(binning, classification, nb_data_points):
         if binning is None and classification is None: title = "All samples"
         elif binning is not None and classification is None: title = binning
@@ -325,20 +341,6 @@ def _figure_title(binning, classification, nb_data_points):
         return f"{title} (n={nb_data_points})"
 
 def _prepare_df_to_plot(in_file, binning, classification, in_cols, norm_weight):
-    def _filter_df_for_combination(in_df, in_binning, in_classification):
-        if in_binning is None and in_classification is None:
-            out_df = in_df
-        elif in_binning is not None:
-            out_df = in_df.loc[in_df[BINNING_KEY]==in_binning]
-        elif in_classification is not None:
-            out_df = in_df.loc[in_df[CLASSIFICATION_KEY]==in_classification]
-        else:
-            out_df = in_df.loc[
-                (in_df[BINNING_KEY]==in_binning)
-                &
-                (in_df[CLASSIFICATION_KEY]==in_classification)
-            ]
-        return out_df
     # List of columns to consider
     unmerged_cols_list = [_data_key(col,UNMERGED,norm_weight) for col in in_cols]
     merged_cols_list = [_data_key(col,MERGED,norm_weight) for col in in_cols]
@@ -428,22 +430,49 @@ def create_unmerged_vs_merged_difference_violin_plot(
     )
     plt.savefig(out_file)
 
+""" Query sample """
+
+def query_sample(
+        in_results_file, in_sample, in_assembler, in_cols,
+        in_binning=None, in_classification=None, 
+):
+    in_df = _filter_df_for_combination(
+        pd.read_csv(in_results_file, sep=",", header=0),
+        in_binning, in_classification
+    )
+    sample_df = in_df.loc[
+        (in_df[SAMPLE_KEY]==in_sample)
+        &
+        (in_df[ASSEMBLER_KEY]==in_assembler)
+    ]
+    for idx,row in sample_df.iterrows():
+        binning = row[BINNING_KEY]
+        classification = row[CLASSIFICATION_KEY]
+        print(f"#{in_sample}_{in_assembler}_{binning}_{classification}")
+        for col in in_cols:
+            print(f"{col}\t{row[col]}")
+
+    
+""" Main """
+
 # Command names
 CSV_CMD = "csv"
 SCATTER_CMD = "scatter"
 DIFF_CMD = "difference"
+QUERY_CMD = "query"
+
+def _cmd_figure(args_cmd, fig_function):
+    columns = args_cmd.columns.split(",")
+    fig_function(
+        args_cmd.data_file,
+        args_cmd.output_file,
+        columns,
+        binning=args_cmd.binning,
+        classification=args_cmd.classification,
+        norm_weight=args_cmd.version
+    )
 
 def main(args):
-    def _cmd_figure(args_cmd, fig_function):
-        columns = args_cmd.columns.split(",")
-        fig_function(
-            args_cmd.data_file, args_cmd.output_file,
-            columns,
-            binning=args_cmd.binning,
-            classification=args_cmd.classification,
-            norm_weight=args_cmd.version
-        )
-    
     if args.command == CSV_CMD:
         aggregate_results_to_csv(
             args.samples_file,
@@ -458,6 +487,16 @@ def main(args):
         
     elif args.command == DIFF_CMD:
         _cmd_figure(args, create_unmerged_vs_merged_difference_violin_plot)
+
+    elif args.command == QUERY_CMD:
+        query_sample(
+            args.data_file,
+            args.sample,
+            args.assembler,
+            args.columns.split(","),
+            args.binning,
+            args.classification
+        )   
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -488,6 +527,14 @@ if __name__ == "__main__":
     parser_diff.add_argument("-b", "--binning", default=None, help="Binning method to consider")
     parser_diff.add_argument("-c", "--classification", default=None, help="Classification method to consider")
     parser_diff.add_argument("-v", "--version", default="u", help="Weighted/unweighted, normalized/unnormalized: u/n/w")
+
+    parser_query = subparsers.add_parser(QUERY_CMD, help="Query data for a sample")
+    parser_query.add_argument("data_file", help="Data CSV file")
+    parser_query.add_argument("sample", help="Sample ID")
+    parser_query.add_argument("assembler", help="Assembler")
+    parser_query.add_argument("columns", help="Columns to print, separated by a comma")
+    parser_query.add_argument("-b", "--binning", default=None, help="Binning method to consider")
+    parser_query.add_argument("-c", "--classification", default=None, help="Classification method to consider")
 
     args = parser.parse_args()
 
