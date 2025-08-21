@@ -8,10 +8,11 @@ OUTPUT_DIR=${EXP_DIR}/output
 DATA_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 
 NB_SAMPLES=$1
+RUN=$2
 
 DATE=`date --rfc-3339=date`
-TRACE_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge.${DATE}.txt
-RERUN_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge.${DATE}.csv
+TRACE_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge.${RUN}.${DATE}.txt
+RERUN_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge.${RUN}.${DATE}.csv
 
 BINNING="ground_truth,gplascc,mobrecon,plasbinflow"
 CLASSIFICATION="plasclass,plasgraph2,rfplasmid,mlplasmids"

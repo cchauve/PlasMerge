@@ -13,6 +13,7 @@ GP = "gplascc"
 MOB = "mobrecon"
 PBF = "plasbinflow"
 BINNING = [PBF, GP, MOB, GT]
+BINNING_KEY = "binning"
 
 """ Classfication methods """
 PLSC = "plasclass"
@@ -20,6 +21,7 @@ PLSG = "plasgraph2"
 MLP = "mlplasmids"
 RFP = "rfplasmid"
 CLASSIFICATION = [PLSC, PLSG, MLP, RFP]
+CLASS_KEY = "classification"
 
 """ Data access keys """
 BINNING_MAP = {PBF: "pbf", GP: "gp", GT: "gt", MOB: "mob"}
@@ -49,6 +51,8 @@ OUT_DIR="out_dir"
 MIN_LEN=100
 MAX_CALLS=1000000
 ALPHA=0.5
+ALPHA_KEY="alpha"
+MERGED_KEY="merged"
 
 """ Generic functions """
 
@@ -100,9 +104,9 @@ def _plaseval_file(sample_id, assembler, binning, classification, out_dir, merge
     )
 
 # Reading data in samples data file, for a given sample
-def _read_samples_data(in_data_file, in_sample_idx, in_alpha, out_dir):
+def _read_samples_data(in_data_file, in_sample_idx, in_alpha, out_dir, rerun_plasmerge=False, rerun_plaseval=False):
     """
-    in_alpha: (str): list of alpha values comma-separated
+    in_alpha: list(str): list of alpha values
     """
     _check_files([in_data_file])
     all_samples_data_dict = {}
@@ -125,6 +129,13 @@ def _read_samples_data(in_data_file, in_sample_idx, in_alpha, out_dir):
                 elif binning == GT: sample_data_key = "gt_bins"
                 else: sample_data_key = f"{BINNING_MAP[binning]}_{CLASSIFICATION_MAP[classification]}_bins"
                 sample_data_dict[(binning,classification)] = sample_data[sample_data_key]
+            # Re-run information: classification, binning, 
+            if rerun_plasmerge or rerun_plaseval:
+                sample_data_dict[BINNING_KEY] = sample_data[BINNING_KEY]
+                sample_data_dict[CLASS_KEY] = sample_data[CLASS_KEY]
+            if rerun_plaseval:
+                sample_data_dict[ALPHA_KEY] = sample_data[ALPHA_KEY]
+                sample_data_dict[MERGED_KEY] = sample_data[MERGED_KEY]
             # Output directory
             sample_data_dict[OUT_DIR] = os.path.join(
                 out_dir,
@@ -164,7 +175,7 @@ def _read_samples_data(in_data_file, in_sample_idx, in_alpha, out_dir):
                 )
                 if len(in_alpha) > 0:
                     # Comp files
-                    for (alpha,comp_suffix) in product(in_alpha.split(","),[COMP_OUT,COMP_LOG]):
+                    for (alpha,comp_suffix) in product(in_alpha,[COMP_OUT,COMP_LOG]):
                         key = (PLASEVAL,binning,classification,merged,comp_suffix,float(alpha))
                         sample_data_dict[key] = _plaseval_file(
                             sample_data_dict[SAMPLE], sample_data_dict[ASSEMBLER],
@@ -174,21 +185,45 @@ def _read_samples_data(in_data_file, in_sample_idx, in_alpha, out_dir):
             all_samples_data_dict[sample_idx] = sample_data_dict
     return all_samples_data_dict
 
+def _read_binning_classification(sample_data_dict, args):
+    if args.rerun:
+        binning = sample_data_dict[BINNING_KEY]
+        classification = sample_data_dict[CLASS_KEY]
+    else:
+        binning = args.binning
+        classification = args.classification
+    return binning,classification
+
+def _read_merged_status(sample_data_dict, args):
+    if args.rerun:
+        merged = sample_data_dict[MERGED_KEY]
+    else:
+        merged = args.merged_status
+    return merged
+
+def _read_alpha(sample_data_dict, args):
+    if args.rerun:
+        alpha = sample_data_dict[ALPHA_KEY]
+    else:
+        alpha = str(args.alpha)
+    return alpha
+
 def _prefix(sample_data_dict, binning, classification):
     return f"{sample_data_dict[SAMPLE]}_{sample_data_dict[ASSEMBLER]}.{binning}_{classification}"
 
 """ PlasMerge functions """
 
 def _create_convert_bins_to_plasmerge_command(sample_data_dict, args):
+    binning,classification = _read_binning_classification(sample_data_dict, args)
     convert_cmd = [
         f"python{args.python_version}",
         os.path.join(args.plasmerge_path, "convert_utils.py"),
-        sample_data_dict[(args.binning,args.classification)],
-        sample_data_dict[(PLASMERGE,args.binning,args.classification,UNMERGED)],
+        sample_data_dict[(binning,classification)],
+        sample_data_dict[(PLASMERGE,binning,classification,UNMERGED)],
         "gt"
     ]
-    in_file = sample_data_dict[(args.binning,args.classification)]
-    out_file = sample_data_dict[(PLASMERGE,args.binning,args.classification,UNMERGED)]
+    in_file = sample_data_dict[(binning,classification)]
+    out_file = sample_data_dict[(PLASMERGE,binning,classification,UNMERGED)]
     return convert_cmd,in_file,out_file
     
 def convert_bins_to_plasmerge(sample_data_dict, args):
@@ -199,21 +234,22 @@ def convert_bins_to_plasmerge(sample_data_dict, args):
     if os.path.exists(out_file):
         print(f"WARNING: Converting unmerged bins - file {out_file} does exist already")
         return
-    _check_files([in_file], in_msg="Converting unmerged bins -")
+    _check_files([in_file], in_msg="PlasMerge converting unmerged bins -")
     try:        
         convert_cmd_str = " ".join(convert_cmd)
         print(f"LOG: Converting bins - [{convert_cmd_str}]")
         result = subprocess.run(convert_cmd, check=True, capture_output=True, text=True)
     except subprocess.CalledProcessError as e:
-        print(f"ERROR: Converting bins - [{convert_cmd_str}] failed with return code {e.returncode}")
+        print(f"ERROR: PlasMerge converting bins - [{convert_cmd_str}] failed with return code {e.returncode}")
         sys.stderr.write(e.stderr)
         sys.exit(1)
-    _check_files([out_file], in_msg="Converting unmerged bins -")
+    _check_files([out_file], in_msg="PlasMerge converting unmerged bins -")
 
 def _create_plasmerge_command(sample_data_dict, args):
+    binning,classification = _read_binning_classification(sample_data_dict, args)
     gurobi_out_dir = os.path.join(
         sample_data_dict[OUT_DIR],
-        _prefix(sample_data_dict, args.binning, args.classification)
+        _prefix(sample_data_dict, binning, classification)
     )
     os.makedirs(gurobi_out_dir, exist_ok=True)
     # Command
@@ -222,25 +258,25 @@ def _create_plasmerge_command(sample_data_dict, args):
         os.path.join(args.plasmerge_path, "plasmerge.py"),
         "-s", sample_data_dict[SAMPLE],
         "-t", sample_data_dict[ASSEMBLER].lower(),
-        "-r", BINNING_MAP[args.binning],
+        "-r", BINNING_MAP[binning],
         "-a", sample_data_dict[GFA],
-        "-p", sample_data_dict[args.classification],
-        "-b", sample_data_dict[(PLASMERGE,args.binning,args.classification,UNMERGED)],
+        "-p", sample_data_dict[classification],
+        "-b", sample_data_dict[(PLASMERGE,binning,classification,UNMERGED)],
         "-l",
         "-d", gurobi_out_dir,
-        "-os", sample_data_dict[(PLASMERGE,args.binning,args.classification,SCORES)],
-        "-om", sample_data_dict[(PLASMERGE,args.binning,args.classification,MERGED)],
+        "-os", sample_data_dict[(PLASMERGE,binning,classification,SCORES)],
+        "-om", sample_data_dict[(PLASMERGE,binning,classification,MERGED)],
         "-g", args.gc_bins_file
     ]
     in_files = [
         sample_data_dict[GFA],
-        sample_data_dict[args.classification],
-        sample_data_dict[(PLASMERGE,args.binning,args.classification,UNMERGED)],
+        sample_data_dict[classification],
+        sample_data_dict[(PLASMERGE,binning,classification,UNMERGED)],
         args.gc_bins_file
     ]
     out_files = [
-        sample_data_dict[(PLASMERGE,args.binning,args.classification,MERGED)],
-        sample_data_dict[(PLASMERGE,args.binning,args.classification,SCORES)]
+        sample_data_dict[(PLASMERGE,binning,classification,MERGED)],
+        sample_data_dict[(PLASMERGE,binning,classification,SCORES)]
     ]
     return plasmerge_cmd,in_files,out_files
 
@@ -249,14 +285,14 @@ def run_plasmerge(args):
     """
     # Reading data for the sample to process
     sample_data_dict = _read_samples_data(
-        args.data_file, [args.sample_idx], "", args.output_dir
+        args.data_file, [args.sample_idx], [], args.output_dir, rerun_plasmerge=args.rerun
     )[args.sample_idx]
     # Converting unmerged bins into PlasMerge format
     os.makedirs(sample_data_dict[OUT_DIR], exist_ok=True)
     convert_bins_to_plasmerge(sample_data_dict, args)    
     # Running PlasMerge
     plasmerge_cmd,in_files,out_files = _create_plasmerge_command(sample_data_dict, args)
-    _check_files(in_file, in_msg="Running PlasMerge -")
+    _check_files(in_files, in_msg="Running PlasMerge -")
     try:
         plasmerge_cmd_str = " ".join(plasmerge_cmd)
         print(f"LOG: Running PlasMerge - [{plasmerge_cmd_str}]")
@@ -265,14 +301,14 @@ def run_plasmerge(args):
         print(f"ERROR: Running PlasMerge - [{plasmerge_cmd_str}] failed with return code {e.returncode}")
         print(f"Error output: {e.stderr}")
         sys.exit(1)
-    _check_files(out_file, in_msg="Running PlasMerge -")
+    _check_files(out_files, in_msg="Running PlasMerge -")
 
 def check_plasmerge(args):
     """ Check PlasMerge input/output on a set of samples for all combinations (binning,classification)
     """
     samples_id_range = range(1,args.nb_samples+1)
     all_samples_data_dict = _read_samples_data(
-        args.data_file, samples_id_range, "", args.output_dir
+        args.data_file, samples_id_range, [], args.output_dir
     )
     id_with_problems = []
     for (sample_idx,binning,classification) in product(
@@ -302,19 +338,21 @@ def check_plasmerge(args):
 """ PlasEval functions """
 
 def _create_convert_bins_to_plaseval_command(sample_data_dict, args):
+    binning,classification = _read_binning_classification(sample_data_dict, args)
+    merged_status = _read_merged_status(sample_data_dict, args)
     convert_cmd = [
         f"python{args.python_version}",
         os.path.join(args.plasmerge_path, "convert_utils.py"),
-        sample_data_dict[(PLASMERGE,args.binning,args.classification,args.merged_status)],
-        sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status)],
+        sample_data_dict[(PLASMERGE,binning,classification,merged_status)],
+        sample_data_dict[(PLASEVAL,binning,classification,merged_status)],
         "to_plaseval",
         sample_data_dict[GFA]
     ]
     in_files = [
         sample_data_dict[GFA],
-        sample_data_dict[(PLASMERGE,args.binning,args.classification,args.merged_status)],
+        sample_data_dict[(PLASMERGE,binning,classification,merged_status)],
     ]
-    out_file = sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status)]
+    out_file = sample_data_dict[(PLASEVAL,binning,classification,merged_status)]
     return convert_cmd,in_files,out_file
 
 def convert_bins_to_plaseval(sample_data_dict, args):
@@ -326,32 +364,34 @@ def convert_bins_to_plaseval(sample_data_dict, args):
     if os.path.exists(out_file):
         print(f"WARNING: Converting bins - file {out_file} does exist already")
         return
-    _check_files(in_files, in_msg="Converting bins -")
+    _check_files(in_files, in_msg="PlasEval converting PlasMerge bins -")
     try:       
         convert_cmd_str = " ".join(convert_cmd)
         print(f"LOG: Converting bins - [{convert_cmd_str}]")
         result = subprocess.run(convert_cmd, check=True, capture_output=True, text=True)
     except subprocess.CalledProcessError as e:
-        print(f"ERROR: Converting bins - [{convert_cmd_str}] failed with return code {e.returncode}")
+        print(f"ERROR: PlasEval converting bins - [{convert_cmd_str}] failed with return code {e.returncode}")
         sys.stderr.write(e.stderr)
         sys.exit(1)
-    _check_files([out_file], in_msg="Converting bins -")
+    _check_files([out_file], in_msg="PlasEval converting PlasMerge bins -")
 
 def _create_plaseval_eval_command(sample_data_dict, args):
+    binning,classification = _read_binning_classification(sample_data_dict, args)
+    merged_status = _read_merged_status(sample_data_dict, args)    
     plaseval_cmd = [
         f"python{args.python_version}",
         os.path.join(args.plaseval_path, "plaseval.py"),
         EVAL_CMD,
-        "--pred", sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status)],
-        "--gt", sample_data_dict[(args.binning,args.classification)],
-        "--out_file", sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status,EVAL_OUT)],
+        "--pred", sample_data_dict[(PLASEVAL,binning,classification,merged_status)],
+        "--gt", sample_data_dict[(binning,classification)],
+        "--out_file", sample_data_dict[(PLASEVAL,binning,classification,merged_status,EVAL_OUT)],
         "--min_len", str(args.min_len)
     ]
     in_files = [
-        sample_data_dict[(args.binning,args.classification)],
-        sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status)]
+        sample_data_dict[(binning,classification)],
+        sample_data_dict[(PLASEVAL,binning,classification,merged_status)]
     ]
-    out_file = sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status,EVAL_OUT)]
+    out_file = sample_data_dict[(PLASEVAL,binning,classification,merged_status,EVAL_OUT)]
     return plaseval_cmd,in_files,out_file
 
 def _run_plaseval_eval(args):
@@ -359,11 +399,14 @@ def _run_plaseval_eval(args):
     """
     # Reading data for the sample to process
     sample_data_dict = _read_samples_data(
-        args.data_file, [args.sample_idx], "", args.output_dir
+        args.data_file, [args.sample_idx], [], args.output_dir, rerun_plaseval=args.rerun
     )[args.sample_idx]
+    # Skipping if rerun and not eval or error in input file   
+    if args.rerun and _read_alpha(sample_data_dict, args) not in ["input", EVAL_CMD]:
+        return
     # Converting unmerged bins into PlasMerge format
     convert_bins_to_plaseval(sample_data_dict, args)    
-    # Running PlasMerge
+    # Running PlasEval
     plaseval_cmd,in_files,out_file = _create_plaseval_eval_command(sample_data_dict, args)
     _check_files(in_files, in_msg="Running PlasEval -")
     try:
@@ -377,25 +420,27 @@ def _run_plaseval_eval(args):
     _check_files([out_file], in_msg="Running PlasEval -")
 
 def _create_plaseval_comp_command(sample_data_dict, args):
+    binning,classification = _read_binning_classification(sample_data_dict, args)
+    merged_status = _read_merged_status(sample_data_dict, args)    
     plaseval_cmd = [
         f"python{args.python_version}",
         os.path.join(args.plaseval_path, "plaseval.py"),
         COMP_CMD,
-        "--l", sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status)],
-        "--r", sample_data_dict[(args.binning,args.classification)],
-        "--out_file", sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status,COMP_OUT,args.alpha)],
-        "--log_file", sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status,COMP_LOG,args.alpha)],
+        "--l", sample_data_dict[(PLASEVAL,binning,classification,merged_status)],
+        "--r", sample_data_dict[(binning,classification)],
+        "--out_file", sample_data_dict[(PLASEVAL,binning,classification,merged_status,COMP_OUT,args.alpha)],
+        "--log_file", sample_data_dict[(PLASEVAL,binning,classification,merged_status,COMP_LOG,args.alpha)],
         "--p", str(args.alpha),
         "--min_len", str(args.min_len),
         "--max_calls", str(args.max_calls)
     ]
     in_files = [
-        sample_data_dict[(args.binning,args.classification)],
-        sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status)]
+        sample_data_dict[(binning,classification)],
+        sample_data_dict[(PLASEVAL,binning,classification,merged_status)]
     ]
     out_files = [
-        sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status,COMP_OUT,args.alpha)],
-        sample_data_dict[(PLASEVAL,args.binning,args.classification,args.merged_status,COMP_LOG,args.alpha)]
+        sample_data_dict[(PLASEVAL,binning,classification,merged_status,COMP_OUT,args.alpha)],
+        sample_data_dict[(PLASEVAL,binning,classification,merged_status,COMP_LOG,args.alpha)]
     ]
     return plaseval_cmd,in_files,out_files
 
@@ -403,12 +448,16 @@ def _run_plaseval_comp(args):
     """ Run PlasEval comp on a single sample for a combination (binning,classification)
     """
     # Reading data for the sample to process
+    alpha = str(args.alpha)
     sample_data_dict = _read_samples_data(
-        args.data_file, [args.sample_idx], str(args.alpha), args.output_dir
+        args.data_file, [args.sample_idx], [alpha], args.output_dir, rerun_plaseval=args.rerun
     )[args.sample_idx]
+    # Skipping if rerun and not comp with same alpha
+    if args.rerun and _read_alpha(sample_data_dict, args) not in ["input",  alpha]:
+        return
     # Converting unmerged bins into PlasMerge format
     convert_bins_to_plaseval(sample_data_dict, args)    
-    # Running PlasMerge
+    # Running PlasEval
     plaseval_cmd,in_files,out_files = _create_plaseval_comp_command(sample_data_dict, args)
     _check_files(in_files, in_msg="Running PlasEval -")
     try:
@@ -432,7 +481,7 @@ def check_plaseval(args):
     """
     samples_id_range = range(1,args.nb_samples+1)
     all_samples_data_dict = _read_samples_data(
-        args.data_file, samples_id_range, args.alpha, args.output_dir
+        args.data_file, samples_id_range, args.alpha.split(","), args.output_dir
     )
     id_with_problems = []
     for (sample_idx,binning,classification,merged_status) in product(
@@ -452,7 +501,7 @@ def check_plaseval(args):
             exit_if_pbm=False
         )
         if not input_correct:
-            id_with_problems.append((sample_idx,args.binning,args.classification,merged_status,"input"))        
+            id_with_problems.append((sample_idx,binning,classification,merged_status,"input"))        
         # Checking eval files
         files_to_check = [
             sample_data_dict[(PLASEVAL,binning,classification,merged_status,EVAL_OUT)]
@@ -462,7 +511,7 @@ def check_plaseval(args):
             in_msg=_prefix(sample_data_dict, binning, classification),
             exit_if_pbm=False
         )        
-        if not eval_correct:
+        if input_correct and not eval_correct:
             id_with_problems.append((sample_idx,binning,classification,merged_status,EVAL_CMD))
         # Checking comp files
         for alpha in args.alpha.split(","):
@@ -475,13 +524,13 @@ def check_plaseval(args):
                 in_msg=_prefix(sample_data_dict, binning, classification),
                 exit_if_pbm=False
             )
-            if not comp_correct:
+            if input_correct and not comp_correct:
                 id_with_problems.append((sample_idx,binning,classification,merged_status,alpha))
     with open(args.data_file) as in_file, open(args.output_file,"w") as out_file:
         in_lines = in_file.readlines()
-        out_file.write(f"{in_lines[0]},binning,classification,merged,alpha")
+        out_file.write(f"{in_lines[0].rstrip()},binning,classification,merged,alpha")
         for (sample_idx,binning,classification,merged,alpha) in id_with_problems:
-            out_file.write(f"\n{in_lines[sample_idx]},{binning},{classification},{merged},{alpha}")
+            out_file.write(f"\n{in_lines[sample_idx].rstrip()},{binning},{classification},{merged},{alpha}")
 
 """ Main function """
 
@@ -501,6 +550,7 @@ if __name__ == "__main__":
     parser_run_plasmerge.add_argument("-gc", "--gc_bins_file", default="gc.txt", help="Path to GC bins file")    
     parser_run_plasmerge.add_argument("-o", "--output_dir", help="Directory where all results are written")
     parser_run_plasmerge.add_argument("-v", "--python_version", default="3.9", help="Python vesion")
+    parser_run_plasmerge.add_argument("--rerun", action="store_true", default=False, help="Re-running samples")
 
     CHECK_PLASMERGE = f"check_{PLASMERGE}"
     parser_check_plasmerge = subparsers.add_parser(CHECK_PLASMERGE, help="Checking PlasMerge")
@@ -524,7 +574,8 @@ if __name__ == "__main__":
     parser_run_plaseval.add_argument("-ml", "--min_len", default=MIN_LEN, type=int, help="PlasEval min_len parameter")
     parser_run_plaseval.add_argument("-mc", "--max_calls", default=MAX_CALLS, type=int, help="PlasEval max_calls parameter")    
     parser_run_plaseval.add_argument("-o", "--output_dir", help="Directory where all results are written")
-    parser_run_plaseval.add_argument("-v", "--python_version", default="3.9", help="Python vesion")    
+    parser_run_plaseval.add_argument("-v", "--python_version", default="3.9", help="Python vesion")
+    parser_run_plaseval.add_argument("--rerun", action="store_true", default=False, help="Re-running samples")    
 
     CHECK_PLASEVAL = f"check_{PLASEVAL}"
     parser_check_plaseval = subparsers.add_parser(CHECK_PLASEVAL, help="Checking PlasMerge")
@@ -533,7 +584,7 @@ if __name__ == "__main__":
     parser_check_plaseval.add_argument("-b", "--binning", default=None, help="Binning methods to consider, comma-separated")
     parser_check_plaseval.add_argument("-c", "--classification", default=None, help="Classifications method to consider, comma-separated")
     parser_check_plaseval.add_argument("-bm", "--merged_status", default=UNMERGED, help="Merged and/or unmerged bins, comma-separated")
-    parser_check_plaseval.add_argument("-a", "--alpha", default="", help="Alpha values, comma-separated")
+    parser_check_plaseval.add_argument("-a", "--alpha", default="", type=str, help="Alpha values, comma-separated")
     parser_check_plaseval.add_argument("-ml", "--min_len", default=MIN_LEN, type=int, help="PlasEval min_len parameter")
     parser_check_plaseval.add_argument("-mc", "--max_calls", default=MAX_CALLS, type=int, help="PlasEval max_calls parameter")        
     parser_check_plaseval.add_argument("-od", "--output_dir", help="Directory where all results are written")

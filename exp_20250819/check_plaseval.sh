@@ -9,12 +9,13 @@ DATA_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.c
 
 NB_SAMPLES=$1
 ALPHA=$2
+RUN=$3
 MIN_LEN=100
 MAX_CALLS=1000000
 
 DATE=`date --rfc-3339=date`
-TRACE_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.${DATE}.txt
-RERUN_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.${DATE}.csv
+TRACE_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.${RUN}.${DATE}.txt
+RERUN_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.${RUN}.${DATE}.csv
 
 BINNING="ground_truth,gplascc,mobrecon,plasbinflow"
 CLASSIFICATION="plasclass,plasgraph2,rfplasmid,mlplasmids"

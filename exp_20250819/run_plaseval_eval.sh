@@ -10,7 +10,6 @@ DATA_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.c
 
 NB_SAMPLES=$1
 MIN_LEN=100
-MAX_CALLS=1000000
 
 DATE=`date --rfc-3339=date`
 mkdir -p ${OUTPUT_DIR}
@@ -25,7 +24,7 @@ do
     do
 	for MERGED in "merged" "unmerged";
 	do
-	    SLURM_FILE=${SLURM_DIR}/run_eval_${BINNING}_${CLASSIFICATION}_${MERGED}.sh
+	    SLURM_FILE=${SLURM_DIR}/eval_run_${BINNING}_${CLASSIFICATION}_${MERGED}.sh
 	    rm -f ${SLURM_FILE}
 	    rm -f ${LOG_DIR}/eval_${BINNING}_${CLASSIFICATION}_*_*.out
 	    rm -f ${LOG_DIR}/eval_${BINNING}_${CLASSIFICATION}_*_*.err	

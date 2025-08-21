@@ -26,7 +26,7 @@ do
     do
 	for MERGED in "merged" "unmerged";
 	do
-	    SLURM_FILE=${SLURM_DIR}/run_comp_${BINNING}_${CLASSIFICATION}_${MERGED}_${ALPHA}.sh
+	    SLURM_FILE=${SLURM_DIR}/comp_run_${BINNING}_${CLASSIFICATION}_${MERGED}_${ALPHA}.sh
 	    rm -f ${SLURM_FILE}
 	    rm -f ${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${ALPHA}_*_*.out
 	    rm -f ${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${ALPHA}_*_*.err

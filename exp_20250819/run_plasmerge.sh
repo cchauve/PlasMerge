@@ -26,7 +26,7 @@ do
 	rm -f ${LOG_DIR}/${BINNING}_${CLASSIFICATION}_*_*.out
 	rm -f ${LOG_DIR}/${BINNING}_${CLASSIFICATION}_*_*.err
 	echo "#!/bin/bash" > ${SLURM_FILE}
-	echo "#SBATCH --time=6:00:00" >> ${SLURM_FILE}
+	echo "#SBATCH --time=8:00:00" >> ${SLURM_FILE}
 	echo "#SBATCH --mem=8G" >> ${SLURM_FILE}
 	echo "#SBATCH --account=def-chauvec"  >> ${SLURM_FILE}
 	echo "#SBATCH --job-name=plasmerge_${BINNING}_${CLASSIFICATION}" >> ${SLURM_FILE}
