@@ -15,6 +15,10 @@ Reusing the data file from the `20250802` experiments.
 > cp ../exp_20250802/plasmids_benchmarking_2025-08-02_data.txt .
 ```
 
+## Python scripts
+- `run_utils.py`: commands to run PlasMerge and PlasEval and to check their results;  
+- `analysis_utils.py`: commands to summarize results and create figures.
+
 ## PlasMerge
 
 Two scripts:
@@ -24,3 +28,11 @@ Two scripts:
 - creates files `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge.<date>.[csv,txt]` (samples to rerun, log of all files).
 
 
+## PlasEval
+
+Three scripts:
+- `run_plaseval_eval.sh NB_SAMPLES`: runs PlasEval in mode `eval` on first `NB_SAMPLES` from `plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv`;
+- `run_plaseval_comp.sh NB_SAMPLES ALPHA`: runs PlasEval in mode `comp` on first `NB_SAMPLES` from `plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv` with `alpa=ALPHA`;
+- results are stored in directory `output`, with PlasMerge results;
+- `check_plaseval.sh NB_SAMPLES ALPHAS`: checks if PlasEval results are there, with `ALPHAS` being a comma-separated list of values for `alpha`.;
+- creates files `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.<date>.[csv,txt]` (samples to rerun, log of all files).
