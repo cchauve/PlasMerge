@@ -25,3 +25,12 @@ python3.9 run_utils.py check_plasmerge \
        -od ${OUTPUT_DIR} \
        -of ${RERUN_FILE} \
        > ${TRACE_FILE}
+
+for B in "ground_truth" "gplascc" "mobrecon" "plasbinflow";
+do
+    for C in "plasclass" "plasgraph2" "rfplasmid" "mlplasmids";
+    do	
+	N=`grep ${B} ${RERUN_FILE} | grep -c ${C}`
+	echo ${B} ${C} ${N}
+    done
+done

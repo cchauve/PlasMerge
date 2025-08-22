@@ -33,3 +33,15 @@ python3.9 run_utils.py check_plaseval \
 	  -od ${OUTPUT_DIR} \
 	  -of ${RERUN_FILE} \
 	  > ${TRACE_FILE}
+
+for B in "ground_truth" "gplascc" "mobrecon" "plasbinflow";
+do
+    for C in "plasclass" "plasgraph2" "rfplasmid" "mlplasmids";
+    do	
+	for M in ",unmerged" ",merged";
+	do
+	    N=`grep ${B} ${RERUN_FILE} | grep ${C} | grep -c ${M}`
+	    echo ${B} ${C} ${M} ${N}
+	done
+    done
+done

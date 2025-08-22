@@ -36,3 +36,34 @@ Three scripts:
 - results are stored in directory `output`, with PlasMerge results;
 - `check_plaseval.sh NB_SAMPLES ALPHAS`: checks if PlasEval results are there, with `ALPHAS` being a comma-separated list of values for `alpha`.;
 - creates files `plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.<date>.[csv,txt]` (samples to rerun, log of all files).
+
+## 2025-08-21
+Running PlasMerge.
+```
+> ./run_plasmerge.sh 500
+```
+
+## 2025-08-22
+Checking PlasMerge results.
+```
+> ./check_plasmerge.sh 500 1
+ground_truth plasclass 2
+ground_truth plasgraph2 3
+ground_truth rfplasmid 2
+ground_truth mlplasmids 2
+gplascc plasclass 64
+gplascc plasgraph2 36
+gplascc rfplasmid 5
+gplascc mlplasmids 58
+mobrecon plasclass 4
+mobrecon plasgraph2 1
+mobrecon rfplasmid 1
+mobrecon mlplasmids 1
+plasbinflow plasclass 9
+plasbinflow plasgraph2 4
+plasbinflow rfplasmid 1
+plasbinflow mlplasmids 1
+> wc -l plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge.1.2025-08-22.csv
+194 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge.1.2025-08-22.csv
+```
+Only 194 experiments did not finish properly, most of them due `gplascc`.

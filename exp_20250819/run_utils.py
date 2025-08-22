@@ -6,6 +6,8 @@ import argparse
 import csv
 import subprocess
 from itertools import product
+import tarfile
+import shutil
 
 """ Plasmid binning methods """
 GT = "ground_truth"
@@ -245,12 +247,16 @@ def convert_bins_to_plasmerge(sample_data_dict, args):
         sys.exit(1)
     _check_files([out_file], in_msg="PlasMerge converting unmerged bins -")
 
-def _create_plasmerge_command(sample_data_dict, args):
+def _gurobi_dir(sample_data_dict, args):
     binning,classification = _read_binning_classification(sample_data_dict, args)
-    gurobi_out_dir = os.path.join(
+    return os.path.join(
         sample_data_dict[OUT_DIR],
         _prefix(sample_data_dict, binning, classification)
     )
+
+def _create_plasmerge_command(sample_data_dict, args):
+    binning,classification = _read_binning_classification(sample_data_dict, args)
+    gurobi_out_dir = _gurobi_dir(sample_data_dict, args)
     os.makedirs(gurobi_out_dir, exist_ok=True)
     # Command
     plasmerge_cmd = [
@@ -280,6 +286,13 @@ def _create_plasmerge_command(sample_data_dict, args):
     ]
     return plasmerge_cmd,in_files,out_files
 
+def _archive_gurobi_dir(sample_data_dict, args):
+    gurobi_out_dir = _gurobi_dir(sample_data_dict, args)
+    gurobi_tarfile = f"{gurobi_out_dir}.tar.gz"
+    with tarfile.open(gurobi_tarfile, "w:gz") as tar:
+        tar.add(gurobi_out_dir, arcname=os.path.basename(gurobi_out_dir))
+    shutil.rmtree(gurobi_out_dir)
+
 def run_plasmerge(args):
     """ Run PlasMerge on a single sample for a combination (binning,classification)
     """
@@ -302,6 +315,7 @@ def run_plasmerge(args):
         print(f"Error output: {e.stderr}")
         sys.exit(1)
     _check_files(out_files, in_msg="Running PlasMerge -")
+    _archive_gurobi_dir(sample_data_dict, args)
 
 def check_plasmerge(args):
     """ Check PlasMerge input/output on a set of samples for all combinations (binning,classification)
@@ -317,6 +331,7 @@ def check_plasmerge(args):
         sample_data_dict = all_samples_data_dict[sample_idx]
         files_to_check = [
             sample_data_dict[GFA],
+            sample_data_dict[(binning,classification)],
             sample_data_dict[classification],
             sample_data_dict[(PLASMERGE,binning,classification,UNMERGED)],
             sample_data_dict[(PLASMERGE,binning,classification,MERGED)],
@@ -402,7 +417,7 @@ def _run_plaseval_eval(args):
         args.data_file, [args.sample_idx], [], args.output_dir, rerun_plaseval=args.rerun
     )[args.sample_idx]
     # Skipping if rerun and not eval or error in input file   
-    if args.rerun and _read_alpha(sample_data_dict, args) not in ["input", EVAL_CMD]:
+    if args.rerun and _read_alpha(sample_data_dict, args) not in [INPUT_FILE, EVAL_CMD]:
         return
     # Converting unmerged bins into PlasMerge format
     convert_bins_to_plaseval(sample_data_dict, args)    
@@ -453,7 +468,7 @@ def _run_plaseval_comp(args):
         args.data_file, [args.sample_idx], [alpha], args.output_dir, rerun_plaseval=args.rerun
     )[args.sample_idx]
     # Skipping if rerun and not comp with same alpha
-    if args.rerun and _read_alpha(sample_data_dict, args) not in ["input",  alpha]:
+    if args.rerun and _read_alpha(sample_data_dict, args) not in [INPUT_FILE,  alpha]:
         return
     # Converting unmerged bins into PlasMerge format
     convert_bins_to_plaseval(sample_data_dict, args)    
@@ -501,7 +516,7 @@ def check_plaseval(args):
             exit_if_pbm=False
         )
         if not input_correct:
-            id_with_problems.append((sample_idx,binning,classification,merged_status,"input"))        
+            id_with_problems.append((sample_idx,binning,classification,merged_status,INPUT_FILE))        
         # Checking eval files
         files_to_check = [
             sample_data_dict[(PLASEVAL,binning,classification,merged_status,EVAL_OUT)]

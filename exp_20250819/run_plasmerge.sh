@@ -45,7 +45,6 @@ do
 	echo "       -o ${OUTPUT_DIR} \\" >> ${SLURM_FILE}
 	echo "       -v 3.9" >> ${SLURM_FILE}
 
-
 	chmod 755 ${SLURM_FILE}
 	sbatch ${SLURM_FILE}
     done
