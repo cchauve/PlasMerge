@@ -8,14 +8,16 @@ OUTPUT_DIR=${EXP_DIR}/output
 DATA_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
 
 NB_SAMPLES=$1
-ALPHA=$2
-RUN=$3
+PLASEVAL_MODE=$2
+# ALPHA not relevant if PLASEVAL_MODE=eval
+ALPHA=$3
+RUN=$4
 MIN_LEN=100
 MAX_CALLS=1000000
 
 DATE=`date --rfc-3339=date`
-TRACE_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.${RUN}.${DATE}.txt
-RERUN_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.${RUN}.${DATE}.csv
+TRACE_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.${PLASEVAL_MODE}.${RUN}.${DATE}.txt
+RERUN_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.${PLASEVAL_MODE}.${RUN}.${DATE}.csv
 
 BINNING="ground_truth,gplascc,mobrecon,plasbinflow"
 CLASSIFICATION="plasclass,plasgraph2,rfplasmid,mlplasmids"
@@ -26,6 +28,7 @@ python3.9 run_utils.py check_plaseval \
 	  -n ${NB_SAMPLES} \
 	  -b ${BINNING} \
 	  -c ${CLASSIFICATION} \
+	  -m ${PLASEVAL_MODE} \	  
 	  -bm ${MERGED} \
 	  -a ${ALPHA} \
 	  -ml ${MIN_LEN} \
