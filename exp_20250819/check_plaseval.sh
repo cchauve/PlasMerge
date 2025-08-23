@@ -28,7 +28,7 @@ python3.9 run_utils.py check_plaseval \
 	  -n ${NB_SAMPLES} \
 	  -b ${BINNING} \
 	  -c ${CLASSIFICATION} \
-	  -m ${PLASEVAL_MODE} \	  
+	  -m ${PLASEVAL_MODE} \
 	  -bm ${MERGED} \
 	  -a ${ALPHA} \
 	  -ml ${MIN_LEN} \
@@ -41,9 +41,9 @@ for B in "ground_truth" "gplascc" "mobrecon" "plasbinflow";
 do
     for C in "plasclass" "plasgraph2" "rfplasmid" "mlplasmids";
     do	
-	for M in ",unmerged" ",merged";
+	for M in "unmerged" "merged";
 	do
-	    N=`grep ${B} ${RERUN_FILE} | grep ${C} | grep -c ${M}`
+	    N=`grep ${B} ${RERUN_FILE} | grep ${C} | grep -c ",${M}"`
 	    echo ${B} ${C} ${M} ${N}
 	done
     done

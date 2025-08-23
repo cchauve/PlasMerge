@@ -53,6 +53,8 @@ CLASS_KEY = "classification"
 SCORES="merging_scores"
 # PlasEval alpha parameter
 ALPHA_KEY="alpha"
+# Key for input file error
+INPUT_FILE="input"
 
 """ PlasEval/PlasEval files suffixes """
 SCORES_OUT="merging_scores.tsv"
