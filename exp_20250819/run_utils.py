@@ -149,7 +149,7 @@ def _merging_scores_file_path(
         f"{sample_id}_{assembler}.{binning}_{classification}.{PLASMERGE}.{SCORES_OUT}"
     )
 
-def _plaseval_file(
+def _plaseval_file_path(
         sample_id, assembler,
         binning, classification,
         out_dir,
@@ -293,7 +293,7 @@ def _read_samples_data(
                 )
                 # Eval files
                 key = (PLASEVAL,binning,classification,merged,EVAL_OUT)
-                sample_data_dict[key] = _plaseval_file(
+                sample_data_dict[key] = _plaseval_file_path(
                     sample_data_dict[SAMPLE], sample_data_dict[ASSEMBLER],
                     binning, classification, sample_data_dict[OUT_DIR],
                     merged, "", EVAL_OUT
@@ -302,7 +302,7 @@ def _read_samples_data(
                     # Comp files
                     for (alpha,comp_suffix) in product(in_alpha,[COMP_OUT,COMP_LOG]):
                         key = (PLASEVAL,binning,classification,merged,comp_suffix,float(alpha))
-                        sample_data_dict[key] = _plaseval_file(
+                        sample_data_dict[key] = _plaseval_file_path(
                             sample_data_dict[SAMPLE], sample_data_dict[ASSEMBLER],
                             binning, classification, sample_data_dict[OUT_DIR],
                             merged, alpha, comp_suffix

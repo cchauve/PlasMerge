@@ -11,24 +11,17 @@ import numpy as np
 from itertools import product
 import argparse
 
-""" Plasmid binning methods """
-GT = "ground_truth"
-GP = "gplascc"
-MOB = "mobrecon"
-PBF = "plasbinflow"
-BINNING = [GP, GT, MOB, PBF]
-
-""" Classfication methods """
-PLSC = "plasclass"
-PLSG = "plasgraph2"
-MLP = "mlplasmids"
-RFP = "rfplasmid"
-CLASSIFICATION = [PLSC, PLSG, MLP, RFP]
-
-""" Bins status: either original or merged with PlasMerge """
-MERGED = "merged"
-UNMERGED = "unmerged"
-MERGING = [UNMERGED, MERGED]
+from run_utils import (
+    PLASEVAL,
+    GT, GP, MOB, PBF,
+    PLSC, PLSG, MLP, RFP,
+    BINNING,
+    CLASSIFICATION,
+    MERGED, UNMERGED, MERGED_STATUS,
+    EVAL_OUT, COMP_OUT,
+    _bins_file_path,
+    _plaseval_file_path
+)
 
 """ Functions for reading input PlasEval files """
 
@@ -44,7 +37,7 @@ PlasEval files formats
   ...
 
 2. PlasEval dissimilarity scores file format
-  TSV file with 7 rows, where ows Cuts, Joins, Extra_ctgs, Mssing_ctgs, Dissimilarity
+  TSV file with 7 rows, where ows Cuts, Joins, Extra_ctgs, Missing_ctgs, Dissimilarity
   contain 2 values: unnormalized score, normalized score
   Total_ctg_length        171818
   Total_ctg_length_alpha  990.6417018345136
@@ -64,42 +57,36 @@ PlasEval files formats
 """
 
 # Expected file suffixes
-FILE_SUFFIX_BINS_KEY = "bins"      # PlasEval bins
-FILE_SUFFIX_SCORES_KEY = "scores"  # PlasEval dissimlarity scores
-FILE_SUFFIX_STATS_KEY = "stats"    # PlasEval precision/recall/F1
-FILE_SUFFIX = {
-    FILE_SUFFIX_STATS_KEY: "eval.out",
-    FILE_SUFFIX_SCORES_KEY: "comp.out",
-    FILE_SUFFIX_BINS_KEY: "tsv"
-}
-FILE_SUFFIX_KEYS = list(FILE_SUFFIX.keys())
+FILE_TYPE_BINS = "bins"  # PlasEval bins
+FILE_TYPE_COMP = "comp"  # PlasEval dissimlarity scores
+FILE_TYPE_EVAL = "eval"  # PlasEval precision/recall/F1
 def _get_file_path(
-        sample, assembler, merged, classification, binning, out_dir, file_type, alpha
+        sample_id, assembler, merged_status, classification, binning, out_dir, file_type, alpha
 ):
     """ Returns the path to a PlasEval file (bins, scores or stats)
     Input:
-    - sample: (str) sample name
+    - sample_id: (str) sample name
     - assembler: (str)
-    - merged: (str) in MERGING
+    - merged_status: (str) in MERGED_STATUS
     - classification: (str) in CLASSIFICATION
     - binning: (str) in BINNING
     - out_dir: (str) path to directory where to look for file
-    - file_type: (str) in FILE_SUFFIX_KEYS
+    - file_type: (str) in FILE_TYPE_[BINS,EVAL,COMP]
     - alpha: (str) alpha value or None
     Output:
     - (str) path to file, None if file does not exist
     """
-    if alpha is None:
-        file_path =  os.path.join(
-            out_dir,
-            f"{sample}_{assembler}",
-            f"{sample}_{assembler}.{binning}_{classification}.plaseval.{merged}.{FILE_SUFFIX[file_type]}"
+    if file_type == FILE_TYPE_BINS:
+        file_path = _bins_file_path(
+            sample_id, assembler, binning, classification, out_dir, merged_status, PLASEVAL
         )
-    else:
-        file_path =  os.path.join(
-            out_dir,
-            f"{sample}_{assembler}",
-            f"{sample}_{assembler}.{binning}_{classification}.plaseval.{merged}.{FILE_SUFFIX[file_type]}_{alpha}"
+    elif file_type == FILE_TYPE_EVAL:
+        file_path = _plaseval_file_path(
+            sample_id, assembler, binning, classification, out_dir, merged_status, "", EVAL_OUT
+        )
+    elif file_type == FILE_TYPE_COMP:
+        file_path = _plaseval_file_path(
+            sample_id, assembler, binning, classification, out_dir, merged_status, str(alpha), COMP_OUT
         )
     if os.path.exists(file_path):
         return file_path
@@ -221,7 +208,7 @@ def _data_key(in_key, in_exp, in_wn=None):
     """ Returns the key for a statistic
     Input:
     - in_key: key in BINS_DICT_KEYS+SCORES_DICT_KEYS+STATS_DICT_KEYS
-    - in_exp: in MERGING
+    - in_exp: in MERGED_STATUS
     - in_wn: in WEIGHTHED+NORMALIZED or None (ignored if in_key in BINS_DICT_KEYS)
     Output:
     - key for the data
@@ -243,9 +230,9 @@ def _read_sample_data(sample, assembler, classification, binning, plaseval_resul
     Output:
     - dict(
         k in [SAMPLE_KEY, ASSEMBLER_KEY, classification, binning] \
-             + [_data_key(a,b,None) for a in BINS_DICT_KEYS for b in MERGING] \
-             + [_data_key(a,b,c) for a in STATS_DICT_KEYS for b in MERGING for c in WEIGHTHED] \
-             + [_data_key(a,b,c) for a in STATS_DICT_KEYS for b in MERGING for c in NORMALIZED]:
+             + [_data_key(a,b,None) for a in BINS_DICT_KEYS for b in MERGED_STATUS] \
+             + [_data_key(a,b,c) for a in STATS_DICT_KEYS for b in MERGED_STATUS for c in WEIGHTHED] \
+             + [_data_key(a,b,c) for a in STATS_DICT_KEYS for b in MERGED_STATUS for c in NORMALIZED]:
         value (str,str,str,str,float, ...)
       )
     """
@@ -259,16 +246,16 @@ def _read_sample_data(sample, assembler, classification, binning, plaseval_resul
     def _read_data(in_dict, in_wn):
         for k,v in in_dict.items():
             sample_data[_data_key(k,merged,in_wn)] = v
-    for merged in MERGING:
+    for merged in MERGED_STATUS:
         # Reading bins data
         bins_file = _get_file_path(
-            sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_SUFFIX_BINS_KEY, None
+            sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_TYPE_BINS, None
         )
         bins_data = _read_PlasEval_bins_stats(bins_file)
         _read_data(bins_data, None)
         # Reading dissimilarity scores
         scores_file = _get_file_path(
-            sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_SUFFIX_SCORES_KEY, alpha
+            sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_TYPE_COMP, alpha
         )
         scores_data = _read_PlasEval_scores(scores_file, normalized=True)
         _read_data(scores_data, NORMALIZED_KEY)
@@ -276,7 +263,7 @@ def _read_sample_data(sample, assembler, classification, binning, plaseval_resul
         _read_data(scores_data, UNNORMALIZED_KEY)
         # Reading accuracy statistics
         stats_file = _get_file_path(
-            sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_SUFFIX_STATS_KEY, None
+            sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_TYPE_EVAL, None
         )
         stats_data = _read_PlasEval_stats(stats_file, weighted=True)
         _read_data(stats_data, WEIGHTED_KEY)
