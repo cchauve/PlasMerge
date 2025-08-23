@@ -74,3 +74,7 @@ Running PlasEval in `eval` mode (note: `comp` mode has a bug) for unmerged bins,
 > ./run_plaseval_eval.sh 500 unmerged
 > ./run_plaseval_eval.sh 500 merged
 ```
+Checking PlasEval in eval mode.
+```
+> ./check_plaseval.sh 500 eval 0 1
+```
