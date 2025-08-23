@@ -1,0 +1,22 @@
+#Precision: Proportion of correctedly identified contigs for each prediction
+>Precision details
+#Predicted_bin	Unwtd_Precision	Unwtd_Reference_plasmid	Wtd_Precision	Wtd_Reference_plasmid
+GP_1	1.0	GT_3	1.0	GT_3
+GP_unb_28,GP_unb_10,GP_unb_48,GP_unb_15,GP_unb_2,GP_unb_31,GP_unb_16,GP_unb_41,GP_unb_32,GP_unb_23,GP_unb_45,GP_unb_8,GP_unb_13,GP_unb_22,GP_unb_51,GP_unb_19,GP_unb_1,GP_unb_46,GP_unb_11,GP_unb_50,GP_unb_52,GP_unb_25,GP_unb_35,GP_unb_6,GP_unb_29,GP_unb_12,GP_unb_24,GP_unb_14,GP_unb_37,GP_unb_3,GP_unb_30,GP_unb_40,GP_unb_17,GP_unb_7,GP_unb_43,GP_unb_49,GP_unb_44,GP_unb_18,GP_unb_47,GP_unb_38,GP_unb_39,GP_unb_20,GP_unb_5,GP_unb_34,GP_unb_27,GP_2,GP_unb_33,GP_unb_9,GP_unb_21,GP_unb_36,GP_unb_26,GP_0,GP_unb_42,GP_unb_4	0.4608	GT_2	0.5218	GT_4
+GP_Isolated_0	0.0	NA	0.0	NA
+GP_Isolated_1	0.0	NA	0.0	NA
+GP_Isolated_2	0.0	NA	0.0	NA
+
+#Recall: Proportion of correctedly identified contigs for each reference
+>Recall details
+#Reference_plasmid	Unwtd_Recall	Unwtd_Predicted_bin	Wtd_Recall	Wtd_Predicted_bin
+GT_3	1.0	GP_1	1.0	GP_1
+GT_4	0.8163	GP_unb_28,GP_unb_10,GP_unb_48,GP_unb_15,GP_unb_2,GP_unb_31,GP_unb_16,GP_unb_41,GP_unb_32,GP_unb_23,GP_unb_45,GP_unb_8,GP_unb_13,GP_unb_22,GP_unb_51,GP_unb_19,GP_unb_1,GP_unb_46,GP_unb_11,GP_unb_50,GP_unb_52,GP_unb_25,GP_unb_35,GP_unb_6,GP_unb_29,GP_unb_12,GP_unb_24,GP_unb_14,GP_unb_37,GP_unb_3,GP_unb_30,GP_unb_40,GP_unb_17,GP_unb_7,GP_unb_43,GP_unb_49,GP_unb_44,GP_unb_18,GP_unb_47,GP_unb_38,GP_unb_39,GP_unb_20,GP_unb_5,GP_unb_34,GP_unb_27,GP_2,GP_unb_33,GP_unb_9,GP_unb_21,GP_unb_36,GP_unb_26,GP_0,GP_unb_42,GP_unb_4	0.9775	GP_unb_28,GP_unb_10,GP_unb_48,GP_unb_15,GP_unb_2,GP_unb_31,GP_unb_16,GP_unb_41,GP_unb_32,GP_unb_23,GP_unb_45,GP_unb_8,GP_unb_13,GP_unb_22,GP_unb_51,GP_unb_19,GP_unb_1,GP_unb_46,GP_unb_11,GP_unb_50,GP_unb_52,GP_unb_25,GP_unb_35,GP_unb_6,GP_unb_29,GP_unb_12,GP_unb_24,GP_unb_14,GP_unb_37,GP_unb_3,GP_unb_30,GP_unb_40,GP_unb_17,GP_unb_7,GP_unb_43,GP_unb_49,GP_unb_44,GP_unb_18,GP_unb_47,GP_unb_38,GP_unb_39,GP_unb_20,GP_unb_5,GP_unb_34,GP_unb_27,GP_2,GP_unb_33,GP_unb_9,GP_unb_21,GP_unb_36,GP_unb_26,GP_0,GP_unb_42,GP_unb_4
+GT_2	0.7121	GP_unb_28,GP_unb_10,GP_unb_48,GP_unb_15,GP_unb_2,GP_unb_31,GP_unb_16,GP_unb_41,GP_unb_32,GP_unb_23,GP_unb_45,GP_unb_8,GP_unb_13,GP_unb_22,GP_unb_51,GP_unb_19,GP_unb_1,GP_unb_46,GP_unb_11,GP_unb_50,GP_unb_52,GP_unb_25,GP_unb_35,GP_unb_6,GP_unb_29,GP_unb_12,GP_unb_24,GP_unb_14,GP_unb_37,GP_unb_3,GP_unb_30,GP_unb_40,GP_unb_17,GP_unb_7,GP_unb_43,GP_unb_49,GP_unb_44,GP_unb_18,GP_unb_47,GP_unb_38,GP_unb_39,GP_unb_20,GP_unb_5,GP_unb_34,GP_unb_27,GP_2,GP_unb_33,GP_unb_9,GP_unb_21,GP_unb_36,GP_unb_26,GP_0,GP_unb_42,GP_unb_4	0.6213	GP_unb_28,GP_unb_10,GP_unb_48,GP_unb_15,GP_unb_2,GP_unb_31,GP_unb_16,GP_unb_41,GP_unb_32,GP_unb_23,GP_unb_45,GP_unb_8,GP_unb_13,GP_unb_22,GP_unb_51,GP_unb_19,GP_unb_1,GP_unb_46,GP_unb_11,GP_unb_50,GP_unb_52,GP_unb_25,GP_unb_35,GP_unb_6,GP_unb_29,GP_unb_12,GP_unb_24,GP_unb_14,GP_unb_37,GP_unb_3,GP_unb_30,GP_unb_40,GP_unb_17,GP_unb_7,GP_unb_43,GP_unb_49,GP_unb_44,GP_unb_18,GP_unb_47,GP_unb_38,GP_unb_39,GP_unb_20,GP_unb_5,GP_unb_34,GP_unb_27,GP_2,GP_unb_33,GP_unb_9,GP_unb_21,GP_unb_36,GP_unb_26,GP_0,GP_unb_42,GP_unb_4
+
+#Final statistics (Unwtd and Wtd)
+>Overall details
+#Overall_statistic	Unwtd_statistic	Wtd_statistic
+Precision	0.4528301886792453	0.6900379888624468
+Recall	0.7586206896551724	0.8463715948208076
+F1	0.5671321160042964	0.7602511196530713

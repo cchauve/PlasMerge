@@ -1,0 +1,69 @@
+#Precision: Proportion of correctedly identified contigs for each prediction
+>Precision details
+#Predicted_bin	Unwtd_Precision	Unwtd_Reference_plasmid	Wtd_Precision	Wtd_Reference_plasmid
+GP_1,GP_unb_8,GP_3,GP_unb_5,GP_unb_15,GP_unb_18,GP_unb_10,GP_unb_17,GP_unb_16,GP_2,GP_unb_9,GP_0,GP_unb_4,GP_unb_14	0.0	NA	0.0	NA
+GP_Isolated_0	0.0	NA	0.0	NA
+GP_Isolated_1	0.0	NA	0.0	NA
+GP_unb_1	0.0	NA	0.0	NA
+GP_Isolated_2	0.0	NA	0.0	NA
+GP_unb_2	0.0	NA	0.0	NA
+GP_Isolated_3	0.0	NA	0.0	NA
+GP_Isolated_4	0.0	NA	0.0	NA
+GP_Isolated_5	0.0	NA	0.0	NA
+GP_Isolated_6	0.0	NA	0.0	NA
+GP_5	0.8	GT_6	0.7946	GT_6
+GP_Isolated_7	1.0	GT_6	1.0	GT_6
+GP_Isolated_8	0.0	NA	0.0	NA
+GP_4	1.0	GT_6	1.0	GT_6
+GP_unb_3	0.0	NA	0.0	NA
+GP_Isolated_9	1.0	GT_5	1.0	GT_5
+GP_Isolated_10	0.0	NA	0.0	NA
+GP_Isolated_11	0.0	NA	0.0	NA
+GP_Isolated_12	0.0	NA	0.0	NA
+GP_Isolated_13	0.0	NA	0.0	NA
+GP_Isolated_14	0.0	NA	0.0	NA
+GP_Isolated_15	1.0	GT_5	1.0	GT_5
+GP_Isolated_16	0.0	NA	0.0	NA
+GP_Isolated_17	1.0	GT_5	1.0	GT_5
+GP_Isolated_18	1.0	GT_8	1.0	GT_8
+GP_Isolated_19	0.0	NA	0.0	NA
+GP_Isolated_20	0.0	NA	0.0	NA
+GP_Isolated_21	0.0	NA	0.0	NA
+GP_Isolated_22	0.0	NA	0.0	NA
+GP_Isolated_23	0.0	NA	0.0	NA
+GP_Isolated_24	0.0	NA	0.0	NA
+GP_unb_6	1.0	GT_8	1.0	GT_8
+GP_Isolated_25	1.0	GT_8	1.0	GT_8
+GP_Isolated_26	0.0	NA	0.0	NA
+GP_Isolated_27	0.0	NA	0.0	NA
+GP_unb_7	0.0	NA	0.0	NA
+GP_Isolated_28	1.0	GT_5	1.0	GT_5
+GP_Isolated_29	0.0	NA	0.0	NA
+GP_Isolated_30	0.0	NA	0.0	NA
+GP_Isolated_31	1.0	GT_8	1.0	GT_8
+GP_Isolated_32	0.0	NA	0.0	NA
+GP_Isolated_33	0.0	NA	0.0	NA
+GP_Isolated_34	0.0	NA	0.0	NA
+GP_Isolated_35	1.0	GT_5	1.0	GT_5
+GP_Isolated_36	0.0	NA	0.0	NA
+GP_Isolated_37	1.0	GT_6	1.0	GT_6
+GP_Isolated_38	0.0	NA	0.0	NA
+GP_Isolated_39	1.0	GT_8	1.0	GT_8
+GP_Isolated_40	0.0	NA	0.0	NA
+GP_unb_12,GP_unb_11	0.0	NA	0.0	NA
+GP_unb_13	0.0	NA	0.0	NA
+
+#Recall: Proportion of correctedly identified contigs for each reference
+>Recall details
+#Reference_plasmid	Unwtd_Recall	Unwtd_Predicted_bin	Wtd_Recall	Wtd_Predicted_bin
+GT_5	0.4	GP_5	0.275	GP_Isolated_15
+GT_6	0.6154	GP_5	0.8	GP_5
+GT_8	0.2	GP_Isolated_18	0.4928	GP_Isolated_31
+GT_7	0.5	GP_Isolated_31	0.5065	GP_Isolated_31
+
+#Final statistics (Unwtd and Wtd)
+>Overall details
+#Overall_statistic	Unwtd_statistic	Wtd_statistic
+Precision	0.17886178861788618	0.31877975906735284
+Recall	0.45714285714285713	0.5125829703089179
+F1	0.25712198685171656	0.3930921365688271

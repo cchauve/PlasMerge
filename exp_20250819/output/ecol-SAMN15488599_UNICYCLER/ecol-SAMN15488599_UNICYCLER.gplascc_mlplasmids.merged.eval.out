@@ -1,0 +1,24 @@
+#Precision: Proportion of correctedly identified contigs for each prediction
+>Precision details
+#Predicted_bin	Unwtd_Precision	Unwtd_Reference_plasmid	Wtd_Precision	Wtd_Reference_plasmid
+GP_unb_12,GP_0,GP_unb_29,GP_unb_25,GP_unb_23,GP_unb_11,GP_unb_16,GP_unb_28,GP_unb_19,GP_unb_4,GP_unb_22,GP_unb_32,GP_unb_15,GP_unb_18,GP_unb_14,GP_unb_30,GP_unb_10,GP_unb_24,GP_unb_17,GP_unb_5,GP_unb_7,GP_unb_9,GP_unb_8,GP_unb_31,GP_unb_20,GP_unb_21	0.8182	GT_2	0.5208	GT_3
+GP_1,GP_2	0.6667	GT_4	0.6426	GT_4
+GP_unb_6,GP_unb_3,GP_unb_27,GP_unb_2,GP_unb_1,GP_unb_26,GP_unb_13	0.0	NA	0.0	NA
+GP_3	1.0	GT_7	1.0	GT_7
+
+#Recall: Proportion of correctedly identified contigs for each reference
+>Recall details
+#Reference_plasmid	Unwtd_Recall	Unwtd_Predicted_bin	Wtd_Recall	Wtd_Predicted_bin
+GT_3	0.6591	GP_unb_12,GP_0,GP_unb_29,GP_unb_25,GP_unb_23,GP_unb_11,GP_unb_16,GP_unb_28,GP_unb_19,GP_unb_4,GP_unb_22,GP_unb_32,GP_unb_15,GP_unb_18,GP_unb_14,GP_unb_30,GP_unb_10,GP_unb_24,GP_unb_17,GP_unb_5,GP_unb_7,GP_unb_9,GP_unb_8,GP_unb_31,GP_unb_20,GP_unb_21	0.96	GP_unb_12,GP_0,GP_unb_29,GP_unb_25,GP_unb_23,GP_unb_11,GP_unb_16,GP_unb_28,GP_unb_19,GP_unb_4,GP_unb_22,GP_unb_32,GP_unb_15,GP_unb_18,GP_unb_14,GP_unb_30,GP_unb_10,GP_unb_24,GP_unb_17,GP_unb_5,GP_unb_7,GP_unb_9,GP_unb_8,GP_unb_31,GP_unb_20,GP_unb_21
+GT_2	0.7258	GP_unb_12,GP_0,GP_unb_29,GP_unb_25,GP_unb_23,GP_unb_11,GP_unb_16,GP_unb_28,GP_unb_19,GP_unb_4,GP_unb_22,GP_unb_32,GP_unb_15,GP_unb_18,GP_unb_14,GP_unb_30,GP_unb_10,GP_unb_24,GP_unb_17,GP_unb_5,GP_unb_7,GP_unb_9,GP_unb_8,GP_unb_31,GP_unb_20,GP_unb_21	0.6893	GP_unb_12,GP_0,GP_unb_29,GP_unb_25,GP_unb_23,GP_unb_11,GP_unb_16,GP_unb_28,GP_unb_19,GP_unb_4,GP_unb_22,GP_unb_32,GP_unb_15,GP_unb_18,GP_unb_14,GP_unb_30,GP_unb_10,GP_unb_24,GP_unb_17,GP_unb_5,GP_unb_7,GP_unb_9,GP_unb_8,GP_unb_31,GP_unb_20,GP_unb_21
+GT_4	1.0	GP_1,GP_2	1.0	GP_1,GP_2
+GT_5	0.0	NA	0.0	NA
+GT_6	1.0	GP_1,GP_2	1.0	GP_1,GP_2
+GT_7	1.0	GP_3	1.0	GP_3
+
+#Final statistics (Unwtd and Wtd)
+>Overall details
+#Overall_statistic	Unwtd_statistic	Wtd_statistic
+Precision	0.7272727272727273	0.5131347515040606
+Recall	0.7053571428571429	0.8002908923889538
+F1	0.7161473087818696	0.6253221415409168

@@ -1,0 +1,37 @@
+#Precision: Proportion of correctedly identified contigs for each prediction
+>Precision details
+#Predicted_bin	Unwtd_Precision	Unwtd_Reference_plasmid	Wtd_Precision	Wtd_Reference_plasmid
+GP_unb_15,GP_unb_7,GP_unb_4,GP_unb_18,GP_unb_12,GP_unb_22,GP_2,GP_unb_23,GP_unb_14,GP_unb_5,GP_unb_19,GP_unb_21,GP_unb_11,GP_unb_13,GP_unb_16,GP_unb_8,GP_unb_1,GP_unb_9,GP_1,GP_unb_20,GP_unb_6	0.1702	GT_2	0.519	GT_2
+GP_3	1.0	GT_5	1.0	GT_5
+GP_4	1.0	GT_8	1.0	GT_8
+GP_5	1.0	GT_9	1.0	GT_9
+GP_unb_3,GP_6,GP_unb_2	0.8	GT_6	0.9106	GT_6
+GP_0	0.75	GT_12	0.6236	GT_12
+GP_7	1.0	GT_15	1.0	GT_15
+GP_unb_17,GP_unb_25,GP_unb_10,GP_unb_24	1.0	GT_7	1.0	GT_7
+
+#Recall: Proportion of correctedly identified contigs for each reference
+>Recall details
+#Reference_plasmid	Unwtd_Recall	Unwtd_Predicted_bin	Wtd_Recall	Wtd_Predicted_bin
+GT_3	0.6667	GP_unb_15,GP_unb_7,GP_unb_4,GP_unb_18,GP_unb_12,GP_unb_22,GP_2,GP_unb_23,GP_unb_14,GP_unb_5,GP_unb_19,GP_unb_21,GP_unb_11,GP_unb_13,GP_unb_16,GP_unb_8,GP_unb_1,GP_unb_9,GP_1,GP_unb_20,GP_unb_6	0.8868	GP_unb_15,GP_unb_7,GP_unb_4,GP_unb_18,GP_unb_12,GP_unb_22,GP_2,GP_unb_23,GP_unb_14,GP_unb_5,GP_unb_19,GP_unb_21,GP_unb_11,GP_unb_13,GP_unb_16,GP_unb_8,GP_unb_1,GP_unb_9,GP_1,GP_unb_20,GP_unb_6
+GT_2	0.8889	GP_unb_15,GP_unb_7,GP_unb_4,GP_unb_18,GP_unb_12,GP_unb_22,GP_2,GP_unb_23,GP_unb_14,GP_unb_5,GP_unb_19,GP_unb_21,GP_unb_11,GP_unb_13,GP_unb_16,GP_unb_8,GP_unb_1,GP_unb_9,GP_1,GP_unb_20,GP_unb_6	0.9985	GP_unb_15,GP_unb_7,GP_unb_4,GP_unb_18,GP_unb_12,GP_unb_22,GP_2,GP_unb_23,GP_unb_14,GP_unb_5,GP_unb_19,GP_unb_21,GP_unb_11,GP_unb_13,GP_unb_16,GP_unb_8,GP_unb_1,GP_unb_9,GP_1,GP_unb_20,GP_unb_6
+GT_5	1.0	GP_3	1.0	GP_3
+GT_4	0.75	GP_unb_3,GP_6,GP_unb_2	0.1437	GP_unb_3,GP_6,GP_unb_2
+GT_8	1.0	GP_4	1.0	GP_4
+GT_9	1.0	GP_5	1.0	GP_5
+GT_6	1.0	GP_unb_3,GP_6,GP_unb_2	1.0	GP_unb_3,GP_6,GP_unb_2
+GT_11	0.0	NA	0.0	NA
+GT_7	0.5	GP_unb_17,GP_unb_25,GP_unb_10,GP_unb_24	0.1492	GP_unb_17,GP_unb_25,GP_unb_10,GP_unb_24
+GT_12	1.0	GP_0	1.0	GP_0
+GT_13	0.6667	GP_0	0.1053	GP_0
+GT_14	0.0	NA	0.0	NA
+GT_10	0.5	GP_unb_17,GP_unb_25,GP_unb_10,GP_unb_24	0.189	GP_unb_17,GP_unb_25,GP_unb_10,GP_unb_24
+GT_15	1.0	GP_7	1.0	GP_7
+GT_16	0.0	NA	0.0	NA
+
+#Final statistics (Unwtd and Wtd)
+>Overall details
+#Overall_statistic	Unwtd_statistic	Wtd_statistic
+Precision	0.359375	0.5628492660755532
+Recall	0.6938775510204082	0.8708893939949408
+F1	0.4735089312745989	0.6837779713897575

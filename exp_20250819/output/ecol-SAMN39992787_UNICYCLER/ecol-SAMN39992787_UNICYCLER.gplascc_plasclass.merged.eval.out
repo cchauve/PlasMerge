@@ -1,0 +1,42 @@
+#Precision: Proportion of correctedly identified contigs for each prediction
+>Precision details
+#Predicted_bin	Unwtd_Precision	Unwtd_Reference_plasmid	Wtd_Precision	Wtd_Reference_plasmid
+GP_unb_7,GP_unb_14,GP_unb_13,GP_8,GP_unb_12,GP_unb_16,GP_unb_8,GP_unb_4,GP_0,GP_unb_5,GP_unb_15	0.1951	GT_2	0.5063	GT_2
+GP_9	1.0	GT_5	1.0	GT_5
+GP_13,GP_10,GP_unb_3,GP_unb_2,GP_unb_9	0.4	GT_4	0.3664	GT_4
+GP_4,GP_11,GP_1	0.5	GT_12	0.3784	GT_8
+GP_12	1.0	GT_9	1.0	GT_9
+GP_14	1.0	GT_11	1.0	GT_11
+GP_5	1.0	GT_14	1.0	GT_14
+GP_6	1.0	GT_15	1.0	GT_15
+GP_7	1.0	GT_16	1.0	GT_16
+GP_unb_1	0.0	NA	0.0	NA
+GP_unb_6	0.0	NA	0.0	NA
+GP_unb_10	0.0	NA	0.0	NA
+GP_unb_11	0.0	NA	0.0	NA
+
+#Recall: Proportion of correctedly identified contigs for each reference
+>Recall details
+#Reference_plasmid	Unwtd_Recall	Unwtd_Predicted_bin	Wtd_Recall	Wtd_Predicted_bin
+GT_3	0.3333	GP_unb_7,GP_unb_14,GP_unb_13,GP_8,GP_unb_12,GP_unb_16,GP_unb_8,GP_unb_4,GP_0,GP_unb_5,GP_unb_15	0.0121	GP_unb_7,GP_unb_14,GP_unb_13,GP_8,GP_unb_12,GP_unb_16,GP_unb_8,GP_unb_4,GP_0,GP_unb_5,GP_unb_15
+GT_2	0.8889	GP_unb_7,GP_unb_14,GP_unb_13,GP_8,GP_unb_12,GP_unb_16,GP_unb_8,GP_unb_4,GP_0,GP_unb_5,GP_unb_15	0.9985	GP_unb_7,GP_unb_14,GP_unb_13,GP_8,GP_unb_12,GP_unb_16,GP_unb_8,GP_unb_4,GP_0,GP_unb_5,GP_unb_15
+GT_5	1.0	GP_9	1.0	GP_9
+GT_4	1.0	GP_13,GP_10,GP_unb_3,GP_unb_2,GP_unb_9	1.0	GP_13,GP_10,GP_unb_3,GP_unb_2,GP_unb_9
+GT_8	1.0	GP_4,GP_11,GP_1	1.0	GP_4,GP_11,GP_1
+GT_9	1.0	GP_12	1.0	GP_12
+GT_6	1.0	GP_13,GP_10,GP_unb_3,GP_unb_2,GP_unb_9	1.0	GP_13,GP_10,GP_unb_3,GP_unb_2,GP_unb_9
+GT_11	1.0	GP_14	1.0	GP_14
+GT_7	0.375	GP_13,GP_10,GP_unb_3,GP_unb_2,GP_unb_9	0.7964	GP_13,GP_10,GP_unb_3,GP_unb_2,GP_unb_9
+GT_12	1.0	GP_4,GP_11,GP_1	1.0	GP_4,GP_11,GP_1
+GT_13	1.0	GP_4,GP_11,GP_1	1.0	GP_4,GP_11,GP_1
+GT_14	1.0	GP_5	1.0	GP_5
+GT_10	0.375	GP_13,GP_10,GP_unb_3,GP_unb_2,GP_unb_9	0.7422	GP_13,GP_10,GP_unb_3,GP_unb_2,GP_unb_9
+GT_15	1.0	GP_6	1.0	GP_6
+GT_16	1.0	GP_7	1.0	GP_7
+
+#Final statistics (Unwtd and Wtd)
+>Overall details
+#Overall_statistic	Unwtd_statistic	Wtd_statistic
+Precision	0.31343283582089554	0.5241522529600575
+Recall	0.7346938775510204	0.6855180188437144
+F1	0.4394071490845684	0.5940723226765962

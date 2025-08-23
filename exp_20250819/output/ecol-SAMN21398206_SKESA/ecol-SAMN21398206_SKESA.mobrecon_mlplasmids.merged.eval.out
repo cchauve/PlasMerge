@@ -1,0 +1,21 @@
+#Precision: Proportion of correctedly identified contigs for each prediction
+>Precision details
+#Predicted_bin	Unwtd_Precision	Unwtd_Reference_plasmid	Wtd_Precision	Wtd_Reference_plasmid
+MOB_novel_2c45bdf56fe2a063798a20c32b140fbd,MOB_AA170,MOB_AE581,MOB_novel_49c41c53a8d9f2f243baffce75a4c49b	0.4375	GT_2	0.699	GT_2
+MOB_AB595	1.0	GT_5	1.0	GT_5
+
+#Recall: Proportion of correctedly identified contigs for each reference
+>Recall details
+#Reference_plasmid	Unwtd_Recall	Unwtd_Predicted_bin	Wtd_Recall	Wtd_Predicted_bin
+GT_2	0.5833	MOB_novel_2c45bdf56fe2a063798a20c32b140fbd,MOB_AA170,MOB_AE581,MOB_novel_49c41c53a8d9f2f243baffce75a4c49b	0.9784	MOB_novel_2c45bdf56fe2a063798a20c32b140fbd,MOB_AA170,MOB_AE581,MOB_novel_49c41c53a8d9f2f243baffce75a4c49b
+GT_4	1.0	MOB_novel_2c45bdf56fe2a063798a20c32b140fbd,MOB_AA170,MOB_AE581,MOB_novel_49c41c53a8d9f2f243baffce75a4c49b	1.0	MOB_novel_2c45bdf56fe2a063798a20c32b140fbd,MOB_AA170,MOB_AE581,MOB_novel_49c41c53a8d9f2f243baffce75a4c49b
+GT_3	0.6667	MOB_novel_2c45bdf56fe2a063798a20c32b140fbd,MOB_AA170,MOB_AE581,MOB_novel_49c41c53a8d9f2f243baffce75a4c49b	0.7815	MOB_novel_2c45bdf56fe2a063798a20c32b140fbd,MOB_AA170,MOB_AE581,MOB_novel_49c41c53a8d9f2f243baffce75a4c49b
+GT_5	1.0	MOB_AB595	1.0	MOB_AB595
+GT_6	0.0	NA	0.0	NA
+
+#Final statistics (Unwtd and Wtd)
+>Overall details
+#Overall_statistic	Unwtd_statistic	Wtd_statistic
+Precision	0.47058823529411764	0.7110447915455473
+Recall	0.6111111111111112	0.9276608123340969
+F1	0.5317220543806647	0.8050358616818599
