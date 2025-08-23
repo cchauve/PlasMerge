@@ -69,7 +69,8 @@ plasbinflow mlplasmids 1
 Only 194 experiments did not finish properly, most of them due `gplascc`.
 
 ## 2025-08-23
-Running PlasEval in `eval` mode (note: `comp` mode has a bug) for unmerged bins.
+Running PlasEval in `eval` mode (note: `comp` mode has a bug) for unmerged bins, then, once done, merged bins.
 ```
 > ./run_plaseval_eval.sh 500 unmerged
+> ./run_plaseval_eval.sh 500 merged
 ```
