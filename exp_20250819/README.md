@@ -77,4 +77,38 @@ Running PlasEval in `eval` mode (note: `comp` mode has a bug) for unmerged bins,
 Checking PlasEval in eval mode.
 ```
 > ./check_plaseval.sh 500 eval 0 1
+gplascc plasclass unmerged 0
+gplascc plasgraph2 unmerged 0
+gplascc rfplasmid unmerged 0
+ground_truth mlplasmids unmerged 0
+ground_truth plasclass unmerged 0
+ground_truth plasgraph2 unmerged 0
+ground_truth rfplasmid unmerged 0
+mobrecon mlplasmids unmerged 0
+mobrecon plasclass unmerged 0
+mobrecon plasgraph2 unmerged 0
+mobrecon rfplasmid unmerged 0
+plasbinflow mlplasmids unmerged 0
+plasbinflow plasclass unmerged 0
+plasbinflow plasgraph2 unmerged 0
+plasbinflow rfplasmid unmerged 0
+gplascc mlplasmids merged 58
+gplascc plasclass merged 64
+gplascc plasgraph2 merged 36
+gplascc rfplasmid merged 5
+ground_truth mlplasmids merged 2
+ground_truth plasclass merged 2
+ground_truth plasgraph2 merged 3
+ground_truth rfplasmid merged 2
+mobrecon mlplasmids merged 1
+mobrecon plasclass merged 4
+mobrecon plasgraph2 merged 1
+mobrecon rfplasmid merged 1
+plasbinflow mlplasmids merged 1
+plasbinflow plasclass merged 9
+plasbinflow plasgraph2 merged 4
+plasbinflow rfplasmid merged 1
+> wc -l plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.eval.1.2025-08-23.csv
+194 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.eval.1.2025-08-23.csv
 ```
+No PlasEval `eval` experiment did fail.
