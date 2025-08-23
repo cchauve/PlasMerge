@@ -67,3 +67,9 @@ plasbinflow mlplasmids 1
 194 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plasmerge.1.2025-08-22.csv
 ```
 Only 194 experiments did not finish properly, most of them due `gplascc`.
+
+## 2025-08-23
+Running PlasEval in `eval` mode (note: `comp` mode has a bug) for unmerged bins.
+```
+> ./run_plaseval_eval.sh 500 unmerged
+```

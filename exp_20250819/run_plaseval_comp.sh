@@ -10,6 +10,7 @@ DATA_FILE=${EXP_DIR}/plasmids_benchmarking_2025-08-02_data.filtered.randomized.c
 
 NB_SAMPLES=$1
 ALPHA=$2
+MERGED=$3
 MIN_LEN=100
 MAX_CALLS=1000000
 
@@ -24,38 +25,35 @@ for BINNING in "ground_truth" "gplascc" "mobrecon" "plasbinflow";
 do
     for CLASSIFICATION in "plasclass" "plasgraph2" "rfplasmid" "mlplasmids";
     do
-	for MERGED in "merged" "unmerged";
-	do
-	    SLURM_FILE=${SLURM_DIR}/comp_run_${BINNING}_${CLASSIFICATION}_${MERGED}_${ALPHA}.sh
-	    rm -f ${SLURM_FILE}
-	    rm -f ${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${ALPHA}_*_*.out
-	    rm -f ${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${ALPHA}_*_*.err
-	    echo "#!/bin/bash" > ${SLURM_FILE}
-	    echo "#SBATCH --time=6:00:00" >> ${SLURM_FILE}
-	    echo "#SBATCH --mem=8G" >> ${SLURM_FILE}
-	    echo "#SBATCH --account=def-chauvec"  >> ${SLURM_FILE}
-	    echo "#SBATCH --job-name=plaseval_comp_${BINNING}_${CLASSIFICATION}_${ALPHA}" >> ${SLURM_FILE}
-	    echo "#SBATCH --array=1-${NB_SAMPLES}" >> ${SLURM_FILE}
-	    echo "#SBATCH --output=${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${ALPHA}_%A_%a.out" >> ${SLURM_FILE}
-	    echo "#SBATCH --error=${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${ALPHA}_%A_%a.err" >> ${SLURM_FILE}
-	    echo "source /scratch/chauvec/PLASMERGE/env_plaseval/bin/activate" >> ${SLURM_FILE}
-	    echo "python run_utils.py plaseval \\" >> ${SLURM_FILE}
-	    echo "       -d ${DATA_FILE} \\" >> ${SLURM_FILE}
-	    echo "       -i \${SLURM_ARRAY_TASK_ID} \\" >> ${SLURM_FILE}
-	    echo "       -b ${BINNING} \\" >> ${SLURM_FILE}
-	    echo "       -c ${CLASSIFICATION} \\" >> ${SLURM_FILE}
-	    echo "       -pm ${PLASMERGE_BIN_DIR} \\" >> ${SLURM_FILE}
-	    echo "       -pe ${PLASEVAL_BIN_DIR} \\" >> ${SLURM_FILE}
-	    echo "       -m comp \\" >> ${SLURM_FILE}
-	    echo "       -bm ${MERGED} \\" >> ${SLURM_FILE}
-	    echo "       -a ${ALPHA} \\" >> ${SLURM_FILE}
-	    echo "       -ml ${MIN_LEN} \\" >> ${SLURM_FILE}
-	    echo "       -mc ${MAX_CALLS} \\" >> ${SLURM_FILE}
-	    echo "       -o ${OUTPUT_DIR} \\" >> ${SLURM_FILE}
-	    echo "       -v 3.9" >> ${SLURM_FILE}
-
-	    chmod 755 ${SLURM_FILE}
-	    sbatch ${SLURM_FILE}
-	done
+	SLURM_FILE=${SLURM_DIR}/comp_run_${BINNING}_${CLASSIFICATION}_${MERGED}_${ALPHA}.sh
+	rm -f ${SLURM_FILE}
+	rm -f ${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${MERGED}_${ALPHA}_*_*.out
+	rm -f ${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${MERGED}_${ALPHA}_*_*.err
+	echo "#!/bin/bash" > ${SLURM_FILE}
+	echo "#SBATCH --time=6:00:00" >> ${SLURM_FILE}
+	echo "#SBATCH --mem=8G" >> ${SLURM_FILE}
+	echo "#SBATCH --account=def-chauvec"  >> ${SLURM_FILE}
+	echo "#SBATCH --job-name=plaseval_comp_${BINNING}_${CLASSIFICATION}_${MERGED}_${ALPHA}" >> ${SLURM_FILE}
+	echo "#SBATCH --array=1-${NB_SAMPLES}" >> ${SLURM_FILE}
+	echo "#SBATCH --output=${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${MERGED}_${ALPHA}_%A_%a.out" >> ${SLURM_FILE}
+	echo "#SBATCH --error=${LOG_DIR}/comp_${BINNING}_${CLASSIFICATION}_${MERGED}_${ALPHA}_%A_%a.err" >> ${SLURM_FILE}
+	echo "source /scratch/chauvec/PLASMERGE/env_plaseval/bin/activate" >> ${SLURM_FILE}
+	echo "python run_utils.py plaseval \\" >> ${SLURM_FILE}
+	echo "       -d ${DATA_FILE} \\" >> ${SLURM_FILE}
+	echo "       -i \${SLURM_ARRAY_TASK_ID} \\" >> ${SLURM_FILE}
+	echo "       -b ${BINNING} \\" >> ${SLURM_FILE}
+	echo "       -c ${CLASSIFICATION} \\" >> ${SLURM_FILE}
+	echo "       -pm ${PLASMERGE_BIN_DIR} \\" >> ${SLURM_FILE}
+	echo "       -pe ${PLASEVAL_BIN_DIR} \\" >> ${SLURM_FILE}
+	echo "       -m comp \\" >> ${SLURM_FILE}
+	echo "       -bm ${MERGED} \\" >> ${SLURM_FILE}
+	echo "       -a ${ALPHA} \\" >> ${SLURM_FILE}
+	echo "       -ml ${MIN_LEN} \\" >> ${SLURM_FILE}
+	echo "       -mc ${MAX_CALLS} \\" >> ${SLURM_FILE}
+	echo "       -o ${OUTPUT_DIR} \\" >> ${SLURM_FILE}
+	echo "       -v 3.9" >> ${SLURM_FILE}
+	
+	chmod 755 ${SLURM_FILE}
+	sbatch ${SLURM_FILE}
     done
 done
