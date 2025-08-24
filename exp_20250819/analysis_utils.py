@@ -18,9 +18,10 @@ from run_utils import (
     BINNING,
     CLASSIFICATION,
     MERGED, UNMERGED, MERGED_STATUS,
-    EVAL_OUT, COMP_OUT,
+    EVAL_CMD, EVAL_OUT, COMP_OUT,
     _bins_file_path,
-    _plaseval_file_path
+    _plaseval_file_path,
+    _sample_dir
 )
 
 """ Functions for reading input PlasEval files """
@@ -76,21 +77,23 @@ def _get_file_path(
     Output:
     - (str) path to file, None if file does not exist
     """
+    sample_dir = _sample_dir(sample_id, assembler, out_dir)
     if file_type == FILE_TYPE_BINS:
         file_path = _bins_file_path(
-            sample_id, assembler, binning, classification, out_dir, merged_status, PLASEVAL
+            sample_id, assembler, binning, classification, sample_dir, merged_status, PLASEVAL
         )
     elif file_type == FILE_TYPE_EVAL:
         file_path = _plaseval_file_path(
-            sample_id, assembler, binning, classification, out_dir, merged_status, "", EVAL_OUT
+            sample_id, assembler, binning, classification, sample_dir, merged_status, "", EVAL_OUT
         )
     elif file_type == FILE_TYPE_COMP:
         file_path = _plaseval_file_path(
-            sample_id, assembler, binning, classification, out_dir, merged_status, str(alpha), COMP_OUT
+            sample_id, assembler, binning, classification, sample_dir, merged_status, str(alpha), COMP_OUT
         )
     if os.path.exists(file_path):
         return file_path
     else:
+        print(file_path)
         return None
 
 # Keys of dictionary recording statistics about bins for a sample:
@@ -102,7 +105,7 @@ BINS_DICT_KEYS = [
     BINS_DICT_NB_CTGS_KEY,
     BINS_DICT_LEN_CTGS_KEY
 ]
-def _read_PlasEval_bins_stats(in_bins_file):    
+def _read_PlasEval_bins(in_bins_file):    
     """ Creates a dictionary with bins statistics from a PlasEval bins file
     Input:
     - in_bins_file: path to plasmid bins file in PlasEval bins format
@@ -138,7 +141,7 @@ SCORES_DICT_KEYS = [
     SCORES_DICT_CUTS_KEY,
     SCORES_DICT_JOINS_KEY
 ]
-def _read_PlasEval_scores(in_scores_file, normalized=True):
+def _read_PlasEval_comp(in_scores_file, normalized=True):
     """ Creates a dictionary with dissimilarity scores from a PlasEval dissimilarity file
     Input:
     - in_scores_file: path to a PlasEval dissimilarity scores file
@@ -169,7 +172,7 @@ STATS_DICT_KEYS = [
     STATS_DICT_RECALL_KEY,
     STATS_DICT_F1_KEY
 ]
-def _read_PlasEval_stats(in_stats_file, weighted=True):
+def _read_PlasEval_eval(in_stats_file, weighted=True):
     """ Creates a dictionary with accuracy stats from a PlasEval stats file
     Input:
     - in_stats_file: pah to a PlasEval precision/recall/F1 file
@@ -226,7 +229,7 @@ def _read_sample_data(sample, assembler, classification, binning, plaseval_resul
     - classification: in CLASSIFICATION
     - binning: in BINNING
     - plaseval_results_dir: directory where to look for all samples PlasEval results
-    - alpha: alpha value for PlasEval comp
+    - alpha: alpha value for PlasEval comp, or EVAL_CMD (dissimilarity scores not read)
     Output:
     - dict(
         k in [SAMPLE_KEY, ASSEMBLER_KEY, classification, binning] \
@@ -251,24 +254,25 @@ def _read_sample_data(sample, assembler, classification, binning, plaseval_resul
         bins_file = _get_file_path(
             sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_TYPE_BINS, None
         )
-        bins_data = _read_PlasEval_bins_stats(bins_file)
+        bins_data = _read_PlasEval_bins(bins_file)
         _read_data(bins_data, None)
-        # Reading dissimilarity scores
-        scores_file = _get_file_path(
-            sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_TYPE_COMP, alpha
-        )
-        scores_data = _read_PlasEval_scores(scores_file, normalized=True)
-        _read_data(scores_data, NORMALIZED_KEY)
-        scores_data = _read_PlasEval_scores(scores_file, normalized=False)
-        _read_data(scores_data, UNNORMALIZED_KEY)
         # Reading accuracy statistics
         stats_file = _get_file_path(
             sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_TYPE_EVAL, None
         )
-        stats_data = _read_PlasEval_stats(stats_file, weighted=True)
+        stats_data = _read_PlasEval_eval(stats_file, weighted=True)
         _read_data(stats_data, WEIGHTED_KEY)
-        stats_data = _read_PlasEval_stats(stats_file, weighted=False)
+        stats_data = _read_PlasEval_eval(stats_file, weighted=False)
         _read_data(stats_data, UNWEIGHTED_KEY)
+        # Reading dissimilarity scores
+        if alpha != EVAL_CMD:
+            scores_file = _get_file_path(
+                sample, assembler, merged, classification, binning, plaseval_results_dir, FILE_TYPE_COMP, alpha
+            )
+            scores_data = _read_PlasEval_comp(scores_file, normalized=True)
+            _read_data(scores_data, NORMALIZED_KEY)
+            scores_data = _read_PlasEval_comp(scores_file, normalized=False)
+            _read_data(scores_data, UNNORMALIZED_KEY)
     return sample_data
 
 def aggregate_results_to_csv(
@@ -282,7 +286,7 @@ def aggregate_results_to_csv(
     - in_results_dir: path to directory where all samples results are stored
       with PlasEval for a sample expected to be in a subdirectory "sample_assembler"
     - out_file: path to the CSV file to write
-    - alpha: alpha parameter for PlasEval comp
+    - alpha: alpha parameter for PlasEval comp, EVAL_CMD if no comp results are read
     - max_id: (int) max number of rows to read in in_samples_file, if 0 all rows are read
     - verbose: (bool) if True print statistics about missing data
     """    
@@ -474,6 +478,7 @@ def main(args):
             args.samples_file,
             args.input_dir,
             args.output_file,
+            args.alpha,
             max_idx=args.nb_samples,
             verbose=args.verbose
         )

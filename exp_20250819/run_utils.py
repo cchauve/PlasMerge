@@ -44,7 +44,7 @@ PLASEVAL="plaseval"
 MERGED_KEY="merged"
 MERGED="merged"
 UNMERGED="unmerged"
-MERGING_STATUS = [MERGED,UNMERGED]
+MERGED_STATUS = [MERGED,UNMERGED]
 # Key to the field recordig a binning method in the main data dictionary
 BINNING_KEY = "binning"
 # Key to the field recordig a classification method in the main data dictionary
@@ -106,6 +106,11 @@ def _check_files(in_files, in_msg="", exit_if_pbm=True):
             else:
                 outcome = False
     return outcome
+
+def _sample_dir(sample_id, assembler, out_dir):
+    return os.path.join(
+        out_dir, f"{sample_id}_{assembler}"
+    )
 
 def _bins_file_path(
         sample_id, assembler,
@@ -264,9 +269,8 @@ def _read_samples_data(
                 else: sample_data_key = f"{BINNING_MAP[binning]}_{CLASSIFICATION_MAP[classification]}_bins"
                 sample_data_dict[(binning,classification)] = sample_data[sample_data_key]            
             # Output directory
-            sample_data_dict[OUT_DIR] = os.path.join(
-                out_dir,
-                f"{sample_data_dict[SAMPLE]}_{sample_data_dict[ASSEMBLER]}"
+            sample_data_dict[OUT_DIR] = _sample_dir(
+                sample_data_dict[SAMPLE], sample_data_dict[ASSEMBLER], out_dir
             )
             # PlasMerge files in PlasMerge format
             for (binning,classification) in product(BINNING, CLASSIFICATION):
@@ -277,7 +281,7 @@ def _read_samples_data(
                     binning, classification, sample_data_dict[OUT_DIR]
                 )
                 # Bins files
-                for merged in MERGING_STATUS:
+                for merged in MERGED_STATUS:
                     key = (PLASMERGE,binning,classification,merged)
                     sample_data_dict[key] = _bins_file_path(
                         sample_data_dict[SAMPLE], sample_data_dict[ASSEMBLER],
@@ -285,7 +289,7 @@ def _read_samples_data(
                         merged, PLASMERGE
                     )
             # PlasEval files in PlasEval format
-            for (binning,classification,merged) in product(BINNING,CLASSIFICATION,MERGING_STATUS):
+            for (binning,classification,merged) in product(BINNING,CLASSIFICATION,MERGED_STATUS):
                 key = (PLASEVAL,binning,classification,merged)
                 # Bins files
                 sample_data_dict[key] = _bins_file_path(
