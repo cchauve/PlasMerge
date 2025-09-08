@@ -27,41 +27,25 @@ logger -s "Bins statistics, difference"
 
 # Eval plots
 logger -s "Eval, scatter"
-./create_plots.sh eval scatter    analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" NA "u"
-./create_plots.sh eval scatter    analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" NA "w"
 ./create_plots.sh eval scatter    analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" NA "u w"
 logger -s "Eval, difference"
-./create_plots.sh eval difference analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" NA "u"
-./create_plots.sh eval difference analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" NA "w"
 ./create_plots.sh eval difference analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" NA "u w"
 
 # Comp plots, alpha=0.5
 logger -s "Comp, alpha=0.5, scatter"
-./create_plots.sh comp scatter    analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.5 "u"
-./create_plots.sh comp scatter    analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.5 "n"
 ./create_plots.sh comp scatter    analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.5 "u n"
 logger -s "Comp, alpha=0.5, difference"
-./create_plots.sh comp difference analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.5 "u"
-./create_plots.sh comp difference analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.5 "n"
 ./create_plots.sh comp difference analysis/figures ${RES_FILE_05} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.5 "u n"
 
 # Comp plots, alpha=1.0
 logger -s "Comp, alpha=1.0, scatter"
-./create_plots.sh comp scatter    analysis/figures ${RES_FILE_1} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 1.0 "u"
-./create_plots.sh comp scatter    analysis/figures ${RES_FILE_1} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 1.0 "n"
 ./create_plots.sh comp scatter    analysis/figures ${RES_FILE_1} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 1.0 "u n"
 logger -s "Comp, alpha=1.0, difference"
-./create_plots.sh comp difference analysis/figures ${RES_FILE_1} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 1.0 "u"
-./create_plots.sh comp difference analysis/figures ${RES_FILE_1} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 1.0 "n"
 ./create_plots.sh comp difference analysis/figures ${RES_FILE_1} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 1.0 "u n"
 
 # Comp plots, alpha=0.0
 logger -s "Comp, alpha=0.0, scatter"
-./create_plots.sh comp scatter    analysis/figures ${RES_FILE_0} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.0 "u"
-./create_plots.sh comp scatter    analysis/figures ${RES_FILE_0} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.0 "n"
 ./create_plots.sh comp scatter    analysis/figures ${RES_FILE_0} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.0 "u n"
 logger -s "Comp, alpha=0.0, difference"
-./create_plots.sh comp difference analysis/figures ${RES_FILE_0} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.0 "u"
-./create_plots.sh comp difference analysis/figures ${RES_FILE_0} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.0 "n"
 ./create_plots.sh comp difference analysis/figures ${RES_FILE_0} "ground_truth gplascc plasbinflow mobrecon" "plasclass plasgraph2 mlplasmids rfplasmid" 0.0 "u n"
 
