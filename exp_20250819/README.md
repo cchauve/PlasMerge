@@ -153,5 +153,11 @@ Creating `csv` results files and figures.
 > grep -v flexiblas nohup.out > log/create_plots_all.log
 > rm nohup.out
 > ll analysis/
-
+drwxr-sr-x 2 chauvec def-chauvec  131072 Sep  7 18:00 figures/
+-rw-r--r-- 1 chauvec def-chauvec   56740 Sep  7 18:06 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.0.2025-09-07.NA.txt
+-rw-r--r-- 1 chauvec def-chauvec 2924049 Sep  7 18:06 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.0.2025-09-07.csv
+-rw-r--r-- 1 chauvec def-chauvec   56740 Sep  7 18:05 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.5.2025-09-07.NA.txt
+-rw-r--r-- 1 chauvec def-chauvec 3408589 Sep  7 18:05 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.5.2025-09-07.csv
+-rw-r--r-- 1 chauvec def-chauvec   56740 Sep  7 18:06 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.1.0.2025-09-07.NA.txt
+-rw-r--r-- 1 chauvec def-chauvec 3100317 Sep  7 18:06 plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.1.0.2025-09-07.csv
 ```
