@@ -1,0 +1,28 @@
+compare_sets - INFO - Maximum possible matchings: 1
+compare_sets - INFO - Time taken: 0.004042387008666992
+compare_sets - INFO - Number of function calls: 24
+compare_sets - INFO - contig	left_plasmid_id	left_plasmid_position	right_plasmid_id	right_plasmid_position
+compare_sets - INFO - Contig:38:94.3887	0	5	0	8
+compare_sets - INFO - Contig:20:384.147	0	4	0	4
+compare_sets - INFO - Contig:1:362.073:Circ	1	1	1	1
+compare_sets - INFO - Contig:13:99.5315	0	22	0	1
+compare_sets - INFO - Contig:15:92.5939	0	2	0	3
+compare_sets - INFO - Contig:20:384.147:5p:1:14	0	6	0	17
+compare_sets - INFO - Contig:40:90.3398	0	18	0	9
+compare_sets - INFO - Contig:6:93.1153	0	23	0	15
+compare_sets - INFO - Contig:4:90.7808	0	13	0	13
+compare_sets - INFO - Contig:20:384.147:5p:1:53	0	14	0	24
+compare_sets - INFO - Contig:43:100.783	0	20	0	10
+compare_sets - INFO - Contig:20:384.147:5p:1:44	0	11	0	23
+compare_sets - INFO - Contig:20:384.147:5p:1:25	0	9	0	20
+compare_sets - INFO - Contig:20:384.147:5p:1:36	0	1	0	22
+compare_sets - INFO - Contig:20:384.147:5p:1:30	0	3	0	21
+compare_sets - INFO - Contig:33:186.552	0	15	0	7
+compare_sets - INFO - Contig:20:384.147:5p:1:17	0	8	0	18
+compare_sets - INFO - Contig:46:98.8163	0	17	0	12
+compare_sets - INFO - Contig:25:132.854	0	7	0	5
+compare_sets - INFO - Contig:9:99.4659	0	19	0	16
+compare_sets - INFO - Contig:14:94.8486	0	21	0	2
+compare_sets - INFO - Contig:20:384.147:5p:1:24	0	10	0	19
+compare_sets - INFO - Contig:27:96.7679	0	16	0	6
+compare_sets - INFO - Contig:5:98.559	0	12	0	14
