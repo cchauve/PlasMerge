@@ -192,18 +192,18 @@ are recorded in the file `analysis/plasmids_benchmarking_2025-08-02_data.filtere
 For each statistic listed in the previous paragraph, we generate figures allowing to compare the results between the unmerged bins and the merged bins; these comparisons are shown in two forms, a scatter plot and a violin plot of the distribution of the differences of values (`merged` - `unmerged`), both over each combination `<BINNING_METHOD>,<CLASSIF_METHOD>` (one scatter plot file and one violin plot file per combination) and over all combinations aggregated (again one scatter plot file and one difference file).
 
 For bins and contigs statistics `nb_bins,nb_ctgs,len_ctgs`, and a combination `<BINNING_METHOD>,<CLASSIF_METHOD>`, the scatter plot and violin plot files for a given statistic `<STAT>` are
-- `analysis/figures/[scatter,difference]_<STAT>_<BINNING METHOD>_<CLASSIF_METHOD>.png.  
+- `analysis/figures/[scatter,difference]_<STAT>_<BINNING METHOD>_<CLASSIF_METHOD>.png`.  
 The files for statistics aggregated over all methods combinations are
-- `analysis/figures/[scatter,difference]_<STAT>_aggregated.png.  
+- `analysis/figures/[scatter,difference]_<STAT>_aggregated.png`.  
 
 For a statistic in `Precision,Recall,F1` and a mode `<MODE>` (weighted `w`/unweighted `u`) and a combination `<BINNING_METHOD>,<CLASSIF_METHOD>`, the scatter plot and violin plot files for the given statistic `<STAT>` are
-- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_<BINNING METHOD>_<CLASSIF_METHOD>.png.  
+- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_<BINNING METHOD>_<CLASSIF_METHOD>.png`.  
 The files for statistics aggregated over all methods combinations are
-- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_aggregated.png.  
+- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_aggregated.png`.  
 
 For a statistic in `Dissimilarity,Cuts,Joins,Extra_ctgs,Missing_ctgs` and a mode `<MODE>` (normalized `n`/unnormalized `u`), obtained with `alpha` value `<ALPHA>`, and a combination `<BINNING_METHOD>,<CLASSIF_METHOD>`, the scatter plot and violin plot files for the given statistic `<STAT>` are
-- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_<ALPHA>_<BINNING METHOD>_<CLASSIF_METHOD>.png.  
+- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_<ALPHA>_<BINNING METHOD>_<CLASSIF_METHOD>.png`.  
 The files for statistics aggregated over all methods combinations are
-- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_<ALPHA>_aggregated.png.  
+- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_<ALPHA>_aggregated.png`.  
 
 Note there are also figures for some joint statstics: `Extra_ctgs,Missing_ctgs` and `Cuts,Joins`.
