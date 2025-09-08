@@ -197,13 +197,13 @@ The files for statistics aggregated over all methods combinations are
 - `analysis/figures/[scatter,difference]_<STAT>_aggregated.png`.  
 
 For a statistic in `Precision,Recall,F1` and a mode `<MODE>` (weighted `w`/unweighted `u`) and a combination `<BINNING_METHOD>,<CLASSIF_METHOD>`, the scatter plot and violin plot files for the given statistic `<STAT>` are
-- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_<BINNING METHOD>_<CLASSIF_METHOD>.png`.  
+- `analysis/figures/[scatter,difference]_<MODE>.<STAT>_<BINNING METHOD>_<CLASSIF_METHOD>.png`.  
 The files for statistics aggregated over all methods combinations are
-- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_aggregated.png`.  
+- `analysis/figures/[scatter,difference]_<MODE>.<STAT>_aggregated.png`.  
 
 For a statistic in `Dissimilarity,Cuts,Joins,Extra_ctgs,Missing_ctgs` and a mode `<MODE>` (normalized `n`/unnormalized `u`), obtained with `alpha` value `<ALPHA>`, and a combination `<BINNING_METHOD>,<CLASSIF_METHOD>`, the scatter plot and violin plot files for the given statistic `<STAT>` are
-- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_<ALPHA>_<BINNING METHOD>_<CLASSIF_METHOD>.png`.  
+- `analysis/figures/[scatter,difference]_<MODE>.<STAT>_<ALPHA>_<BINNING METHOD>_<CLASSIF_METHOD>.png`.  
 The files for statistics aggregated over all methods combinations are
-- `analysis/figures/[scatter,difference]_<MODE>_<STAT>_<ALPHA>_aggregated.png`.  
+- `analysis/figures/[scatter,difference]_<MODE>.<STAT>_<ALPHA>_aggregated.png`.  
 
 Note there are also figures for some joint statstics: `Extra_ctgs,Missing_ctgs` and `Cuts,Joins`.
