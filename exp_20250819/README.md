@@ -185,7 +185,7 @@ Three alpha values were considered: `0.0` (count cuts and joins only), `0.5` and
 For every value of `alpha`, all statistcs on
 - number of bins (`nb_bins`), of contigs (`nb_ctgs`), length of contigs (`len_ctgs`) in bins;
 - PlasEval `eval` mode (`Precision`, `Recall`, `F1`: do not depend on `alpha`), in weighted (`w`) and unweighted (`u`) mode;
-- PlasEval `comp` mode (`Dissimilarity`, `Cuts`, `Joins`, `Extra_ctgs`, `Missing_ctgs`) in normalized (`n`) and unnormalized (`u`) mode;
+- PlasEval `comp` mode (`Dissimilarity`, `Cuts`, `Joins`, `Extra_ctgs`, `Missing_ctgs`) in normalized (`n`) and unnormalized (`u`) mode;  
 are recorded in the file `analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.<ALPHA>.<DATE>.tsv`.
 
 ### Figures 
