@@ -136,7 +136,7 @@ def convert_to_plaseval(in_plasmerge_file, in_gfa_file, out_plaseval_file, dedup
         ctg_id_list = []
         for ctg in ctgs:
             ctg_id = ctg.rsplit(':',1)[0]
-            if (not dduplicate) or (deduplicate and ctg_id not in ctg_id_list):
+            if (not deduplicate) or (deduplicate and ctg_id not in ctg_id_list):
                 ctg_id_list.append(ctg_id)
                 ctg_mult = int(ctg.rsplit(':',1)[1])
                 ctg_len = ctgs_len[ctg_id]
