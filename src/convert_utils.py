@@ -114,7 +114,7 @@ def convert_mobsuite_output(in_mob_file, out_pls_file):
             )
             out_file.write(f'{pls_id}\t{ctgs}\n')
 
-def convert_to_plaseval(in_plasmerge_file, in_gfa_file, out_plaseval_file):
+def convert_to_plaseval(in_plasmerge_file, in_gfa_file, out_plaseval_file, deduplicate=False):
     """
     Convert PlasMerge standard file in_plasmerge_file into PlasEval file out_plaseval_file
     using gzipped GFA file in_GFA_file for contigs length
@@ -123,6 +123,7 @@ def convert_to_plaseval(in_plasmerge_file, in_gfa_file, out_plaseval_file):
     GT_2    21      78327
     GT_2    32      22479
     ...
+    If deduplicate is True, a contig repeated in a bin is shown only once.
     """
     ctgs_len = read_GFA_len(in_gfa_file, gzipped=True)
     plasmerge_df = pd.read_csv(
@@ -132,11 +133,15 @@ def convert_to_plaseval(in_plasmerge_file, in_gfa_file, out_plaseval_file):
     for idx,row in plasmerge_df.iterrows():
         pls_id = row['plasmid']
         ctgs = row['contigs'].split(',')
+        ctg_id_list = []
         for ctg in ctgs:
             ctg_id = ctg.rsplit(':',1)[0]
-            ctg_mult = int(ctg.rsplit(':',1)[1])
-            ctg_len = ctgs_len[ctg_id]
-            plaseval_df.loc[len(plaseval_df)] = [pls_id, ctg_id, ctg_len]
+            if (not dduplicate) or (deduplicate and ctg_id not in ctg_id_list):
+                ctg_id_list.append(ctg_id)
+                ctg_mult = int(ctg.rsplit(':',1)[1])
+                ctg_len = ctgs_len[ctg_id]
+                plaseval_df.loc[len(plaseval_df)] = [pls_id, ctg_id, ctg_len]
+            
     plaseval_df.to_csv(out_plaseval_file, sep='\t', index=False, header=True)
 
 if __name__ == "__main__":
@@ -162,10 +167,14 @@ if __name__ == "__main__":
     elif sys.argv[3] == "gt":
         print("Input format: ground truth")
         convert_pbf_ground_truth(in_file, out_file)
-    elif sys.argv[3] == "to_plaseval":
+    elif sys.argv[3] == "to_plaseval_norep":
         print("Output format: PlasEval")
         in_gfa_file =sys.argv[4]
-        convert_to_plaseval(in_file, in_gfa_file, out_file)
+        convert_to_plaseval(in_file, in_gfa_file, out_file, deduplicate=True)
+    elif sys.argv[3] == "to_plaseval_rep":
+        print("Output format: PlasEval")
+        in_gfa_file =sys.argv[4]
+        convert_to_plaseval(in_file, in_gfa_file, out_file, deduplicate=False) 
     else:
         print("Unrecognized input format")
         exit(1)
