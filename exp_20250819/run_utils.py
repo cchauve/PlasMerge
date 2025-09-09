@@ -979,7 +979,8 @@ if __name__ == "__main__":
     parser_to_plaseval.add_argument("-bm", "--merged_status", default=UNMERGED, help="Merged and/or unmerged bins, comma-separated")
     parser_to_plaseval.add_argument("-pm", "--plasmerge_path", help="Path to PlasMerge scripts")    
     parser_to_plaseval.add_argument("-o", "--output_dir", help="Directory where all results are written")
-    parser_to_plaseval.add_argument("-v", "--python_version", default="3.9", help="Python vesion")    
+    parser_to_plaseval.add_argument("-v", "--python_version", default="3.9", help="Python vesion")
+    parser_to_plaseval.add_argument("--rerun", action="store_true", default=False, help="Re-running samples")    
 
     args = parser.parse_args()
 
