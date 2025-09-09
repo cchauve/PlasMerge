@@ -905,7 +905,6 @@ def convert_to_plaseval(args):
     Output: None
     """
     # Reading data for the sample to process
-    alpha = str(args.alpha)
     sample_data_dict = _read_samples_data(
         args.data_file, [args.sample_idx], [alpha], args.output_dir
     )[args.sample_idx]
