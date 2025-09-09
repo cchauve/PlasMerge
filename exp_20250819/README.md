@@ -208,12 +208,19 @@ The files for statistics aggregated over all methods combinations are
 
 Note there are also figures for some joint statstics: `Extra_ctgs,Missing_ctgs` and `Cuts,Joins`.
 
-## 2025-09-08
+## 2025-09-09
 
 There was a mistake. Plasmid bins of type `ground_truth` come with contigs with multiplicity, so when we use PlasEval, `mobrecon` and `gplascc` bins are penalized.
 To avoid this, `ground_truth` bins and `plasbinflow` bins, when evaluated, should have repeated contigs appear only once per bin.
 To do so, an option is added to the converion from the PlasMerge fomat to PlasEval format to not show contigs repeated within a bin only once and the `ground_truth,unmerged` files are converted to PlasEval format before running PlasEval; such files already existed in PlasMerge format from having run PlasMerge.
+Existing PlasEval files are cleaned and regenerated.
 
+```
+> ./clean_plaseval.sh "0.0 0.5 1.0"
+> ./run_to_plaseval.sh 500
+```
+
+Running Plaseval
 ```
 > ./run_plaseval_eval.sh 500 unmerged
 > ./run_plaseval_eval.sh 500 merged
