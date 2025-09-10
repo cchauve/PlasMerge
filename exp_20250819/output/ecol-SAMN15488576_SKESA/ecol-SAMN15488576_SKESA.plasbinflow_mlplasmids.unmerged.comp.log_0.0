@@ -1,5 +1,5 @@
 compare_sets - INFO - Maximum possible matchings: 1
-compare_sets - INFO - Time taken: 0.00037741661071777344
+compare_sets - INFO - Time taken: 0.0004870891571044922
 compare_sets - INFO - Number of function calls: 1
 compare_sets - INFO - contig	left_plasmid_id	left_plasmid_position	right_plasmid_id	right_plasmid_position
 compare_sets - INFO - Contig:26:495.52	0	1	0	1
