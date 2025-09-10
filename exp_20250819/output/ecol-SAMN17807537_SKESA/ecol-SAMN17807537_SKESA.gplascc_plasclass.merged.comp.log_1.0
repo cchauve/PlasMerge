@@ -1,22 +1,22 @@
 compare_sets - INFO - Maximum possible matchings: 1
-compare_sets - INFO - Time taken: 0.0034008026123046875
+compare_sets - INFO - Time taken: 0.003629922866821289
 compare_sets - INFO - Number of function calls: 18
 compare_sets - INFO - contig	left_plasmid_id	left_plasmid_position	right_plasmid_id	right_plasmid_position
-compare_sets - INFO - Contig:2:274.88:3p:1:21	0	31	0	23
-compare_sets - INFO - Contig:3:14666.1:Circ	2	1	2	1
-compare_sets - INFO - Contig:63:224.51	0	9	0	7
-compare_sets - INFO - Contig:9:211.981	0	16	0	12
-compare_sets - INFO - Contig:74:1195.62	0	12	0	9
-compare_sets - INFO - Contig:80:220.22	0	15	0	11
-compare_sets - INFO - Contig:62:224.531	0	8	0	6
-compare_sets - INFO - Contig:2:274.88:3p:1:15	0	30	0	19
-compare_sets - INFO - Contig:54:267.114	0	7	0	5
 compare_sets - INFO - Contig:53:240.339:3p:1:2	0	38	0	14
-compare_sets - INFO - Contig:33:403.318	0	4	0	2
-compare_sets - INFO - Contig:77:218.825	0	13	0	10
-compare_sets - INFO - Contig:74:1195.62:3p:1:8	0	33	0	17
+compare_sets - INFO - Contig:3:14666.1:Circ	2	1	2	1
 compare_sets - INFO - Contig:66:226.749	0	11	0	8
-compare_sets - INFO - Contig:36:212.007	0	5	0	3
-compare_sets - INFO - Contig:53:240.339:3p:1:6	0	32	0	16
-compare_sets - INFO - Contig:10:240.055	0	3	0	1
+compare_sets - INFO - Contig:63:224.51	0	9	0	7
+compare_sets - INFO - Contig:33:403.318	0	4	0	2
+compare_sets - INFO - Contig:2:274.88:3p:1:15	0	30	0	19
 compare_sets - INFO - Contig:1:16315.1:Circ	1	1	1	1
+compare_sets - INFO - Contig:2:274.88:3p:1:21	0	31	0	23
+compare_sets - INFO - Contig:9:211.981	0	16	0	12
+compare_sets - INFO - Contig:80:220.22	0	15	0	11
+compare_sets - INFO - Contig:53:240.339:3p:1:6	0	32	0	16
+compare_sets - INFO - Contig:77:218.825	0	13	0	10
+compare_sets - INFO - Contig:74:1195.62	0	12	0	9
+compare_sets - INFO - Contig:10:240.055	0	3	0	1
+compare_sets - INFO - Contig:62:224.531	0	8	0	6
+compare_sets - INFO - Contig:54:267.114	0	7	0	5
+compare_sets - INFO - Contig:36:212.007	0	5	0	3
+compare_sets - INFO - Contig:74:1195.62:3p:1:8	0	33	0	17

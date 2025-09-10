@@ -1,31 +1,31 @@
 compare_sets - INFO - Maximum possible matchings: 644972544
-compare_sets - INFO - Time taken: 0.011645793914794922
+compare_sets - INFO - Time taken: 0.015064716339111328
 compare_sets - INFO - Number of function calls: 67
 compare_sets - INFO - contig	left_plasmid_id	left_plasmid_position	right_plasmid_id	right_plasmid_position
-compare_sets - INFO - Contig:18:121.832	0	16	0	4
-compare_sets - INFO - Contig:79:239.563	8	3	0	16
 compare_sets - INFO - Contig:61:121.765	0	15	3	2
 compare_sets - INFO - Contig:9:180.272	10	1	0	22
-compare_sets - INFO - Contig:12:146.517	8	2	0	2
-compare_sets - INFO - Contig:95:143.747	8	4	0	21
+compare_sets - INFO - Contig:79:239.563	8	3	0	16
+compare_sets - INFO - Contig:18:121.832	0	16	0	4
 compare_sets - INFO - Contig:47:272.924	0	3	0	11
 compare_sets - INFO - Contig:103:201.581:3p:1:61	7	2	0	39
-compare_sets - INFO - Contig:105:1023.01:3p:1:11	0	23	0	52
+compare_sets - INFO - Contig:95:143.747	8	4	0	21
+compare_sets - INFO - Contig:12:146.517	8	2	0	2
 compare_sets - INFO - Contig:91:152.939	0	20	0	19
-compare_sets - INFO - Contig:94:144.152	0	13	0	20
+compare_sets - INFO - Contig:105:1023.01:3p:1:11	0	23	0	52
 compare_sets - INFO - Contig:103:201.581:3p:1:36	0	17	0	36
 compare_sets - INFO - Contig:80:138.814	0	8	0	18
-compare_sets - INFO - Contig:103:201.581:3p:1:63	0	14	0	40
+compare_sets - INFO - Contig:94:144.152	0	13	0	20
 compare_sets - INFO - Contig:7:158.034	0	10	0	17
-compare_sets - INFO - Contig:25:154.26	1	19	0	6
-compare_sets - INFO - Contig:103:201.581:3p:1:21	0	24	0	35
 compare_sets - INFO - Contig:103:201.581:3p:1:45	0	19	3	4
-compare_sets - INFO - Contig:60:154.65	0	6	0	13
+compare_sets - INFO - Contig:25:154.26	1	19	0	6
+compare_sets - INFO - Contig:103:201.581:3p:1:63	0	14	0	40
 compare_sets - INFO - Contig:105:1023.01:5p:1:16	1	15	0	24
+compare_sets - INFO - Contig:103:201.581:3p:1:21	0	24	0	35
+compare_sets - INFO - Contig:60:154.65	0	6	0	13
+compare_sets - INFO - Contig:105:1023.01:3p:1:12	0	22	0	53
 compare_sets - INFO - Contig:56:322.167	0	4	0	28
 compare_sets - INFO - Contig:105:1023.01:3p:1:9	0	7	0	51
-compare_sets - INFO - Contig:105:1023.01:3p:1:12	0	22	0	53
 compare_sets - INFO - Contig:105:1023.01	0	2	0	25
 compare_sets - INFO - Contig:117:4017.99	0	1	0	26
-compare_sets - INFO - Contig:103:201.581:3p:1:39	0	21	3	3
-compare_sets - INFO - Contig:103:201.581:3p:1:39	1	20	0	38
+compare_sets - INFO - Contig:103:201.581:3p:1:39	0	21	0	38
+compare_sets - INFO - Contig:103:201.581:3p:1:39	1	20	3	3

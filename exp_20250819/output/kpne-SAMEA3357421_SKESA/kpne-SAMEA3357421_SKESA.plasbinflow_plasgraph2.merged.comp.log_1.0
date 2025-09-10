@@ -1,22 +1,22 @@
 compare_sets - INFO - Maximum possible matchings: 1
-compare_sets - INFO - Time taken: 0.001882314682006836
+compare_sets - INFO - Time taken: 0.0023064613342285156
 compare_sets - INFO - Number of function calls: 18
 compare_sets - INFO - contig	left_plasmid_id	left_plasmid_position	right_plasmid_id	right_plasmid_position
+compare_sets - INFO - Contig:27:92.9992:5p:1:2	2	20	0	30
+compare_sets - INFO - Contig:74:139.229	2	8	0	14
+compare_sets - INFO - Contig:59:133.409	2	2	0	8
+compare_sets - INFO - Contig:12:132.633	2	7	0	2
+compare_sets - INFO - Contig:71:607.819:5p:1:11	2	16	0	46
+compare_sets - INFO - Contig:39:700.31	2	3	0	24
+compare_sets - INFO - Contig:30:129.984	2	19	0	5
+compare_sets - INFO - Contig:27:92.9992:5p:1:10	2	13	0	31
+compare_sets - INFO - Contig:27:92.9992:5p:1:13	2	17	0	32
+compare_sets - INFO - Contig:39:700.31:5p:1:7	2	1	0	34
+compare_sets - INFO - Contig:54:162.169:3p:1:11	2	4	0	44
+compare_sets - INFO - Contig:27:92.9992:5p:1:15	2	18	0	33
+compare_sets - INFO - Contig:8:133.767	2	6	0	17
+compare_sets - INFO - Contig:71:607.819	2	11	0	29
 compare_sets - INFO - Contig:22:438.501	2	9	0	23
 compare_sets - INFO - Contig:21:124.947	2	5	0	4
-compare_sets - INFO - Contig:71:607.819:5p:1:11	2	16	0	46
-compare_sets - INFO - Contig:27:92.9992:5p:1:2	2	20	0	30
-compare_sets - INFO - Contig:8:133.767	2	6	0	17
-compare_sets - INFO - Contig:39:700.31:5p:1:7	2	1	0	34
-compare_sets - INFO - Contig:71:607.819	2	11	0	29
-compare_sets - INFO - Contig:27:92.9992:5p:1:15	2	18	0	33
-compare_sets - INFO - Contig:59:133.409	2	2	0	8
 compare_sets - INFO - Contig:52:344.509	2	14	0	27
-compare_sets - INFO - Contig:30:129.984	2	19	0	5
-compare_sets - INFO - Contig:39:700.31	2	3	0	24
-compare_sets - INFO - Contig:27:92.9992:5p:1:13	2	17	0	32
-compare_sets - INFO - Contig:54:162.169:3p:1:11	2	4	0	44
-compare_sets - INFO - Contig:27:92.9992:5p:1:10	2	13	0	31
-compare_sets - INFO - Contig:74:139.229	2	8	0	14
 compare_sets - INFO - Contig:72:132.719	2	10	0	12
-compare_sets - INFO - Contig:12:132.633	2	7	0	2
