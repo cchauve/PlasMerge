@@ -3,12 +3,12 @@
 source /scratch/chauvec/PLASMERGE/env_plaseval/bin/activate
 
 DATA_FILE=plasmids_benchmarking_2025-08-02_data.filtered.randomized.csv
-RES_FILE_05=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.5.2025-09-07.csv
-NA_FILE_05=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.5.2025-09-07.NA.txt
-RES_FILE_0=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.0.2025-09-07.csv
-NA_FILE_0=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.0.2025-09-07.NA.txt
-RES_FILE_1=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.1.0.2025-09-07.csv
-NA_FILE_1=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.1.0.2025-09-07.NA.txt
+RES_FILE_05=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.5.2025-09-09.csv
+NA_FILE_05=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.5.2025-09-09.NA.txt
+RES_FILE_0=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.0.2025-09-09.csv
+NA_FILE_0=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.0.0.2025-09-09.NA.txt
+RES_FILE_1=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.1.0.2025-09-09.csv
+NA_FILE_1=analysis/plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.1.0.2025-09-09.NA.txt
 
 
 # Creating results files
