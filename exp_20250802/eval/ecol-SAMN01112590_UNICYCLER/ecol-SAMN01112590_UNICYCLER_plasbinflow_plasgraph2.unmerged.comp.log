@@ -1,4 +1,0 @@
-compare_sets - INFO - Maximum possible matchings: 36
-compare_sets - INFO - Time taken: 0.0034723281860351562
-compare_sets - INFO - Number of function calls: 13
-compare_sets - INFO - {'343': ([['343', 2, 4]], [['343', 0, 8]]), '163': ([['163', 2, 50]], [['163', 0, 4]])}

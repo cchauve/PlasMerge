@@ -1,4 +1,0 @@
-compare_sets - INFO - Maximum possible matchings: 1
-compare_sets - INFO - Time taken: 0.00159454345703125
-compare_sets - INFO - Number of function calls: 3
-compare_sets - INFO - {'29': ([['29', 0, 22]], [['29', 0, 1]]), '184': ([['184', 0, 39]], [['184', 0, 9]]), '67': ([['67', 1, 1]], [['67', 1, 1]])}

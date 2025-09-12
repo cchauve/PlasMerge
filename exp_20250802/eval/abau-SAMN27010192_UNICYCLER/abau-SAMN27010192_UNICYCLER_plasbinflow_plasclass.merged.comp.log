@@ -1,4 +1,0 @@
-compare_sets - INFO - Maximum possible matchings: 1
-compare_sets - INFO - Time taken: 0.0009095668792724609
-compare_sets - INFO - Number of function calls: 1
-compare_sets - INFO - {'123': ([['123', 1, 1]], [['123', 0, 1]])}

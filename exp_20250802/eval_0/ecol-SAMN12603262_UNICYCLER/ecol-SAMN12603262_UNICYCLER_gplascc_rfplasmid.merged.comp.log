@@ -1,4 +1,0 @@
-compare_sets - INFO - Maximum possible matchings: 1
-compare_sets - INFO - Time taken: 0.0009844303131103516
-compare_sets - INFO - Number of function calls: 1
-compare_sets - INFO - {'24': ([['24', 0, 1]], [['24', 0, 1]])}

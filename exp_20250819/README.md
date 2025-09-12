@@ -205,7 +205,9 @@ To do so, an option is added to the converion from the PlasMerge fomat to PlasEv
 Existing PlasEval files are cleaned and regenerated in a way that discards repeated contigs within a bin.
 
 ```
-> ./clean_plaseval.sh "0.0 0.5 1.0"
+> ./clean_plaseval.sh bins "0"
+> ./clean_plaseval.sh eval "0"
+> ./clean_plaseval.sh comp "0.0 0.5 1.0"
 > ./run_to_plaseval.sh 500
 > ./check_to_plaseval.sh 500 1 ./log/plaseval/2025-09-09
 > wc -l plasmids_benchmarking_2025-08-02_data.filtered.randomized.plaseval.convert.1.2025-09-09.txt
@@ -263,4 +265,11 @@ Analysis: `CSV` results files and figures.
 > nohup ./create_plots_all.sh &
 > grep -v flexiblas nohup.out > log/create_plots_all.log
 > rm nohup.out
+```
+
+## 2025-09-11
+
+There is again a bug in PlasEval `comp`. Cleaning PlasEval results.
+```
+> ./clean_plaseval.sh comp "0.0 0.5 1.0"
 ```
