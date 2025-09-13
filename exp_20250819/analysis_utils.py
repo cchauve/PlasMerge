@@ -289,7 +289,7 @@ def aggregate_results_to_csv(
     - alpha: alpha parameter for PlasEval comp, EVAL_CMD if no comp results are read
     - max_id: (int) max number of rows to read in in_samples_file, if 0 all rows are read
     - verbose: (bool) if True print statistics about missing data
-    """    
+    """
     samples_df = pd.read_csv(in_samples_file, sep=",", header=0)
     all_data_dict = {}
     all_data_idx = 0

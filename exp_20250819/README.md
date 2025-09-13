@@ -273,3 +273,28 @@ There is again a bug in PlasEval `comp`. Cleaning PlasEval results.
 ```
 > ./clean_plaseval.sh comp "0.0 0.5 1.0"
 ```
+
+## 2025-09-12
+Cloned the PlasEval repo from <a href="https://github.com/acme92/PlasEval">https://github.com/acme92/PlasEval</a>.
+Restarted all PlasEval `comp` experiments.
+```
+> ./run_plaseval_comp.sh 500 0.0 unmerged
+> ./run_plaseval_comp.sh 500 0.0 merged
+> ./run_plaseval_comp.sh 500 0.5 unmerged
+> ./run_plaseval_comp.sh 500 0.5 merged
+> ./run_plaseval_comp.sh 500 1.0 unmerged
+> ./run_plaseval_comp.sh 500 1.0 merged
+```
+Checking PlasEval `comp`.
+```
+> nohup ./check_plaseval.sh 500 comp 0.0 1
+> nohup ./check_plaseval.sh 500 comp 0.5 1
+> nohup ./check_plaseval.sh 500 comp 1.0 1
+```
+Comment: many `plasbinflow` computations did not finish.
+
+
+Results
+```
+> sbatch ./create_plots_all.sh
+```
